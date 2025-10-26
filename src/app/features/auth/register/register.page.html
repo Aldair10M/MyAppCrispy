@@ -1,13 +1,73 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="register-bg">
+  <div class="register-container">
+    <ion-img src="assets/img/logo-crispy.png" alt="Logo Mr. Crispy" class="logo"></ion-img>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-text color="dark" class="welcome-text">
+      <h2>¡Únete a la Familia Mr. Crispy!</h2>
+      <p>Regístrate</p>
+    </ion-text>
+
+    <div class="form-wrapper">
+      <!-- PASO 1 -->
+      <div *ngIf="step === 1" @stepAnimation class="form-container">
+        <ion-item class="input-modern">
+          <ion-input label="Nombre de Usuario" labelPlacement="floating" clearInput="true" [(ngModel)]="username">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-modern">
+          <ion-input type="date" label="Fecha de Nacimiento" labelPlacement="floating" [(ngModel)]="birthdate">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-modern">
+          <ion-input label="Dirección" labelPlacement="floating" clearInput="true" [(ngModel)]="address">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-modern">
+          <ion-input label="Dirección" labelPlacement="floating" clearInput="true" [(ngModel)]="address">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-modern">
+          <ion-input type="tel" label="Teléfono" labelPlacement="floating" clearInput="true" [(ngModel)]="phone">
+          </ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="register-button" (click)="nextStep()">
+          Siguiente
+        </ion-button>
+      </div>
+
+      <!-- PASO 2 -->
+      <div *ngIf="step === 2" @stepAnimation class="form-container">
+        <ion-item class="input-modern">
+          <ion-input type="email" label="Correo Electrónico" labelPlacement="floating" clearInput="true"
+            [(ngModel)]="email">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-modern">
+          <ion-input type="password" label="Contraseña" labelPlacement="floating" clearInput="true"
+            [(ngModel)]="password">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-modern">
+          <ion-input type="password" label="Confirmar Contraseña" labelPlacement="floating" clearInput="true"
+            [(ngModel)]="confirmPassword">
+          </ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="register-button" (click)="register()">
+          Registrar
+        </ion-button>
+
+        <ion-button fill="clear" color="medium" (click)="backStep()">
+          ← Volver
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

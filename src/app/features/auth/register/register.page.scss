@@ -1,0 +1,84 @@
+.register-bg {
+    --background: #ffc400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.register-container {
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.logo {
+    display: block;
+    width: 250px;
+    margin: 0 auto 20px;
+}
+
+.welcome-text h2 {
+    font-weight: 700;
+    margin: 0;
+    color: #000;
+}
+
+.welcome-text p {
+    margin-top: 4px;
+    font-weight: 500;
+    color: #000;
+}
+
+/* Inputs modernos (floating label) */
+.input-modern {
+    border-radius: 8px;
+    margin: 10px 0;
+    --background: #fff;
+    --highlight-color-focused: #ff3d00;
+}
+
+/* Botón principal */
+.register-button {
+    --background: #e53935;
+    --border-radius: 8px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Contenedor animado */
+.form-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+/* Botón "volver" */
+ion-button[fill="clear"] {
+    color: #000;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* Responsividad */
+@media (max-width: 400px) {
+    .logo {
+        width: 200px;
+    }
+
+    .form-container {
+        max-width: 280px;
+    }
+}
