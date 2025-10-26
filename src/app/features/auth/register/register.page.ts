@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonItem, IonInput, IonButton, IonImg, IonText } from '@ionic/angular/standalone';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -33,10 +34,11 @@ export class RegisterPage implements OnInit {
   email = '';
   password = '';
   confirmPassword = '';
+  codigo = '';
 
-  constructor() {}
+  constructor(private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   nextStep() {
     if (!this.username || !this.birthdate || !this.address || !this.phone) {
@@ -61,6 +63,24 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    alert('🎉 Registro exitoso!');
+    // Simula envío del código
+    alert('🎉 Registro exitoso! Te hemos enviado un código de verificación.');
+    this.step = 3;
+  }
+
+  confirmarCodigo() {
+    if (!this.codigo || this.codigo.length < 6) {
+      alert('Por favor, ingresa el código de 6 dígitos.');
+      return;
+    }
+
+    alert('✅ Verificación completada. ¡Bienvenido a Mr. Crispy!');
+    // Aquí podrías redirigir al login o home
+    // this.router.navigateByUrl('/home');
+  }
+
+  login() {
+    console.log('Correo:', this.email, 'Contraseña:', this.password);
+    this.router.navigateByUrl('/login');
   }
 }

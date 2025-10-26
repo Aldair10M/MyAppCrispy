@@ -68,6 +68,41 @@
           ← Volver
         </ion-button>
       </div>
+
+      <!-- PASO 3 -->
+      <div *ngIf="step === 3" @stepAnimation class="form-container">
+        <ion-text color="dark" class="verify-text">
+          <h3>Verifica tu cuenta y come delicioso.</h3>
+        </ion-text>
+
+        <ion-item class="input-modern">
+          <ion-input type="text" label="Código" labelPlacement="floating" clearInput="true" maxlength="6"
+            [(ngModel)]="codigo">
+          </ion-input>
+        </ion-item>
+
+        <p class="hint-text">
+          Hemos enviado un código de 6 dígitos a tu teléfono/correo electrónico.
+        </p>
+
+        <ion-button expand="block" class="register-button" (click)="confirmarCodigo()">
+          Confirmar
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="social-section">
+      <p>O registrate con</p>
+      <div class="social-icons">
+        <ion-img src="assets/img/logo-google.png" alt="Logo de Google" class="social-icon"></ion-img>
+        <ion-img src="assets/img/logo-facebook.png" alt="Logo de Facebook" class="social-icon"></ion-img>
+      </div>
+    </div>
+
+    <div class="register-section">
+      <p>¿Ya tienes una cuenta?
+        <span class="register-link" (click)="login()">Inicia sesión aquí</span>
+      </p>
     </div>
   </div>
 </ion-content>

@@ -46,6 +46,45 @@
     font-weight: bold;
 }
 
+.social-section {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #000;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 10px;
+
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .social-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.register-section {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #000;
+
+  .register-link {
+    color: #d32f2f;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
 /* Contenedor animado */
 .form-wrapper {
     position: relative;
