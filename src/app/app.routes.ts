@@ -12,9 +12,6 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./features/auth/login/login.page').then(m => m.LoginPage)
   },
-
-  // fallback
-  { path: '**', redirectTo: 'main' },
   {
     path: 'register',
     loadComponent: () => import('./features/auth/register/register.page').then( m => m.RegisterPage)
@@ -26,5 +23,8 @@ export const routes: Routes = [
   {
     path: 'reset-password',
     loadComponent: () => import('./features/auth/reset-password/reset-password.page').then( m => m.ResetPasswordPage)
-  }
+  },
+
+  // fallback
+  { path: '**', redirectTo: 'main' },
 ];
