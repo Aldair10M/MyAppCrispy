@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true" class="login-bg">
+  <div class="login-container">
+    <ion-img src="assets/img/logo-crispy.png" alt="Logo Mr. Crispy" class="logo"></ion-img>
+
+    <ion-text color="dark" class="welcome-text">
+      <h2>¡Bienvenido a Mr. Crispy!</h2>
+      <p>Iniciar Sesión</p>
+    </ion-text>
+
+    <ion-item class="input-item">
+      <ion-input [(ngModel)]="email" label="Correo Electrónico" labelPlacement="floating" clearInput="true"
+        type="email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="input-item">
+      <ion-input [(ngModel)]="password" label="Contraseña" labelPlacement="floating" clearInput="true" type="password">
+      </ion-input>
+    </ion-item>
+
+    <ion-text color="danger" class="forgot-text" (click)="goToRecover()">
+      ¿Olvidaste tu contraseña?
+    </ion-text>
+
+    <ion-button expand="block" class="login-button" (click)="login()">
+      INGRESAR
+    </ion-button>
+
+    <div class="social-section">
+      <p>O inicia sesión con</p>
+      <div class="social-icons">
+        <ion-img src="assets/img/logo-google.png" alt="Logo de Google" class="social-icon"></ion-img>
+        <ion-img src="assets/img/logo-facebook.png" alt="Logo de Facebook" class="social-icon"></ion-img>
+      </div>
+    </div>
+
+    <div class="register-section">
+      <p>¿No tienes cuenta?
+        <span class="register-link" (click)="goToRegister()">Regístrate aquí</span>
+      </p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,20 @@
+<!-- src/app/features/main/main.page.html -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bienvenido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="main-container">
+    <ion-text color="primary">
+      <h1>¡Bienvenido a CrispyApp!</h1>
+    </ion-text>
+
+    <p>Accede para comenzar</p>
+
+    <ion-button expand="block" color="primary" (click)="goToLogin()">
+      Ir al Login
+    </ion-button>
+  </div>
+</ion-content>
