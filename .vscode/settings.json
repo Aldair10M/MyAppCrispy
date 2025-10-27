@@ -1,3 +1,11 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"]
+  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"],
+  // Use the TypeScript version installed in the workspace (node_modules)
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // Prompt to use workspace tsdk when appropriate
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Give the TS server a bit more memory (optional)
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  // Prefer non-relative auto imports to match Angular style
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }
