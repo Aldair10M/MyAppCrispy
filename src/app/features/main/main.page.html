@@ -1,20 +1,23 @@
 <!-- src/app/features/main/main.page.html -->
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Bienvenido</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="login-bg">
+  <div class="login-container">
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="main-container">
-    <ion-text color="primary">
-      <h1>¡Bienvenido a CrispyApp!</h1>
+    <!-- Logo -->
+    <ion-img src="assets/img/logo-crispy.png" alt="Logo Mr. Crispy" class="logo"></ion-img>
+
+    <!-- Texto de bienvenida -->
+    <ion-text color="dark" class="welcome-text">
+      <h2>¡Bienvenido a CrispyApp!</h2>
+      <p>Accede para comenzar</p>
     </ion-text>
 
-    <p>Accede para comenzar</p>
-
-    <ion-button expand="block" color="primary" (click)="goToLogin()">
+    <!-- Botones de navegación -->
+    <ion-button expand="block" class="login-button" (click)="goToLogin()">
       Ir al Login
+    </ion-button>
+
+    <ion-button expand="block" class="login-button" (click)="goToRegister()">
+      Ir al Registro
     </ion-button>
   </div>
 </ion-content>

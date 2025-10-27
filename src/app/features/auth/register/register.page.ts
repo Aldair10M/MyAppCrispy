@@ -14,11 +14,26 @@ import { Router } from '@angular/router';
   animations: [
     trigger('stepAnimation', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(40px)' }),
-        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+        style({ 
+          opacity: 0, 
+          transform: 'translateX(20px)',
+          willChange: 'transform, opacity'
+        }),
+        animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)', 
+          style({ 
+            opacity: 1, 
+            transform: 'translateX(0)'
+          })
+        )
       ]),
       transition(':leave', [
-        animate('300ms ease-in', style({ opacity: 0, transform: 'translateX(-40px)' }))
+        style({ willChange: 'transform, opacity' }),
+        animate('200ms cubic-bezier(0.4, 0.0, 0.2, 1)', 
+          style({ 
+            opacity: 0, 
+            transform: 'translateX(-20px)'
+          })
+        )
       ])
     ])
   ]
