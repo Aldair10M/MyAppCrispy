@@ -67,6 +67,11 @@ export class RegisterPage implements OnInit {
     alert('🎉 Registro exitoso! Te hemos enviado un código de verificación.');
     this.step = 3;
   }
+  
+  login() {
+    console.log('Correo:', this.email, 'Contraseña:', this.password);
+    this.router.navigateByUrl('/login');
+  }
 
   confirmarCodigo() {
     if (!this.codigo || this.codigo.length < 6) {
@@ -75,12 +80,6 @@ export class RegisterPage implements OnInit {
     }
 
     alert('✅ Verificación completada. ¡Bienvenido a Mr. Crispy!');
-    // Aquí podrías redirigir al login o home
-    // this.router.navigateByUrl('/home');
-  }
-
-  login() {
-    console.log('Correo:', this.email, 'Contraseña:', this.password);
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/home');
   }
 }
