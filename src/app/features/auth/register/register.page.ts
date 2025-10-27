@@ -67,18 +67,12 @@ export class RegisterPage implements OnInit {
     alert('🎉 Registro exitoso! Te hemos enviado un código de verificación.');
     this.step = 3;
   }
-  
+
   login() {
-    console.log('Correo:', this.email, 'Contraseña:', this.password);
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
   }
 
   confirmarCodigo() {
-    if (!this.codigo || this.codigo.length < 6) {
-      alert('Por favor, ingresa el código de 6 dígitos.');
-      return;
-    }
-
     alert('✅ Verificación completada. ¡Bienvenido a Mr. Crispy!');
     this.router.navigateByUrl('/home');
   }

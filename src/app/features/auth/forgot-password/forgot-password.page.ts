@@ -48,7 +48,7 @@ export class ForgotPasswordPage implements OnInit {
       return;
     }
     alert('✅ Código verificado. Ahora puedes restablecer tu contraseña.');
-    this.router.navigateByUrl('/reset-password');
+    this.router.navigateByUrl('/auth/reset-password');
   }
 
   backStep() {

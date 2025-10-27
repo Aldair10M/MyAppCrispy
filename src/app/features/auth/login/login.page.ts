@@ -30,12 +30,10 @@ export class LoginPage {
   }
 
   goToRegister() {
-    console.log('Ir a registro');
-    this.router.navigateByUrl('/register');
+    this.router.navigateByUrl('/auth/register');
   }
 
   goToRecover() {
-    console.log('Ir a recuperación');
-    this.router.navigateByUrl('/forgot-password');
+    this.router.navigateByUrl('/auth/forgot-password');
   }
 }

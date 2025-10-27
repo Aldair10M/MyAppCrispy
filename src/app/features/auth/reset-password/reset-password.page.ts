@@ -32,6 +32,6 @@ export class ResetPasswordPage implements OnInit {
     }
 
     alert('✅ Contraseña restablecida correctamente.');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
   }
 }
