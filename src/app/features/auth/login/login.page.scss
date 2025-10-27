@@ -1,0 +1,104 @@
+.login-bg {
+  --background: #ffc400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-container {
+  text-align: center;
+  padding: 20px;
+  margin-top: 60px;
+}
+
+.logo {
+  display: block;
+  width: 250px;
+  margin: 0 auto 20px;
+}
+
+.welcome-text h2 {
+  font-weight: 700;
+  margin: 0;
+  color: #000;
+}
+
+.welcome-text p {
+  margin-top: 4px;
+  font-weight: 500;
+  color: #000;
+}
+
+.input-item {
+  border-radius: 8px;
+  margin: 10px 0;
+  --background: #fff;
+  --highlight-color-focused: #ff3d00;
+}
+
+.forgot-text {
+  display: block;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #d32f2f;
+}
+
+.login-button {
+  --background: #e53935;
+  --border-radius: 8px;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.social-section {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #000;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 10px;
+
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .social-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.register-section {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #000;
+
+  .register-link {
+    color: #d32f2f;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+/* Responsividad */
+@media (max-width: 400px) {
+  .logo {
+    width: 200px;
+  }
+
+  .form-container {
+    max-width: 280px;
+  }
+}

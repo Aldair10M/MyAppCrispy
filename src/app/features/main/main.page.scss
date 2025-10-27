@@ -1,0 +1,43 @@
+/* Fondo de la pantalla */
+.login-bg {
+  --background: #ffc400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Contenedor principal */
+.login-container {
+  text-align: center;
+  padding: 20px;
+  margin-top: 60px;
+}
+
+/* Logo */
+.logo {
+  display: block;
+  width: 250px;
+  margin: 0 auto 20px;
+}
+
+/* Texto de bienvenida */
+.welcome-text h2 {
+  font-weight: 700;
+  margin: 0;
+  color: #000;
+}
+
+.welcome-text p {
+  margin-top: 4px;
+  font-weight: 500;
+  color: #000;
+}
+
+/* Botones */
+.login-button {
+  --background: #e53935;
+  --border-radius: 8px;
+  margin-top: 15px;
+  font-weight: bold;
+}
