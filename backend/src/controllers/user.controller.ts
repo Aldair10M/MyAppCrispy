@@ -43,14 +43,14 @@ export const registerUser = async (req: Request, res: Response) => {
     const createdUser = await userService.createUser(newUser);
     
     console.log('registerUser - Usuario creado exitosamente');
-    res.status(201).json({ 
+    return res.status(201).json({ 
       message: 'Usuario registrado exitosamente', 
       user: { ...createdUser, password: undefined } 
     });
   } catch (error: any) {
     console.error('registerUser - Error durante el proceso:', error);
     const statusCode = error.code === 'auth/email-already-exists' ? 409 : 500;
-    res.status(statusCode).json({ 
+    return res.status(statusCode).json({ 
       error: error.message || 'Error interno del servidor',
       code: error.code
     });

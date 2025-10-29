@@ -24,12 +24,14 @@ export class UserService {
       userData.createdAt = Date.now();
       userData.updatedAt = Date.now();
 
-      // Remove undefined fields because Firestore rejects undefined values
+      // Remove undefined fields and confirmPassword because Firestore rejects undefined values
       console.log('createUser - Preparando datos para Firestore...');
       const dataToSave: any = {};
       Object.keys(userData).forEach((k) => {
-        const val = (userData as any)[k];
-        if (val !== undefined) dataToSave[k] = val;
+        if (k !== 'confirmPassword') {  // Excluimos confirmPassword
+          const val = (userData as any)[k];
+          if (val !== undefined) dataToSave[k] = val;
+        }
       });
       console.log('createUser - Datos a guardar:', { ...dataToSave, password: '[HIDDEN]' });
 
