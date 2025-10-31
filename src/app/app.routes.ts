@@ -32,6 +32,10 @@ export const routes: Routes = [
       {
         path: 'reset-password',
         loadComponent: () => import('./features/auth/reset-password/reset-password.page').then(m => m.ResetPasswordPage)
+      },
+      {
+        path: 'verify',
+        loadComponent: () => import('./features/auth/verify/verify.page').then(m => m.VerifyPage)
       }
     ]
   },

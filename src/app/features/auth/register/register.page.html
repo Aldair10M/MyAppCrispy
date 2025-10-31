@@ -64,31 +64,6 @@
           ← Volver
         </ion-button>
       </ng-container>
-
-      <!-- PASO 3 -->
-      <ng-container *ngIf="step === 3">
-        <ion-text color="dark" class="verify-text">
-          <h3>Verifica tu cuenta y come delicioso.</h3>
-        </ion-text>
-
-        <ion-item class="input-modern">
-          <ion-input type="text" label="Código" labelPlacement="floating" clearInput="true" maxlength="6"
-            [(ngModel)]="codigo">
-          </ion-input>
-        </ion-item>
-
-        <p class="hint-text">
-          Hemos enviado un código de 6 dígitos a tu teléfono/correo electrónico.
-        </p>
-
-        <ion-button expand="block" class="register-button" (click)="confirmarCodigo()">
-          Confirmar
-        </ion-button>
-
-        <ion-button fill="clear" color="medium" (click)="backStep()">
-          ← Volver
-        </ion-button>
-      </ng-container>
     </div>
 
     <div class="social-section">

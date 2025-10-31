@@ -1,4 +1,5 @@
 export class User {
+  uid?: string;
   username: string;
   birthdate: string;
   address: string;
@@ -7,6 +8,12 @@ export class User {
   password: string;
   confirmPassword?: string;
   codigo?: string;
+  createdAt?: number;
+  updatedAt?: number;
+
+  // 👇 Campos nuevos para verificación por correo
+  isVerified: boolean;
+  verificationCode?: string;
 
   constructor(
     username: string,
@@ -16,7 +23,9 @@ export class User {
     email: string,
     password: string,
     confirmPassword?: string,
-    codigo?: string
+    codigo?: string,
+    isVerified: boolean = false,
+    verificationCode?: string
   ) {
     this.username = username;
     this.birthdate = birthdate;
@@ -26,5 +35,11 @@ export class User {
     this.password = password;
     this.confirmPassword = confirmPassword;
     this.codigo = codigo;
+    this.createdAt = Date.now();
+    this.updatedAt = Date.now();
+
+    // 👇 Inicializamos los nuevos
+    this.isVerified = isVerified;
+    this.verificationCode = verificationCode;
   }
 }

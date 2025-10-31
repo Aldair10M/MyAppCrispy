@@ -73,5 +73,6 @@ Thumbs.db
 **/firebase-adminsdk.json
 backend/dist/
 backend/node_modules/
+/backend/.env
 /src/environments/environment.ts
 /src/environments/environment.prod.ts

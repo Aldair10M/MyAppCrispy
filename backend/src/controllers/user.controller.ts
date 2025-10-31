@@ -1,8 +1,50 @@
+import { db } from '../firebase';
 import { Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 
 const userService = new UserService();
+
+export const verifyUserCode = async (req: Request, res: Response) => {
+  console.log('verifyUserCode - Body recibido:', req.body);
+  const { email, code } = req.body;
+
+  if (!email || !code) {
+    return res.status(400).json({ error: 'Email y código son requeridos' });
+  }
+
+  const userService = new UserService();
+  const user = await userService.getUserByEmail(email);
+
+  if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+  if (user.verificationCode !== code)
+    return res.status(400).json({ error: 'Código incorrecto' });
+
+  // Actualizar en Firestore a verificado
+  const usersRef = db.collection('users');
+  const snapshot = await usersRef.where('email', '==', email).get();
+  if (!snapshot.empty) {
+    await snapshot.docs[0].ref.update({ isVerified: true });
+  }
+
+  return res.status(200).json({ message: '✅ Cuenta verificada correctamente' });
+};
+
+// DEBUG: obtener usuario por email (solo para desarrollo)
+export const debugGetUser = async (req: Request, res: Response) => {
+  const email = (req.query.email as string) || '';
+  if (!email) return res.status(400).json({ error: 'email query required' });
+
+  try {
+    const usersRef = db.collection('users');
+    const snapshot = await usersRef.where('email', '==', email).get();
+    if (snapshot.empty) return res.status(404).json({ error: 'Usuario no encontrado' });
+    return res.status(200).json(snapshot.docs[0].data());
+  } catch (err: any) {
+    console.error('debugGetUser error', err);
+    return res.status(500).json({ error: 'internal' });
+  }
+};
 
 export const registerUser = async (req: Request, res: Response) => {
   console.log('registerUser - Inicio del proceso');

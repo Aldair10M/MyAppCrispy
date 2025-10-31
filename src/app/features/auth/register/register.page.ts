@@ -36,7 +36,6 @@ export class RegisterPage implements OnInit {
   email = '';
   password = '';
   confirmPassword = '';
-  codigo = '';
 
   constructor(
     private router: Router,
@@ -82,7 +81,6 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
-    // Validación básica
     const requiredFields = {
       username: this.username,
       birthdate: this.birthdate,
@@ -102,68 +100,45 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    // Validación específica de contraseña
-    if (!this.password || !this.confirmPassword) {
-      alert('Por favor ingresa ambas contraseñas');
-      return;
-    }
-
     if (this.password.trim() !== this.confirmPassword.trim()) {
       alert('Las contraseñas no coinciden. Por favor, verifica que sean exactamente iguales.');
       return;
     }
 
-    // Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
-      alert('Por favor ingresa un email válido');
+      alert('Por favor ingresa un email válido.');
       return;
     }
 
-    // Limpiamos los espacios en blanco de los datos sensibles
-    const cleanPassword = this.password.trim();
-    const cleanEmail = this.email.trim();
+    const newUser: User = new User(
+      this.username.trim(),
+      this.birthdate,
+      this.address.trim(),
+      this.phone.trim(),
+      this.email.trim(),
+      this.password.trim(),
+      this.confirmPassword.trim(),
+      '',
+      false,
+      undefined
+    );
 
-    const newUser = {
-      username: this.username.trim(),
-      birthdate: this.birthdate,
-      address: this.address.trim(),
-      phone: this.phone.trim(),
-      email: cleanEmail,
-      password: cleanPassword,
-      confirmPassword: this.confirmPassword.trim()
-    };
-
-    // Solo ocultamos las contraseñas en el log
-    console.log('Enviando datos de registro:', {
-      ...newUser,
-      password: '[HIDDEN]',
-      confirmPassword: '[HIDDEN]'
-    });
+    console.log('Enviando datos de registro:', { ...newUser, password: '[HIDDEN]', confirmPassword: '[HIDDEN]' });
 
     this.disableInteractivity();
 
     this.userService.register(newUser).subscribe({
       next: (res) => {
         console.log('Respuesta exitosa:', res);
-        alert('🎉 Registro exitoso! Te hemos enviado un código de verificación.');
-        this.step = 3;
-        setTimeout(() => this.enableInteractivity(), 250);
+        alert('🎉 Registro exitoso. Te hemos enviado un código de verificación a tu correo.');
+        // 👉 Redirigir con el email como parámetro
+        this.router.navigate(['/auth/verify'], { queryParams: { email: this.email } });
       },
       error: (err) => {
         console.error('Error en registro:', err);
-        let errorMessage = 'Error al registrar usuario';
-        
-        if (err.error?.missingFields) {
-          errorMessage = `Campos faltantes: ${err.error.missingFields.join(', ')}`;
-        } else if (err.error?.error) {
-          errorMessage = err.error.error;
-        } else if (err.message) {
-          errorMessage = err.message;
-        }
-        
-        alert(`❌ ${errorMessage}`);
-        this.step = 2; // Volver al paso de contraseñas si hay error
+        const msg = err.error?.error || err.message || 'Error al registrar usuario.';
+        alert(`❌ ${msg}`);
         this.enableInteractivity();
       }
     });
@@ -171,10 +146,5 @@ export class RegisterPage implements OnInit {
 
   login() {
     this.router.navigateByUrl('/auth/login');
-  }
-
-  confirmarCodigo() {
-    alert('✅ Verificación completada. ¡Bienvenido a Mr. Crispy!');
-    this.router.navigateByUrl('/home');
   }
 }

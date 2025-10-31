@@ -1,0 +1,63 @@
+<ion-content class="ion-padding">
+  <div class="verify-container">
+    <h2>Verifica tu cuenta</h2>
+    <p>
+      Introduce el correo electrónico con el que te registraste y el código de verificación que te enviamos.
+    </p>
+
+    <form (ngSubmit)="verifyCode()">
+      <ion-item>
+        <ion-input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          placeholder="Tu correo electrónico"
+          required
+          autocomplete="email"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          [(ngModel)]="verificationCode"
+          name="verificationCode"
+          type="text"
+          placeholder="Código de verificación"
+          required
+          maxlength="6"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        color="success"
+        type="submit"
+        [disabled]="isLoading"
+      >
+        {{ isLoading ? 'Verificando...' : 'Verificar Código' }}
+      </ion-button>
+    </form>
+
+    <ion-text color="medium" class="resend-section">
+      ¿No recibiste el código?
+      <ion-button
+        fill="clear"
+        size="small"
+        color="primary"
+        (click)="resendCode()"
+        [disabled]="isLoading"
+      >
+        Reenviar código
+      </ion-button>
+    </ion-text>
+
+    <ion-button
+      expand="block"
+      fill="clear"
+      color="dark"
+      (click)="goToLogin()"
+    >
+      Volver al login
+    </ion-button>
+  </div>
+</ion-content>
