@@ -4,13 +4,16 @@ import { FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
-  IonToolbar,
   IonIcon,
+  IonMenuButton,
+  IonButton,
   IonChip,
   IonLabel,
   IonFooter
 } from '@ionic/angular/standalone';
 
+import { ProductService } from '../../core/services/product.service';
+import { Product } from '../../core/models/product.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -19,7 +22,8 @@ import {
   imports: [
   IonContent,
   IonHeader,
-  IonToolbar,
+  IonMenuButton,
+  IonButton,
   IonIcon,
   IonChip,
   IonLabel,
@@ -34,16 +38,24 @@ export class HomePage implements OnInit {
   categories: string[] = ['Burgers', 'Pizza', 'Sushi', 'Drinks', 'Desserts'];
   selectedCategory: string | null = null;
 
-  menuItems: Array<{ name: string; image: string; category?: string }> = [
-    { name: 'Classic Burger', image: '/assets/img/burger.jpg', category: 'Burgers' },
-    { name: 'Margherita Pizza', image: '/assets/img/pizza.jpg', category: 'Pizza' },
-    { name: 'California Roll', image: '/assets/img/sushi.jpg', category: 'Sushi' },
-    { name: 'Coke', image: '/assets/img/drinks.jpg', category: 'Drinks' }
-  ];
+  menuItems: Product[] = [];
 
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.productService.getAll().subscribe({
+      next: (items) => {
+        this.menuItems = items as Product[];
+      },
+      error: (err) => {
+        console.error('Error loading products', err);
+      }
+    });
+  }
 
   selectCategory(category: string) {
     if (this.selectedCategory === category) {
@@ -51,6 +63,23 @@ export class HomePage implements OnInit {
     } else {
       this.selectedCategory = category;
     }
+  }
+
+  get filteredItems(): Product[] {
+    const term = (this.searchTerm || '').toString().trim().toLowerCase();
+    return this.menuItems.filter(item => {
+      // Only show available products
+      if (item.available === false) return false;
+
+      // Category filter
+      if (this.selectedCategory && item.category !== this.selectedCategory) return false;
+
+      // Search term filter (name or description)
+      if (!term) return true;
+      const name = (item.name || '').toString().toLowerCase();
+      const desc = (item.description || '').toString().toLowerCase();
+      return name.includes(term) || desc.includes(term);
+    });
   }
 
 }
