@@ -258,6 +258,51 @@ ion-chip.selected {
   font-size: 22px;
   margin-bottom: 4px;
 }
-.center-action {
+.footer-btn.active {
   color: #ff7f00;
+}
+
+/* Emphasize center action visually but not marked active by default */
+.footer-actions .center-action {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: -10px;
+  color: #ff7f00;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  background: #fff;
+}
+.footer-actions .center-action ion-icon {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .footer-actions {
+    gap: 6px;
+    padding: 4px 8px;
+  }
+  .footer-btn {
+    font-size: 11px;
+    color: #666;
+  }
+  .footer-btn ion-icon {
+    font-size: 20px;
+  }
+  .footer-actions .center-action {
+    width: 52px;
+    height: 52px;
+    margin-top: -12px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .footer-btn ion-icon {
+    font-size: 22px;
+  }
 }
