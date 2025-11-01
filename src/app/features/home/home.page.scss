@@ -166,6 +166,7 @@ ion-chip.selected {
   color: #666;
   margin: 6px 0 0;
   /* allow up to 2 lines and then truncate with ellipsis */
+  line-clamp: 2;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
