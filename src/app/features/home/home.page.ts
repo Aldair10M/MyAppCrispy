@@ -5,8 +5,13 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonToolbar,
+  IonMenu,
   IonMenuButton,
   IonButton,
+  IonTitle,
+  IonList,
+  IonItem,
   IonChip,
   IonLabel,
   IonFooter
@@ -22,9 +27,14 @@ import { Product } from '../../core/models/product.model';
   imports: [
   IonContent,
   IonHeader,
+  IonToolbar,
+  IonMenu,
   IonMenuButton,
-  IonButton,
   IonIcon,
+  IonButton,
+  IonTitle,
+  IonList,
+  IonItem,
   IonChip,
   IonLabel,
   IonFooter,
@@ -34,8 +44,18 @@ import { Product } from '../../core/models/product.model';
 })
 export class HomePage implements OnInit {
 
+  userName: string | null = null;
+
   searchTerm: string = '';
-  categories: string[] = ['Burgers', 'Pizza', 'Sushi', 'Drinks', 'Desserts'];
+  // Categories now include image paths located in assets/img
+  categories: Array<{ name: string; image: string }> = [
+    { name: 'Pollo Crispy', image: 'assets/img/pollo-crispy.png' },
+    { name: 'Alitas', image: 'assets/img/alitas.png' },
+    { name: 'Salchipapa', image: 'assets/img/salchipapa.png' },
+    { name: 'Burgers', image: 'assets/img/burgers.png' },
+    { name: 'Wraps', image: 'assets/img/wraps.png' },
+    { name: 'Bebidas', image: 'assets/img/bebidas.png' }
+  ];
   selectedCategory: string | null = null;
 
   menuItems: Product[] = [];
@@ -44,6 +64,15 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadProducts();
+    try {
+      const raw = localStorage.getItem('user');
+      if (raw) {
+        const u = JSON.parse(raw);
+        this.userName = u?.username || u?.name || null;
+      }
+    } catch (e) {
+      this.userName = null;
+    }
   }
 
   loadProducts() {

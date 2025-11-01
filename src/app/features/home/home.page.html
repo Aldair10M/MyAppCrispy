@@ -1,20 +1,37 @@
-<ion-header [translucent]="true" class="custom-header">
-  <div class="header-content">
-    <div style="display:flex; align-items:center; gap:10px;">
-      <ion-menu-button class="header-icon"></ion-menu-button>
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      <h1 class="header-title">MR. CRISPY MENU</h1>
+      <!-- Reemplazado: imagen de carrito eliminada y añadido botón de menú lateral derecho -->
+      <ion-menu-button menu="rightMenu" autoHide="false" class="header-icon"></ion-menu-button>
     </div>
-
-    <h1 class="header-title">FoodApp</h1>
-
-    <div style="display:flex; align-items:center; gap:10px;">
-      <ion-button fill="clear" class="header-icon">
-        <ion-icon name="cart-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </div>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="home-content">
+<!-- Menú lateral derecho -->
+<ion-menu side="end" menuId="rightMenu" contentId="main">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item button>Perfil</ion-item>
+      <ion-item button>Mis pedidos</ion-item>
+      <ion-item button>Configuración</ion-item>
+      <ion-item button>Cerrar sesión</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content id="main" [fullscreen]="true" class="home-content">
+
+  <!-- Saludo al usuario -->
+  <div class="welcome-row">
+    <p class="welcome-text">Hola, <span class="user-name">{{ userName || 'Invitado' }}</span> 👋</p>
+  </div>
 
   <!-- Barra de búsqueda -->
   <div class="search-container">
@@ -25,9 +42,12 @@
   <!-- Sección de Categorías -->
   <div class="category-title">ALL MENU</div>
   <div class="categories">
-    <ion-chip *ngFor="let category of categories" (click)="selectCategory(category)" [class.selected]="selectedCategory === category">
-      <ion-label>{{ category }}</ion-label>
-    </ion-chip>
+    <div class="category-item" *ngFor="let category of categories" (click)="selectCategory(category.name)" [class.selected]="selectedCategory === category.name">
+      <div class="category-icon-wrap">
+        <img [src]="category.image" [alt]="category.name" class="category-image" />
+      </div>
+      <div class="category-name">{{ category.name }}</div>
+    </div>
   </div>
 
   <!-- Grid de productos -->
@@ -47,7 +67,28 @@
 
 </ion-content>
 
-<!-- Footer de navegación simple -->
-<ion-footer class="footer-tab">
-  <div class="tab-indicator"></div>
+<!-- Footer con opciones -->
+<ion-footer class="bottom-footer">
+  <div class="footer-actions">
+    <ion-button fill="clear" class="footer-btn">
+      <ion-icon name="home-outline"></ion-icon>
+      <span>Inicio</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn">
+      <ion-icon name="search-outline"></ion-icon>
+      <span>Buscar</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn center-action">
+      <ion-icon name="cart-outline"></ion-icon>
+      <span>Pedidos</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn">
+      <ion-icon name="person-outline"></ion-icon>
+      <span>Perfil</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn">
+      <ion-icon name="settings-outline"></ion-icon>
+      <span>Ajustes</span>
+    </ion-button>
+  </div>
 </ion-footer>

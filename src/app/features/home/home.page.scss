@@ -5,38 +5,32 @@
   color: #000;
 }
 
-/* -------- HEADER (ya está bien) -------- */
-
+/* ===== Header amarillo (lo que ya hicimos) ===== */
 .custom-header {
-  --background: #f4c20d; 
-  --min-height: 70px;
+  --background: #f4c20d;
   display: flex;
-  align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 .header-content {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   padding: 0 15px;
 }
-
 .logo, .header-icon {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
+  width: 40px;
+  height: 40px;
 }
-
 .header-title {
   flex: 1;
   text-align: center;
+  font-size: 18px;
   font-weight: 600;
-  font-size: 17px;
-  margin: 0;
   color: #000;
+  margin: 0;
 }
 
 /* -------- SEARCH BAR -------- */
@@ -98,6 +92,41 @@ ion-chip.selected {
   position: relative;
   display: flex;
   justify-content: center;
+}
+
+/* New category tile styles */
+.category-item {
+  width: 72px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+.category-icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.category-image {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.category-name {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #333;
+}
+.category-item.selected .category-icon-wrap {
+  background: #ffefdc;
+  border: 1px solid #ffd28a;
 }
 
 .price-badge {
@@ -179,4 +208,45 @@ ion-chip.selected {
   height: 8px;
   background: #ff7f00;
   border-radius: 20px;
+}
+
+/* Welcome row */
+.welcome-row {
+  padding: 12px 15px 0;
+}
+.welcome-text {
+  margin: 0;
+  font-weight: 600;
+  color: #222;
+}
+.user-name {
+  color: #ff7f00;
+}
+
+/* Bottom footer styles */
+.bottom-footer {
+  background: #ffffff;
+  padding: 8px 0;
+  border-top: 1px solid #eee;
+}
+.footer-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #666;
+}
+.footer-btn ion-icon {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.center-action {
+  color: #ff7f00;
 }
