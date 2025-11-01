@@ -1,13 +1,17 @@
-<ion-header>
-  <ion-toolbar class="custom-header">
-    <div class="header-content">
-      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
-
-      <h1 class="header-title">CARRITO DE PEDIDOS</h1>
-
-      <img src="assets/img/logo-ComprasHome.png" alt="Carrito" class="header-icon">
+<ion-header [translucent]="true" class="custom-header">
+  <div class="header-content">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <ion-menu-button class="header-icon"></ion-menu-button>
     </div>
-  </ion-toolbar>
+
+    <h1 class="header-title">FoodApp</h1>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <ion-button fill="clear" class="header-icon">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="home-content">
@@ -21,17 +25,24 @@
   <!-- Sección de Categorías -->
   <div class="category-title">ALL MENU</div>
   <div class="categories">
-    <ion-chip *ngFor="let category of categories" (click)="selectCategory(category)" [outline]="selectedCategory !== category">
+    <ion-chip *ngFor="let category of categories" (click)="selectCategory(category)" [class.selected]="selectedCategory === category">
       <ion-label>{{ category }}</ion-label>
     </ion-chip>
   </div>
 
   <!-- Grid de productos -->
   <div class="menu-grid">
-    <div class="menu-card" *ngFor="let item of menuItems">
-      <img [src]="item.image" alt="{{item.name}}" class="menu-image" />
-      <p class="menu-name">{{ item.name }}</p>
+    <div class="menu-card" *ngFor="let item of filteredItems">
+      <div class="image-wrap">
+        <img [src]="item.imageUrl || '/assets/img/placeholder.png'" alt="{{item.name}}" class="menu-image" />
+        <div class="price-badge">{{ item.price | currency }}</div>
+      </div>
+      <div class="menu-body">
+        <p class="menu-name">{{ item.name }}</p>
+        <p class="menu-desc">{{ item.description }}</p>
+      </div>
     </div>
+    <div *ngIf="filteredItems.length === 0" class="no-results">No products found</div>
   </div>
 
 </ion-content>
