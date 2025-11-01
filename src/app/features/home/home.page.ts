@@ -12,8 +12,6 @@ import {
   IonTitle,
   IonList,
   IonItem,
-  IonChip,
-  IonLabel,
   IonFooter
 } from '@ionic/angular/standalone';
 
@@ -35,8 +33,6 @@ import { Product } from '../../core/models/product.model';
   IonTitle,
   IonList,
   IonItem,
-  IonChip,
-  IonLabel,
   IonFooter,
   CommonModule,
   FormsModule
