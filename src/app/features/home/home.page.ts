@@ -16,6 +16,8 @@ import {
 } from '@ionic/angular/standalone';
 
 import { ProductService } from '../../core/services/product.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { Product } from '../../core/models/product.model';
 @Component({
   selector: 'app-home',
@@ -56,9 +58,16 @@ export class HomePage implements OnInit {
 
   menuItems: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  activeTab: 'home' | 'search' | 'orders' | 'profile' = 'home';
+
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
+    // Track navigation to update the active footer tab based on current route
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: any) => {
+      const url: string = e.urlAfterRedirects || e.url || '';
+      this.activeTab = this.mapUrlToTab(url);
+    });
     this.loadProducts();
     try {
       const raw = localStorage.getItem('user');
@@ -69,6 +78,25 @@ export class HomePage implements OnInit {
     } catch (e) {
       this.userName = null;
     }
+  }
+
+  mapUrlToTab(url: string): 'home' | 'search' | 'orders' | 'profile' {
+    if (!url) return 'home';
+    if (url.startsWith('/home')) return 'home';
+    if (url.startsWith('/auth')) return 'home';
+    if (url.startsWith('/profile')) return 'profile';
+    if (url.startsWith('/orders') || url.startsWith('/cart')) return 'orders';
+    if (url.startsWith('/search')) return 'search';
+    return 'home';
+  }
+
+  navigateToTab(tab: 'home' | 'search' | 'orders' | 'profile') {
+    this.activeTab = tab;
+    // navigate when a real route exists, otherwise just set the tab visually
+    if (tab === 'home') this.router.navigateByUrl('/home');
+    else if (tab === 'profile') this.router.navigateByUrl('/main'); // fallback to main/profile placeholder
+    else if (tab === 'orders') this.router.navigateByUrl('/home'); // no orders route yet, stay on home
+    else if (tab === 'search') this.router.navigateByUrl('/home');
   }
 
   loadProducts() {

@@ -276,11 +276,12 @@ ion-chip.selected {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  margin-top: -6px;
+  /* keep center visually distinct but aligned with other buttons */
+  margin-top: 0;
   color: #666; /* neutral color */
-  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
   background: #ffffff;
-  padding: 8px 12px;
+  padding: 6px 10px;
 }
 .footer-actions .center-action ion-icon {
   font-size: 22px;
