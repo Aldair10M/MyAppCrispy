@@ -193,6 +193,16 @@ ion-chip.selected {
   padding: 0 15px 20px;
 }
 
+/* When an item is selected, switch to single column so the selected card occupies full width */
+.menu-grid.single-column {
+  grid-template-columns: 1fr;
+}
+
+.menu-card.expanded {
+  /* ensure the expanded card takes full width when grid is 1 column */
+  grid-column: 1 / -1;
+}
+
 .menu-card {
   background: #f6f6f6;
   border-radius: 15px;
@@ -200,6 +210,11 @@ ion-chip.selected {
   padding: 15px;
   transition: transform 0.2s ease;
   position: relative; /* allow absolutely positioned elements like price-badge */
+}
+
+.menu-card.expanded {
+  transform: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 .menu-card:hover {
@@ -220,6 +235,36 @@ ion-chip.selected {
   font-size: 14px;
   font-weight: 500;
   color: #222; /* ensure product title is visible */
+}
+
+.product-controls {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.qty-btn {
+  background: #eee;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+.qty-value {
+  min-width: 28px;
+  text-align: center;
+}
+.buy-btn {
+  --background: #ff7f00;
+  --color: #fff;
+  width: 100%;
 }
 
 /* -------- FOOTER INDICATOR -------- */

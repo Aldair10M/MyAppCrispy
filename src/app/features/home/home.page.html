@@ -51,8 +51,8 @@
   </div>
 
   <!-- Grid de productos -->
-  <div class="menu-grid">
-    <div class="menu-card" *ngFor="let item of filteredItems">
+  <div class="menu-grid" [class.single-column]="selectedItemId">
+    <div class="menu-card" *ngFor="let item of filteredItems" (click)="selectItem(item)" [class.expanded]="selectedItemId === (item.id || item.name)">
       <div class="image-wrap">
         <img [src]="item.imageUrl || '/assets/img/placeholder.png'" alt="{{item.name}}" class="menu-image" />
         <div class="price-badge">{{ item.price | currency }}</div>
@@ -60,6 +60,15 @@
       <div class="menu-body">
         <p class="menu-name">{{ item.name }}</p>
         <p class="menu-desc">{{ item.description }}</p>
+
+        <div *ngIf="selectedItemId === (item.id || item.name)" class="product-controls">
+          <div class="qty-controls">
+            <button class="qty-btn" (click)="decrement(item); $event.stopPropagation()">-</button>
+            <div class="qty-value">{{ quantities[item.id || item.name] || 1 }}</div>
+            <button class="qty-btn" (click)="increment(item); $event.stopPropagation()">+</button>
+          </div>
+          <ion-button expand="block" class="buy-btn" (click)="buy(item); $event.stopPropagation()">Comprar</ion-button>
+        </div>
       </div>
     </div>
     <div *ngIf="filteredItems.length === 0" class="no-results">No products found</div>

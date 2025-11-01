@@ -57,6 +57,8 @@ export class HomePage implements OnInit {
   selectedCategory: string | null = null;
 
   menuItems: Product[] = [];
+  selectedItemId: string | null = null;
+  quantities: Record<string, number> = {};
 
   activeTab: 'home' | 'search' | 'orders' | 'profile' = 'home';
 
@@ -116,6 +118,40 @@ export class HomePage implements OnInit {
     } else {
       this.selectedCategory = category;
     }
+  }
+
+  selectItem(item: Product) {
+    const id = item.id || item.name;
+    if (this.selectedItemId === id) {
+      // deselect
+      this.selectedItemId = null;
+    } else {
+      this.selectedItemId = id;
+      // initialize quantity
+      if (!this.quantities[id]) this.quantities[id] = 1;
+      // ensure layout has time to update (optional)
+    }
+  }
+
+  increment(item: Product) {
+    const id = item.id || item.name;
+    this.quantities[id] = (this.quantities[id] || 0) + 1;
+  }
+
+  decrement(item: Product) {
+    const id = item.id || item.name;
+    const current = this.quantities[id] || 0;
+    if (current > 1) this.quantities[id] = current - 1;
+  }
+
+  buy(item: Product) {
+    const id = item.id || item.name;
+    const qty = this.quantities[id] || 1;
+    // For now, just log and show an alert. In a real app, add to cart API
+    console.log('Buy', { item, qty });
+    alert(`Agregaste ${qty} x ${item.name} al carrito`);
+    // Optionally deselect after adding
+    this.selectedItemId = null;
   }
 
   get filteredItems(): Product[] {
