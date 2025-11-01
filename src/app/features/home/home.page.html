@@ -1,13 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+
+      <h1 class="header-title">CARRITO DE PEDIDOS</h1>
+
+      <img src="assets/img/logo-ComprasHome.png" alt="Carrito" class="header-icon">
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="home-content">
+
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <ion-icon name="search-outline" class="search-icon"></ion-icon>
+    <input type="text" placeholder="Search" [(ngModel)]="searchTerm">
+  </div>
+
+  <!-- Sección de Categorías -->
+  <div class="category-title">ALL MENU</div>
+  <div class="categories">
+    <ion-chip *ngFor="let category of categories" (click)="selectCategory(category)" [outline]="selectedCategory !== category">
+      <ion-label>{{ category }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <!-- Grid de productos -->
+  <div class="menu-grid">
+    <div class="menu-card" *ngFor="let item of menuItems">
+      <img [src]="item.image" alt="{{item.name}}" class="menu-image" />
+      <p class="menu-name">{{ item.name }}</p>
+    </div>
+  </div>
+
 </ion-content>
+
+<!-- Footer de navegación simple -->
+<ion-footer class="footer-tab">
+  <div class="tab-indicator"></div>
+</ion-footer>

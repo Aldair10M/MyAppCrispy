@@ -1,0 +1,146 @@
+/* ✅ Ajustar fondo general a blanco */
+.home-content {
+  --background: #ffffff;
+  background: #ffffff;
+  color: #000;
+}
+
+/* -------- HEADER (ya está bien) -------- */
+
+.custom-header {
+  --background: #f4c20d; 
+  --min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.logo, .header-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 17px;
+  margin: 0;
+  color: #000;
+}
+
+/* -------- SEARCH BAR -------- */
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #f2f2f2;
+  margin: 15px;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+
+.search-container input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+  background: transparent;
+}
+
+.search-icon {
+  margin-right: 10px;
+  font-size: 1.3rem;
+  color: #666;
+}
+
+/* -------- CATEGORIES ("ALL MENU") -------- */
+
+.category-title {
+  margin: 10px 15px 5px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #222;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 15px;
+}
+
+/* ✅ Personalizar chips (mejor diseño) */
+ion-chip {
+  --background: #ffffff;
+  --color: #333;
+  border: 1px solid #dcdcdc;
+  font-size: 13px;
+}
+
+ion-chip[outline="false"] {
+  --background: #ff7f00;
+  --color: #fff;
+  border: none;
+}
+
+/* -------- GRID PRODUCTOS -------- */
+
+.menu-grid {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 0 15px 20px;
+}
+
+.menu-card {
+  background: #f6f6f6;
+  border-radius: 15px;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.2s ease;
+}
+
+.menu-card:hover {
+  transform: scale(1.03);
+}
+
+.menu-image {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.menu-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* -------- FOOTER INDICATOR -------- */
+.footer-tab {
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.tab-indicator {
+  width: 40px;
+  height: 8px;
+  background: #ff7f00;
+  border-radius: 20px;
+}
