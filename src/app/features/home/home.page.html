@@ -69,20 +69,20 @@
 
 <!-- Footer con opciones -->
 <ion-footer class="bottom-footer">
-  <div class="footer-actions">
-    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('home')" [class.active]="activeTab === 'home'">
+  <div class="footer-actions" role="navigation" aria-label="Footer navigation">
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('home')" [class.active]="activeTab === 'home'" aria-label="Inicio">
       <ion-icon name="home-outline"></ion-icon>
       <span>Inicio</span>
     </ion-button>
-    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('search')" [class.active]="activeTab === 'search'">
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('search')" [class.active]="activeTab === 'search'" aria-label="Buscar">
       <ion-icon name="search-outline"></ion-icon>
       <span>Buscar</span>
     </ion-button>
-    <ion-button fill="clear" class="footer-btn center-action" (click)="navigateToTab('orders')" [class.active]="activeTab === 'orders'">
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('orders')" [class.active]="activeTab === 'orders'" aria-label="Pedidos">
       <ion-icon name="cart-outline"></ion-icon>
       <span>Pedidos</span>
     </ion-button>
-    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('profile')" [class.active]="activeTab === 'profile'">
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('profile')" [class.active]="activeTab === 'profile'" aria-label="Perfil">
       <ion-icon name="person-outline"></ion-icon>
       <span>Perfil</span>
     </ion-button>
