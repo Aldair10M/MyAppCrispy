@@ -39,7 +39,19 @@ export class LoginPage {
         try {
           if (res.user) localStorage.setItem('user', JSON.stringify(res.user));
         } catch (e) { /* ignore storage errors */ }
-        this.router.navigateByUrl('/home');
+        // Remove focus from any focused element before hiding this page to avoid
+        // accessibility issues where a hidden ancestor still retains focus.
+        try {
+          const active = document.activeElement as HTMLElement | null;
+          if (active && typeof active.blur === 'function') {
+            active.blur();
+          }
+        } catch (e) {
+          // ignore cross-origin or SSR issues
+        }
+
+        // Small delay to ensure blur takes effect before navigation
+        setTimeout(() => this.router.navigateByUrl('/home'), 50);
       },
       error: (err) => {
         console.error('Login error', err);
