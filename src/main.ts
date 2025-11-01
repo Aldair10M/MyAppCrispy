@@ -6,7 +6,23 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import 'ionicons/icons';
+// Register only the icons our app uses to avoid runtime asset URL issues
+import { addIcons } from 'ionicons';
+import {
+  searchOutline,
+  homeOutline,
+  cartOutline,
+  personOutline,
+  settingsOutline
+} from 'ionicons/icons';
+
+addIcons({
+  'search-outline': searchOutline,
+  'home-outline': homeOutline,
+  'cart-outline': cartOutline,
+  'person-outline': personOutline,
+  'settings-outline': settingsOutline,
+});
 
 bootstrapApplication(AppComponent, {
   providers: [

@@ -58,6 +58,16 @@
   color: #666;
 }
 
+/* Ensure ion-icon renders correctly and is visible */
+ion-icon.search-icon, .search-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 20px;
+  color: #ff7f00; /* make search icon visible with accent color */
+}
+
 /* -------- CATEGORIES ("ALL MENU") -------- */
 
 .category-title {
@@ -192,6 +202,7 @@ ion-chip.selected {
 .menu-name {
   font-size: 14px;
   font-weight: 500;
+  color: #222; /* ensure product title is visible */
 }
 
 /* -------- FOOTER INDICATOR -------- */

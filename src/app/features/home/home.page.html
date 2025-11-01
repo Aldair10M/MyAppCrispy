@@ -36,7 +36,7 @@
   <!-- Barra de búsqueda -->
   <div class="search-container">
     <ion-icon name="search-outline" class="search-icon"></ion-icon>
-    <input type="text" placeholder="Search" [(ngModel)]="searchTerm">
+    <input id="search" name="search" type="text" placeholder="Search" [(ngModel)]="searchTerm" autocomplete="search" aria-label="Buscar">
   </div>
 
   <!-- Sección de Categorías -->
