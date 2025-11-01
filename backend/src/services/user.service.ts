@@ -63,5 +63,27 @@ export class UserService {
     return snapshot.docs[0].data();
   }
 
+  /**
+   * Validate user credentials for login.
+   * Returns the user object (without password) when credentials match, otherwise null.
+   */
+  async validateUser(email: string, plainPassword: string) {
+    const user = await this.getUserByEmail(email);
+    if (!user) return null;
+
+    // user.password in firestore is hashed
+    const hashed = (user as any).password;
+    if (!hashed) return null;
+
+    const match = await bcrypt.compare(plainPassword, hashed);
+    if (!match) return null;
+
+    // copy user but remove sensitive fields
+    const safeUser = { ...user } as any;
+    delete safeUser.password;
+    delete safeUser.confirmPassword;
+    return safeUser;
+  }
+
   // Aquí puedes agregar login, verificar código, actualizar usuario, etc.
 }
