@@ -267,6 +267,13 @@ ion-chip.selected {
   color: #ff7f00;
 }
 
+/* Ensure center-action uses the active color when selected */
+.footer-btn.center-action.active {
+  color: #ff7f00;
+  background: #fff;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
 /* Center (Pedidos) is visually emphasized but NOT active by default */
 .footer-actions .center-action {
   position: relative;
