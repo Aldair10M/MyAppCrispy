@@ -183,8 +183,8 @@ export class MenuPage implements OnInit {
     this.addToCart(item);
     // Optionally deselect after adding
     this.selectedItemId = null;
-    // Navigate to the compras (cart) page under /home
-    this.router.navigateByUrl('/home/compras');
+    // Navigate to the carrito (cart) page under /home
+    this.router.navigateByUrl('/home/carrito');
   }
 
   addToCart(item: Product) {
@@ -206,7 +206,7 @@ export class MenuPage implements OnInit {
 
   goToCompras() {
     // navigate to the compras child route under home
-    this.router.navigateByUrl('/home/compras');
+    this.router.navigateByUrl('/home/carrito');
   }
 
   get filteredItems(): Product[] {
