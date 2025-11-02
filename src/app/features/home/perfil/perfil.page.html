@@ -62,3 +62,33 @@
     </div>
   </form>
 </ion-content>
+
+<!-- Footer copied from menu to keep consistent navigation -->
+<ion-footer class="bottom-footer">
+  <div class="footer-actions" role="navigation" aria-label="Footer navigation">
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('home')" aria-label="Inicio">
+      <div class="footer-content">
+        <img src="assets/img/inicio.png" alt="Inicio" class="footer-img" />
+        <div class="footer-label">Inicio</div>
+      </div>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('search')" aria-label="Buscar">
+      <div class="footer-content">
+        <img src="assets/img/buscar.png" alt="Buscar" class="footer-img" />
+        <div class="footer-label">Buscar</div>
+      </div>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('orders')" aria-label="Pedidos">
+      <div class="footer-content">
+        <img src="assets/img/pedido.png" alt="Pedidos" class="footer-img" />
+        <div class="footer-label">Pedidos</div>
+      </div>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('profile')" aria-label="Perfil">
+      <div class="footer-content">
+        <img src="assets/img/perfil.png" alt="Perfil" class="footer-img" />
+        <div class="footer-label">Perfil</div>
+      </div>
+    </ion-button>
+  </div>
+</ion-footer>

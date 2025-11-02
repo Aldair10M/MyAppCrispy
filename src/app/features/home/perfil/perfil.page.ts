@@ -9,8 +9,10 @@ import {
   IonLabel,
   IonInput,
   IonButton,
-  IonList
+  IonList,
+  IonFooter
 } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.model';
 
 @Component({
@@ -27,7 +29,7 @@ import { User } from '../../../core/models/user.model';
     IonInput,
     IonButton,
     IonList,
-    IonAvatar,
+    IonFooter,
     CommonModule,
     FormsModule,
     ReactiveFormsModule
@@ -38,7 +40,7 @@ export class PerfilPage implements OnInit {
   form: FormGroup;
   user: User | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2)]],
       birthdate: [''],
@@ -48,6 +50,32 @@ export class PerfilPage implements OnInit {
       password: [''],
       confirmPassword: ['']
     });
+  }
+
+  // Footer images (use same assets as menu)
+  footerImages = {
+    home: 'assets/img/inicio.png',
+    search: 'assets/img/buscar.png',
+    orders: 'assets/img/pedido.png',
+    profile: 'assets/img/perfil.png'
+  };
+
+  navigateToTab(tab: 'home' | 'search' | 'orders' | 'profile') {
+    if (tab === 'home') {
+      this.router.navigateByUrl('/home');
+    } else if (tab === 'profile') {
+      this.router.navigateByUrl('/home/perfil');
+    } else if (tab === 'orders') {
+      this.router.navigateByUrl('/home/pedidos');
+    } else if (tab === 'search') {
+      this.router.navigateByUrl('/home');
+      setTimeout(() => {
+        try {
+          const el = document.getElementById('search') as HTMLInputElement | null;
+          if (el) el.focus();
+        } catch (e) {}
+      }, 60);
+    }
   }
 
   ngOnInit() {
