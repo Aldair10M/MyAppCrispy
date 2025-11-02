@@ -38,8 +38,13 @@
 
 /* Shared styles moved from menu.component to global to avoid component CSS budget issues */
 .action-row{display:flex;gap:8px;width:100%;align-items:center}
-/* make both action buttons equal width and matching style */
-.add-btn{flex:1;display:flex;align-items:center;justify-content:center;--background:transparent;color:#ff7f00;border:1px solid #ff7f00;padding:0 8px;height:40px;border-radius:8px}
+/* make both action buttons equal width and matching style using Ionic CSS variables
+	Use --border-color for outline buttons and avoid adding an extra manual border
+	to prevent duplicate borders (browser/ionic). Keep accessible focus-visible styling. */
+.add-btn{flex:1;display:flex;align-items:center;justify-content:center;--background:transparent;--border-color:#ff7f00;color:#ff7f00;padding:0 8px;height:40px;border-radius:8px}
+.add-btn, .add-btn .button-native{border:none;box-shadow:none;outline:none}
+.add-btn:focus, .add-btn:focus-visible, .add-btn .button-native:focus{outline:none;box-shadow:none}
+.add-btn:focus-visible{box-shadow:0 0 0 4px rgba(255,127,0,0.12);border-radius:8px}
 .buy-btn{flex:1;display:flex;align-items:center;justify-content:center;--background:#ff7f00;--color:#fff;height:40px;border-radius:8px}
 /* ensure ion-button inside action-row shares same height and font */
 .action-row ion-button{height:40px;line-height:40px;font-weight:600}
