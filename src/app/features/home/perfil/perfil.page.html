@@ -14,35 +14,40 @@
   <div class="form-wrapper">
     <div class="form-container">
       <form [formGroup]="form" (ngSubmit)="saveProfile()" class="perfil-form">
-        <ion-list>
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/nombre.png" alt="Nombre" />
             <ion-input label="Nombre de Usuario" labelPlacement="floating" formControlName="username" clearInput="true"></ion-input>
           </ion-item>
 
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/fecha-nacimiento.png" alt="Fecha" />
             <ion-input type="date" label="Fecha de Nacimiento" labelPlacement="floating" formControlName="birthdate"></ion-input>
           </ion-item>
 
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/direccion.png" alt="Dirección" />
             <ion-input label="Dirección" labelPlacement="floating" formControlName="address" clearInput="true"></ion-input>
           </ion-item>
 
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/telefono.png" alt="Teléfono" />
             <ion-input type="tel" label="Teléfono" labelPlacement="floating" formControlName="phone" clearInput="true"></ion-input>
           </ion-item>
 
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/email.png" alt="Email" />
             <ion-input label="Email" labelPlacement="floating" formControlName="email" readonly></ion-input>
           </ion-item>
 
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/contrasena.png" alt="Contraseña" />
             <ion-input type="password" label="Contraseña" labelPlacement="floating" formControlName="password" clearInput="true"></ion-input>
           </ion-item>
 
           <ion-item class="input-modern">
+            <img class="input-icon" slot="start" src="assets/img/contrasena.png" alt="Confirmar contraseña" />
             <ion-input type="password" label="Confirmar Contraseña" labelPlacement="floating" formControlName="confirmPassword" clearInput="true"></ion-input>
           </ion-item>
-        </ion-list>
 
         <div class="actions">
           <ion-button type="submit" expand="block" color="primary">Guardar</ion-button>
