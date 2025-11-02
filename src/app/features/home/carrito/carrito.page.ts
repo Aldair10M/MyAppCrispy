@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonToolbar, IonButton, IonImg, IonFooter } from '@ionic/angular/standalone';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
+import { ApiService } from '../../../core/services/api.service';
 import { Product } from '../../../core/models/product.model';
 
 @Component({
@@ -62,21 +63,53 @@ export class CarritoPage implements OnInit {
 
     console.log('Order confirmed', order);
 
-    // Persist order into localStorage 'orders' history
+    // Persist order to backend (Firestore) and locally as fallback
     try {
-      const raw = localStorage.getItem('orders');
-      const orders = raw ? JSON.parse(raw) : [];
-      orders.push(order);
-      localStorage.setItem('orders', JSON.stringify(orders));
+      // attach user email if available
+      const rawUser = localStorage.getItem('user');
+      if (rawUser) {
+        const u = JSON.parse(rawUser);
+        (order as any).email = u.email;
+        (order as any).userId = u.uid || u.id || null;
+      }
+
+      this.api.post('orders', order).subscribe({
+        next: (res: any) => {
+          console.log('Order saved to server', res);
+          // persist to local history as well
+          try {
+            const raw = localStorage.getItem('orders');
+            const orders = raw ? JSON.parse(raw) : [];
+            orders.push(res.order || order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+          } catch (e) {
+            console.warn('Could not persist orders history locally', e);
+          }
+
+          // clear cart
+          this.cartService.clear();
+        },
+        error: (err: any) => {
+          console.error('Error saving order to server', err);
+          // fallback: persist locally so user doesn't lose order
+          try {
+            const raw = localStorage.getItem('orders');
+            const orders = raw ? JSON.parse(raw) : [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+          } catch (e) {
+            console.warn('Could not persist orders history locally', e);
+          }
+          this.cartService.clear();
+        }
+      });
     } catch (e) {
       console.warn('Could not persist orders history', e);
+      this.cartService.clear();
     }
-
-    // Clear cart after confirming
-    this.cartService.clear();
   }
 
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  constructor(private productService: ProductService, private cartService: CartService, private api: ApiService) { }
 
   ngOnInit() {
     // subscribe to cart stored in CartService
