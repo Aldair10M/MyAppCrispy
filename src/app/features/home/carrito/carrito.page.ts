@@ -49,8 +49,29 @@ export class CarritoPage implements OnInit {
       return;
     }
 
-    console.log('Order confirmed', { subtotal: this.subtotal, total: this.total });
-    // Placeholder: in a real app you'd call an order API here.
+    // Build a full order object. In a real app this would be sent to a backend API.
+    const order = {
+      id: 'order_' + Date.now(),
+      items: this.cart.map(c => ({ id: c.id, name: c.name, qty: c.qty, price: c.price, img: c.img })),
+      subtotal: this.subtotal,
+      shipping: this.shipping,
+      total: this.total,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    };
+
+    console.log('Order confirmed', order);
+
+    // Persist order into localStorage 'orders' history
+    try {
+      const raw = localStorage.getItem('orders');
+      const orders = raw ? JSON.parse(raw) : [];
+      orders.push(order);
+      localStorage.setItem('orders', JSON.stringify(orders));
+    } catch (e) {
+      console.warn('Could not persist orders history', e);
+    }
+
     // Clear cart after confirming
     this.cartService.clear();
   }
