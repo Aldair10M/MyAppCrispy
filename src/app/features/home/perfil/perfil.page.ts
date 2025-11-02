@@ -4,9 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import {
   IonContent,
   IonHeader,
-  IonToolbar,
-  IonButton,
-  IonFooter
+  IonToolbar
 } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { Router } from '@angular/router';
@@ -21,8 +19,6 @@ import { User } from '../../../core/models/user.model';
     IonContent,
     IonHeader,
     IonToolbar,
-    IonButton,
-    IonFooter,
     FooterComponent,
     CommonModule,
     FormsModule,

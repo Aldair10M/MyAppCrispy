@@ -12,7 +12,7 @@ import {
   IonTitle,
   IonList,
   IonItem,
-  IonFooter
+  
 } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 
@@ -37,7 +37,6 @@ import { Product } from '../../../core/models/product.model';
     IonTitle,
     IonList,
     IonItem,
-    IonFooter,
     FooterComponent,
     CommonModule,
     FormsModule
