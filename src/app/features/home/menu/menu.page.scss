@@ -57,6 +57,13 @@
   width: 100%;
   font-size: 15px;
   background: transparent;
+  color: #222; /* ensure typed text is visible */
+  caret-color: #ff7f00;
+}
+
+.search-container input::placeholder {
+  color: #999;
+  opacity: 1;
 }
 
 .search-icon {
