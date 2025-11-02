@@ -183,8 +183,9 @@ export class MenuPage implements OnInit {
     this.addToCart(item);
     // Optionally deselect after adding
     this.selectedItemId = null;
-    // Navigate to the carrito (cart) page under /home
-    this.router.navigateByUrl('/home/carrito');
+    // Navigate to the producto page under /home and pass the item + qty in navigation state
+    // the ProductoPage can read history.state to get this data
+    this.router.navigate(['/home/producto'], { state: { item, qty } });
   }
 
   addToCart(item: Product) {
