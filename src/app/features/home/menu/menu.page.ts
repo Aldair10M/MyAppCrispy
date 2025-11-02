@@ -86,8 +86,8 @@ export class MenuPage implements OnInit {
     if (!url) return 'home';
     if (url.startsWith('/home')) return 'home';
     if (url.startsWith('/auth')) return 'home';
-    if (url.startsWith('/perfil') || url.startsWith('/profile')) return 'profile';
-    if (url.startsWith('/pedidos') || url.startsWith('/orders') || url.startsWith('/cart')) return 'orders';
+    if (url.startsWith('/home/perfil') || url.startsWith('/perfil') || url.startsWith('/profile')) return 'profile';
+    if (url.startsWith('/home/pedidos') || url.startsWith('/pedidos') || url.startsWith('/orders') || url.startsWith('/cart')) return 'orders';
     if (url.startsWith('/search')) return 'search';
     return 'home';
   }
@@ -96,8 +96,8 @@ export class MenuPage implements OnInit {
     this.activeTab = tab;
     // navigate when a real route exists, otherwise just set the tab visually
     if (tab === 'home') this.router.navigateByUrl('/home');
-    else if (tab === 'profile') this.router.navigateByUrl('/perfil');
-    else if (tab === 'orders') this.router.navigateByUrl('/pedidos');
+    else if (tab === 'profile') this.router.navigateByUrl('/home/perfil');
+    else if (tab === 'orders') this.router.navigateByUrl('/home/pedidos');
     else if (tab === 'search') this.router.navigateByUrl('/home');
   }
 
