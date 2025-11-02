@@ -38,6 +38,10 @@
     --highlight-color-focused: #ff3d00;
 }
 
+/* Label visibility + focused highlight */
+.input-modern ion-label { color: #333 !important; transition: color .12s ease; }
+.input-modern:focus-within ion-label { color: #8bc34a !important; }
+
 /* Botón principal */
 .register-button {
     --background: #e53935;
@@ -120,4 +124,36 @@ ion-button[fill="clear"] {
     .form-container {
         max-width: 280px;
     }
+}
+
+/* Robust label rules for register form (visible + focused floating green) */
+.register-container ion-label,
+.input-modern ion-label { color: #333 !important; transition: color .12s ease; }
+
+.register-container ion-item.ion-focused ion-label,
+.register-container ion-item:focus-within ion-label,
+.input-modern:focus-within ion-label,
+.input-modern ion-label.ion-floating,
+.input-modern ion-label.ion-focused { color: #8bc34a !important; }
+
+/* Extra catch-all rules for generated/native labels on register form */
+.register-container .input-modern label,
+.register-container .input-modern .label,
+.register-container .input-modern .label-md,
+.register-container .input-modern .label-ios,
+.register-container .input-modern .sc-ion-label-md,
+.register-container .input-modern .sc-ion-label-ios { color: #333 !important; }
+
+.register-container .input-modern label[aria-hidden="false"],
+.register-container .input-modern .label.ion-floating { color: #8bc34a !important; }
+
+/* Force label visibility on register form (handles shadow DOM/generated labels) */
+.register-container ::ng-deep .input-modern .label,
+.register-container ::ng-deep .input-modern label,
+.register-container ::ng-deep .input-modern .label-md,
+.register-container ::ng-deep .input-modern .label-ios,
+.register-container ::ng-deep .input-modern .sc-ion-label-md,
+.register-container ::ng-deep .input-modern .sc-ion-label-ios {
+    color: #333 !important;
+    opacity: 1 !important;
 }
