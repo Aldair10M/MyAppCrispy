@@ -14,10 +14,10 @@ export const verifyUserCode = async (req: Request, res: Response) => {
   }
 
   const userService = new UserService();
-  const user = await userService.getUserByEmail(email);
+  const user = await userService.getUserByEmail(email) as any;
 
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
-  if (user.verificationCode !== code)
+  if (user['verificationCode'] !== code)
     return res.status(400).json({ error: 'Código incorrecto' });
 
   // Actualizar en Firestore a verificado
@@ -32,7 +32,7 @@ export const verifyUserCode = async (req: Request, res: Response) => {
 
 // DEBUG: obtener usuario por email (solo para desarrollo)
 export const debugGetUser = async (req: Request, res: Response) => {
-  const email = (req.query.email as string) || '';
+  const email = String((req.query as any)['email'] || '');
   if (!email) return res.status(400).json({ error: 'email query required' });
 
   try {
