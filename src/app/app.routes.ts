@@ -28,6 +28,10 @@ export const routes: Routes = [
         path: 'perfil',
         loadComponent: () => import('./features/home/perfil/perfil.page').then(m => m.PerfilPage)
       },
+      {
+        path: 'producto',
+        loadComponent: () => import('./features/home/producto/producto.page').then(m => m.ProductoPage)
+      },
       // removed duplicate/obsolete 'compras' route — use '/home/carrito' instead
     ]
   },
@@ -64,5 +68,5 @@ export const routes: Routes = [
   },
 
   { path: '**', redirectTo: 'main' },
-
+  
 ];
