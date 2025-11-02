@@ -21,8 +21,17 @@ export const routes: Routes = [
         loadComponent: () => import('./features/home/pedidos/pedidos.page').then(m => m.PedidosPage)
       },
       {
+        path: 'carrito',
+        loadComponent: () => import('./features/home/carrito/compras.page').then(m => m.ComprasPage)
+      },
+      {
         path: 'perfil',
         loadComponent: () => import('./features/home/perfil/perfil.page').then(m => m.PerfilPage)
+      }
+      ,
+      {
+        path: 'compras',
+        loadComponent: () => import('./features/home/compras/compras.page').then(m => m.ComprasPage)
       }
     ]
   },
