@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { IonContent, IonHeader, IonToolbar, IonItem, IonLabel, IonInput, IonButton } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { Router } from '@angular/router';
+import { ApiService } from '../../../core/services/api.service';
 import { User } from '../../../core/models/user.model';
 
 @Component({
@@ -30,7 +31,7 @@ export class PerfilPage implements OnInit {
   form: FormGroup;
   user: User | null = null;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private api: ApiService) {
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(2)]],
       birthdate: [''],
@@ -114,10 +115,32 @@ export class PerfilPage implements OnInit {
     }
 
     try {
+      // persist locally first
       localStorage.setItem('user', JSON.stringify(updated));
       this.user = updated;
-      // simple feedback: console and keep form patched
-      console.log('Perfil guardado', updated);
+      console.log('Perfil guardado (local)', updated);
+
+      // send update to backend to persist in Firestore
+      this.api.put('users/update', updated).subscribe({
+        next: (res: any) => {
+          console.log('Perfil actualizado en servidor', res);
+          // if backend returns user, sync local copy
+          if (res && res.user) {
+            localStorage.setItem('user', JSON.stringify(res.user));
+            this.user = res.user;
+            this.form.patchValue({
+              username: res.user.username || '',
+              birthdate: res.user.birthdate || '',
+              address: res.user.address || '',
+              phone: res.user.phone || '',
+              email: res.user.email || ''
+            });
+          }
+        },
+        error: (err: any) => {
+          console.error('Error actualizando perfil en servidor', err);
+        }
+      });
     } catch (e) {
       console.error('Error saving user to localStorage', e);
     }

@@ -128,3 +128,29 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Error interno' });
   }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { email, ...updates } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
+
+    // Remove undefined fields (Firestore doesn't accept undefined)
+    Object.keys(updates).forEach(k => updates[k] === undefined && delete updates[k]);
+
+    const usersRef = db.collection('users');
+    const snapshot = await usersRef.where('email', '==', email).get();
+    if (snapshot.empty) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+    const docRef = snapshot.docs[0].ref;
+    // Add updatedAt timestamp
+    updates.updatedAt = Date.now();
+
+    await docRef.update(updates);
+
+    const updatedDoc = (await docRef.get()).data();
+    return res.status(200).json({ message: 'Usuario actualizado', user: updatedDoc });
+  } catch (err: any) {
+    console.error('updateUser error', err);
+    return res.status(500).json({ error: 'internal' });
+  }
+};
