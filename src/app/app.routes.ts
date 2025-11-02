@@ -45,5 +45,18 @@ export const routes: Routes = [
     ]
   },
 
+  {
+    path: 'compras',
+    loadComponent: () => import('./features/home/compras/compras.page').then( m => m.ComprasPage)
+  },
+  {
+    path: 'pedidos',
+    loadComponent: () => import('./features/home/pedidos/pedidos.page').then( m => m.PedidosPage)
+  },
+  {
+    path: 'perfil',
+    loadComponent: () => import('./features/home/perfil/perfil.page').then( m => m.PerfilPage)
+  },
   { path: '**', redirectTo: 'main' }
+
 ];
