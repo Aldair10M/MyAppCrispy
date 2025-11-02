@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonToolbar, IonButton, IonImg, IonFooter } from '@ionic/angular/standalone';
 import { ProductService } from '../../../core/services/product.service';
+import { CartService } from '../../../core/services/cart.service';
 import { Product } from '../../../core/models/product.model';
 
 @Component({
@@ -28,20 +29,17 @@ export class CarritoPage implements OnInit {
   }
 
   inc(item: any) {
-    item.qty = (item.qty || 0) + 1;
-    this.persistCart();
+    this.cartService.inc(item.id);
   }
 
   dec(item: any) {
     if ((item.qty || 0) > 1) {
-      item.qty -= 1;
-      this.persistCart();
+      this.cartService.dec(item.id);
     }
   }
 
   remove(item: any) {
-    this.cart = this.cart.filter((c) => c.id !== item.id);
-    this.persistCart();
+    this.cartService.remove(item.id);
   }
 
   confirmOrder() {
@@ -54,14 +52,20 @@ export class CarritoPage implements OnInit {
     console.log('Order confirmed', { subtotal: this.subtotal, total: this.total });
     // Placeholder: in a real app you'd call an order API here.
     // Clear cart after confirming
-    this.cart = [];
-    this.persistCart();
+    this.cartService.clear();
   }
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cartService: CartService) { }
 
   ngOnInit() {
-    this.loadCartFromStorage();
+    // subscribe to cart stored in CartService
+    this.cart = this.cart || [];
+    this.cartService.cart$.subscribe((cart: any) => {
+      this.cart = cart || [];
+      // when cart changes, enrich items with product metadata
+      this.enrichCartItems();
+    });
+
     // Load products to enhance cart items (images, updated prices)
     this.productService.getAll().subscribe({
       next: (items: Product[]) => {
@@ -74,34 +78,7 @@ export class CarritoPage implements OnInit {
       }
     });
   }
-
-  private loadCartFromStorage() {
-    try {
-      const raw = localStorage.getItem('cart');
-      if (raw) {
-        this.cart = JSON.parse(raw) as any[];
-      } else {
-        this.cart = [];
-      }
-    } catch (e) {
-      console.warn('Could not parse cart from storage', e);
-      this.cart = [];
-    }
-  }
-
-  private persistCart() {
-    try {
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-      // Notify other parts of the app that the cart changed (menu listens for this)
-      try {
-        window.dispatchEvent(new CustomEvent('cart:changed', { detail: { cart: this.cart } }));
-      } catch (e) {
-        // ignore in non-browser environments
-      }
-    } catch (e) {
-      console.warn('Could not persist cart', e);
-    }
-  }
+  
 
   private enrichCartItems() {
     if (!this.productsCache?.length) return;

@@ -16,6 +16,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { ProductService } from '../../../core/services/product.service';
+import { CartService } from '../../../core/services/cart.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Product } from '../../../core/models/product.model';
@@ -40,7 +41,7 @@ import { Product } from '../../../core/models/product.model';
     FormsModule
   ]
 })
-export class MenuPage implements OnInit {
+export class MenuPage implements OnInit, OnDestroy {
 
   userName: string | null = null;
 
@@ -61,30 +62,15 @@ export class MenuPage implements OnInit {
   // allow undefined so templates can use the nullish coalescing operator (??)
   // e.g. quantities[id] ?? 1 — 0 must remain a valid value
   quantities: Record<string, number | undefined> = {};
-  // simple cart stored in localStorage
+  // simple cart stored in localStorage (kept in sync via CartService)
   cartItems: Array<{ id: string; name: string; qty: number; price?: number }> = [];
   cartCount: number = 0;
+  private _cartSub: any;
 
   activeTab: 'home' | 'search' | 'orders' | 'profile' = 'home';
 
-  constructor(private productService: ProductService, private router: Router) { }
+  constructor(private productService: ProductService, private router: Router, private cartService: CartService) { }
 
-  private _onCartChanged = () => {
-    // reload cart from storage when someone notifies about a change
-    try {
-      const raw = localStorage.getItem('cart');
-      if (raw) {
-        this.cartItems = JSON.parse(raw);
-        this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
-      } else {
-        this.cartItems = [];
-        this.cartCount = 0;
-      }
-    } catch (e) {
-      this.cartItems = [];
-      this.cartCount = 0;
-    }
-  };
 
   ngOnInit() {
     // Track navigation to update the active footer tab based on current route
@@ -103,29 +89,16 @@ export class MenuPage implements OnInit {
       this.userName = null;
     }
 
-    // load cart from localStorage
-    try {
-      const c = localStorage.getItem('cart');
-      if (c) {
-        this.cartItems = JSON.parse(c);
-        this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
-      }
-    } catch (e) {
-      this.cartItems = [];
-      this.cartCount = 0;
-    }
-
-    // Listen to cart changes so this menu shows correct count when cart is modified elsewhere
-    try {
-      window.addEventListener('cart:changed', this._onCartChanged as EventListener);
-    } catch (e) {
-      // ignore (e.g., server-side rendering)
-    }
+    // subscribe to cart updates from CartService
+    this._cartSub = this.cartService.cart$.subscribe(cart => {
+      this.cartItems = cart || [];
+      this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+    });
   }
 
   ngOnDestroy() {
     try {
-      window.removeEventListener('cart:changed', this._onCartChanged as EventListener);
+      this._cartSub?.unsubscribe?.();
     } catch (e) {
       // ignore
     }
@@ -236,19 +209,11 @@ export class MenuPage implements OnInit {
   }
 
   addToCart(item: Product) {
-    const id = item.id || item.name;
-    const qty = this.quantities[id] || 1;
-    const existing = this.cartItems.find(c => c.id === id);
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      this.cartItems.push({ id, name: item.name, qty, price: item.price });
-    }
-    this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+    const qty = this.quantities[item.id || item.name] || 1;
     try {
-      localStorage.setItem('cart', JSON.stringify(this.cartItems));
+      this.cartService.addItem(item, qty);
     } catch (e) {
-      console.warn('Could not persist cart', e);
+      console.warn('Could not add item to cart', e);
     }
   }
 
