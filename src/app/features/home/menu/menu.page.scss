@@ -94,7 +94,7 @@ ion-chip.selected {
   position: relative;
   display: flex;
   justify-content: center;
-  padding-top: 12px; /* add space so badge can sit above image without overlapping */
+  padding-top: 12px;
 }
 
 .category-item {
@@ -135,7 +135,6 @@ ion-chip.selected {
   position: absolute;
   right: 10px;
   top: 10px;
-  /* move slightly outside the image circle so it doesn't clash */
   transform: translate(12px, -12px);
   background: rgba(0,0,0,0.85);
   color: #fff;
@@ -156,7 +155,6 @@ ion-chip.selected {
   font-size: 12px;
   color: #666;
   margin: 6px 0 0;
-  /* allow up to 2 lines and then truncate with ellipsis */
   line-clamp: 2;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -176,86 +174,24 @@ ion-chip.selected {
 
 /* -------- GRID PRODUCTOS -------- */
 
-.menu-grid {
-  margin-top: 15px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  padding: 0 15px 20px;
-}
+.menu-grid{margin-top:15px;display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding:0 15px 20px}
 
-.menu-grid.single-column {
-  grid-template-columns: 1fr;
-}
+.menu-grid.single-column{grid-template-columns:1fr}
+.menu-card{background:#f6f6f6;border-radius:15px;text-align:center;padding:15px;transition:transform .2s ease;position:relative}
+.menu-card.expanded{grid-column:1/-1;transform:none;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
 
-.menu-card.expanded {
-  /* ensure the expanded card takes full width when grid is 1 column */
-  grid-column: 1 / -1;
-}
+.menu-card:hover{transform:scale(1.03)}
 
-.menu-card {
-  background: #f6f6f6;
-  border-radius: 15px;
-  text-align: center;
-  padding: 15px;
-  transition: transform 0.2s ease;
-  position: relative; /* allow absolutely positioned elements like price-badge */
-}
+.menu-image{width:75px;height:75px;object-fit:cover;border-radius:50%;margin-bottom:12px;position:relative;z-index:1}
 
-.menu-card.expanded {
-  transform: none;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
+.menu-name{font-size:14px;font-weight:500;color:#222}
 
-.menu-card:hover {
-  transform: scale(1.03);
-}
-
-.menu-image {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 1;
-}
-
-.menu-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: #222; /* ensure product title is visible */
-}
-
-.product-controls {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-}
-.qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.qty-btn {
-  background: #eee;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  font-size: 18px;
-}
-.qty-value {
-  min-width: 28px;
-  text-align: center;
-}
-.buy-btn {
-  --background: #ff7f00;
-  --color: #fff;
-  width: 100%;
-}
+.product-controls{margin-top:12px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.qty-controls{display:flex;align-items:center;gap:8px}
+.qty-btn{background:#eee;border:none;width:32px;height:32px;border-radius:6px;font-size:18px}
+.qty-value{min-width:28px;text-align:center}
+.buy-btn{--background:#ff7f00;--color:#fff;width:100%}
+/* action-row and floating cart styles moved to global.scss to keep component CSS under budget */
 
 
 

@@ -59,6 +59,9 @@ export class MenuPage implements OnInit {
   menuItems: Product[] = [];
   selectedItemId: string | null = null;
   quantities: Record<string, number> = {};
+  // simple cart stored in localStorage
+  cartItems: Array<{ id: string; name: string; qty: number; price?: number }> = [];
+  cartCount: number = 0;
 
   activeTab: 'home' | 'search' | 'orders' | 'profile' = 'home';
 
@@ -79,6 +82,18 @@ export class MenuPage implements OnInit {
       }
     } catch (e) {
       this.userName = null;
+    }
+
+    // load cart from localStorage
+    try {
+      const c = localStorage.getItem('cart');
+      if (c) {
+        this.cartItems = JSON.parse(c);
+        this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+      }
+    } catch (e) {
+      this.cartItems = [];
+      this.cartCount = 0;
     }
   }
 
@@ -149,9 +164,31 @@ export class MenuPage implements OnInit {
     const qty = this.quantities[id] || 1;
     // For now, just log and show an alert. In a real app, add to cart API
     console.log('Buy', { item, qty });
-    alert(`Agregaste ${qty} x ${item.name} al carrito`);
+    alert(`Compra: ${qty} x ${item.name}`);
     // Optionally deselect after adding
     this.selectedItemId = null;
+  }
+
+  addToCart(item: Product) {
+    const id = item.id || item.name;
+    const qty = this.quantities[id] || 1;
+    const existing = this.cartItems.find(c => c.id === id);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      this.cartItems.push({ id, name: item.name, qty, price: item.price });
+    }
+    this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+    try {
+      localStorage.setItem('cart', JSON.stringify(this.cartItems));
+    } catch (e) {
+      console.warn('Could not persist cart', e);
+    }
+  }
+
+  goToCompras() {
+    // navigate to the compras child route under home
+    this.router.navigateByUrl('/home/compras');
   }
 
   get filteredItems(): Product[] {

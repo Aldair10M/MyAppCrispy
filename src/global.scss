@@ -35,3 +35,11 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Shared styles moved from menu.component to global to avoid component CSS budget issues */
+.action-row{display:flex;gap:8px;width:100%;align-items:center}
+.add-btn{--border-color:#ff7f00;color:#ff7f00;border:1px solid #ff7f00;--background:transparent;flex:0 0 42%}
+.buy-btn{flex:1 1 auto}
+.floating-cart{position:fixed;right:16px;bottom:76px;width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.18);z-index:9999;cursor:pointer}
+.floating-cart img{width:36px;height:36px;object-fit:contain}
+.floating-badge{position:absolute;right:-4px;top:-4px;background:#ff7f00;color:#fff;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;padding:0 5px;box-shadow:0 2px 6px rgba(0,0,0,0.12)}
