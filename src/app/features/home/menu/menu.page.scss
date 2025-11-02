@@ -188,8 +188,8 @@ ion-chip.selected {
 
 .product-controls{margin-top:12px;display:flex;flex-direction:column;gap:8px;align-items:center}
 .qty-controls{display:flex;align-items:center;gap:8px}
-.qty-btn{background:#f2f2f2;border:1px solid #ddd;color:#222;width:32px;height:32px;border-radius:6px;font-size:18px;display:inline-flex;align-items:center;justify-content:center;padding:0}
-.qty-value{min-width:28px;text-align:center}
+.qty-btn{background:#fff;border:1px solid #ff7f00;color:#ff7f00;width:32px;height:32px;border-radius:6px;font-size:18px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.qty-value{min-width:28px;text-align:center;color:#ff7f00;font-weight:600}
 .buy-btn{--background:#ff7f00;--color:#fff;width:100%}
 .welcome-row{padding:12px 15px 0}
 .welcome-text{margin:0;font-weight:600;color:#222}
