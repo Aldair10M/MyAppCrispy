@@ -5,7 +5,7 @@
 
       <h1 class="header-title">PERFIL</h1>
 
-      <img src="assets/img/inicio.png" alt="Inicio" class="icon-cart" />
+      <img src="assets/img/icon-perfilPage.png" alt="Perfil" class="icon-cart" />
     </div>
   </ion-toolbar>
 </ion-header>
@@ -15,39 +15,45 @@
   <form [formGroup]="form" (ngSubmit)="saveProfile()" class="perfil-form">
     <ion-list>
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/nombre.png" alt="Nombre" />
         <ion-label position="stacked">Nombre</ion-label>
         <ion-input formControlName="username" placeholder="Tu nombre completo"></ion-input>
       </ion-item>
 
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/fecha-nacimiento.png" alt="Fecha de nacimiento" />
         <ion-label position="stacked">Fecha de nacimiento</ion-label>
         <ion-input type="date" formControlName="birthdate"></ion-input>
       </ion-item>
 
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/direccion.png" alt="Dirección" />
         <ion-label position="stacked">Dirección</ion-label>
         <ion-input formControlName="address" placeholder="Dirección de entrega"></ion-input>
       </ion-item>
 
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/telefono.png" alt="Teléfono" />
         <ion-label position="stacked">Teléfono</ion-label>
         <ion-input type="tel" formControlName="phone" placeholder="Número celular"></ion-input>
       </ion-item>
 
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/email.png" alt="Email" />
         <ion-label position="stacked">Email</ion-label>
         <ion-input formControlName="email" readonly></ion-input>
       </ion-item>
 
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/contrasena.png" alt="Contraseña" />
         <ion-label position="stacked">Cambiar contraseña</ion-label>
         <ion-input type="password" formControlName="password" placeholder="Nueva contraseña"></ion-input>
       </ion-item>
 
       <ion-item>
+        <img class="input-icon" slot="start" src="assets/img/contrasena.png" alt="Confirmar contraseña" />
         <ion-label position="stacked">Confirmar contraseña</ion-label>
-        <ion-input type="password" formControlName="confirmPassword"
-          placeholder="Repite la nueva contraseña"></ion-input>
+        <ion-input type="password" formControlName="confirmPassword" placeholder="Repite la nueva contraseña"></ion-input>
       </ion-item>
     </ion-list>
 
