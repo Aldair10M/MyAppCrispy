@@ -144,7 +144,18 @@ export class MenuPage implements OnInit {
       this.selectedItemId = id;
       // initialize quantity
       if (!this.quantities[id]) this.quantities[id] = 1;
-      // ensure layout has time to update (optional)
+      // Move the selected item to the start of the menuItems array so it
+      // becomes immediately visible (no manual scrolling required).
+      try {
+        const key = id;
+        this.menuItems = [
+          ...this.menuItems.filter(i => (i.id || i.name) === key),
+          ...this.menuItems.filter(i => (i.id || i.name) !== key)
+        ];
+      } catch (e) {
+        // fallback: if anything goes wrong, leave the array as-is
+        console.warn('Could not reorder menu items', e);
+      }
     }
   }
 
