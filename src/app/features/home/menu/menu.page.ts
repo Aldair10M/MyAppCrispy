@@ -115,11 +115,13 @@ export class MenuPage implements OnInit, OnDestroy {
 
   mapUrlToTab(url: string): 'home' | 'search' | 'orders' | 'profile' {
     if (!url) return 'home';
-    if (url.startsWith('/home')) return 'home';
-    if (url.startsWith('/auth')) return 'home';
+    // check more specific routes first (profile, orders, search)
     if (url.startsWith('/home/perfil') || url.startsWith('/perfil') || url.startsWith('/profile')) return 'profile';
     if (url.startsWith('/home/pedidos') || url.startsWith('/pedidos') || url.startsWith('/orders') || url.startsWith('/cart')) return 'orders';
     if (url.startsWith('/search')) return 'search';
+    // generic home checks last so /home/perfil isn't captured by this
+    if (url.startsWith('/home')) return 'home';
+    if (url.startsWith('/auth')) return 'home';
     return 'home';
   }
 
