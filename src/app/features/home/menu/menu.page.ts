@@ -58,7 +58,9 @@ export class MenuPage implements OnInit {
 
   menuItems: Product[] = [];
   selectedItemId: string | null = null;
-  quantities: Record<string, number> = {};
+  // allow undefined so templates can use the nullish coalescing operator (??)
+  // e.g. quantities[id] ?? 1 — 0 must remain a valid value
+  quantities: Record<string, number | undefined> = {};
   // simple cart stored in localStorage
   cartItems: Array<{ id: string; name: string; qty: number; price?: number }> = [];
   cartCount: number = 0;
