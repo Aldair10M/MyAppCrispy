@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -69,6 +69,23 @@ export class MenuPage implements OnInit {
 
   constructor(private productService: ProductService, private router: Router) { }
 
+  private _onCartChanged = () => {
+    // reload cart from storage when someone notifies about a change
+    try {
+      const raw = localStorage.getItem('cart');
+      if (raw) {
+        this.cartItems = JSON.parse(raw);
+        this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+      } else {
+        this.cartItems = [];
+        this.cartCount = 0;
+      }
+    } catch (e) {
+      this.cartItems = [];
+      this.cartCount = 0;
+    }
+  };
+
   ngOnInit() {
     // Track navigation to update the active footer tab based on current route
     this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: any) => {
@@ -96,6 +113,21 @@ export class MenuPage implements OnInit {
     } catch (e) {
       this.cartItems = [];
       this.cartCount = 0;
+    }
+
+    // Listen to cart changes so this menu shows correct count when cart is modified elsewhere
+    try {
+      window.addEventListener('cart:changed', this._onCartChanged as EventListener);
+    } catch (e) {
+      // ignore (e.g., server-side rendering)
+    }
+  }
+
+  ngOnDestroy() {
+    try {
+      window.removeEventListener('cart:changed', this._onCartChanged as EventListener);
+    } catch (e) {
+      // ignore
     }
   }
 

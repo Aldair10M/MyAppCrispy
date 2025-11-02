@@ -92,6 +92,12 @@ export class CarritoPage implements OnInit {
   private persistCart() {
     try {
       localStorage.setItem('cart', JSON.stringify(this.cart));
+      // Notify other parts of the app that the cart changed (menu listens for this)
+      try {
+        window.dispatchEvent(new CustomEvent('cart:changed', { detail: { cart: this.cart } }));
+      } catch (e) {
+        // ignore in non-browser environments
+      }
     } catch (e) {
       console.warn('Could not persist cart', e);
     }
