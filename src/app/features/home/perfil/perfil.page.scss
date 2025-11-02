@@ -110,3 +110,27 @@
     color: #000 !important;
     text-shadow: none !important;
 }
+
+/* Minimal styles for form inputs and icons (kept small to match existing header/footer styles) */
+.perfil-form {
+    padding: 12px 12px 20px;
+}
+
+.input-icon {
+    width: 26px;
+    height: 26px;
+    margin-right: 8px;
+    object-fit: contain;
+    align-self: center;
+}
+
+.actions {
+    padding: 12px;
+}
+
+.actions .save-btn {
+    --background: #E84118 !important;
+    --background-activated: #c73712 !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+}
