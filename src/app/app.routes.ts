@@ -27,6 +27,10 @@ export const routes: Routes = [
       {
         path: 'perfil',
         loadComponent: () => import('./features/home/perfil/perfil.page').then(m => m.PerfilPage)
+      },
+      {
+        path: 'compras',
+        loadComponent: () => import('./features/home/compras/compras.page').then(m => m.ComprasPage)
       }
     ]
   },
@@ -62,6 +66,6 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '**', redirectTo: 'main' }
+  { path: '**', redirectTo: 'main' },
 
 ];

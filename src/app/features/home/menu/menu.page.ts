@@ -179,11 +179,12 @@ export class MenuPage implements OnInit {
   buy(item: Product) {
     const id = item.id || item.name;
     const qty = this.quantities[id] || 1;
-    // For now, just log and show an alert. In a real app, add to cart API
-    console.log('Buy', { item, qty });
-    alert(`Compra: ${qty} x ${item.name}`);
+    // Add the selected quantity to cart and navigate to the compras page
+    this.addToCart(item);
     // Optionally deselect after adding
     this.selectedItemId = null;
+    // Navigate to the compras (cart) page under /home
+    this.router.navigateByUrl('/home/compras');
   }
 
   addToCart(item: Product) {
