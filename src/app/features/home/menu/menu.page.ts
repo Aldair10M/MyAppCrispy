@@ -71,10 +71,11 @@ export class MenuPage implements OnInit, OnDestroy {
 
   // footer images (assets) — can be adjusted to use different image names
   footerImages = {
-    home: 'assets/img/logo-crispy.png',
-    search: 'assets/img/logo-ComprasHome.png',
-    orders: 'assets/img/logo-carritoCompras.png',
-    profile: 'assets/img/logo-crispy.png'
+    // explicit assets provided by user
+    home: 'assets/img/inicio.png',
+    search: 'assets/img/buscar.png',
+    orders: 'assets/img/pedido.png',
+    profile: 'assets/img/perfil.png'
   };
 
   constructor(private productService: ProductService, private router: Router, private cartService: CartService) { }
