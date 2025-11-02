@@ -190,8 +190,14 @@ export class MenuPage implements OnInit {
     this.addToCart(item);
     // Optionally deselect after adding
     this.selectedItemId = null;
+    // persist selection in sessionStorage so ProductoPage can read it even if navigation state is lost
+    try {
+      sessionStorage.setItem('selectedProduct', JSON.stringify({ item, qty }));
+    } catch (e) {
+      console.warn('Could not write selectedProduct to sessionStorage', e);
+    }
     // Navigate to the producto page under /home and pass the item + qty in navigation state
-    // the ProductoPage can read history.state to get this data
+    // the ProductoPage can read history.state or sessionStorage to get this data
     this.router.navigate(['/home/producto'], { state: { item, qty } });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonImg } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './producto.page.html',
   styleUrls: ['./producto.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonImg, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, CommonModule, FormsModule]
 })
 export class ProductoPage implements OnInit {
   item: any = null;
@@ -32,6 +32,21 @@ export class ProductoPage implements OnInit {
       }
     } catch (e) {
       s = history.state || {};
+    }
+
+    // if navigation state empty, try sessionStorage (saved by menu.buy)
+    if ((!s || Object.keys(s).length === 0) && typeof sessionStorage !== 'undefined') {
+      try {
+        const raw = sessionStorage.getItem('selectedProduct');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          s = { ...s, ...parsed };
+          // clear sessionStorage to avoid stale values
+          sessionStorage.removeItem('selectedProduct');
+        }
+      } catch (e) {
+        // ignore
+      }
     }
 
     this.debugState = s;
