@@ -90,16 +90,19 @@
 /* Make header title visible on the custom yellow header */
 .custom-header .header-title {
     color: #000 !important;
+    text-shadow: none !important;
 }
 
 /* Style inputs: white background, rounded corners, spacing between fields */
 .perfil-form ion-item {
-    --background: #ffffff;
-    border-radius: 10px;
-    margin: 10px 12px;
-    padding-left: 8px;
+    /* force white cards for each field */
+    --background: #ffffff !important;
+    background: #ffffff !important;
+    border-radius: 10px !important;
+    margin: 10px 12px !important;
+    padding-left: 8px !important;
     display: block;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
 }
 
 /* Label color slightly muted */
@@ -108,23 +111,37 @@
 }
 
 /* Ensure the native input text and caret are black */
-ion-input::part(native) {
+/* Make the typed text and caret black inside IonInput */
+.perfil-form ion-input {
+    --color: #000 !important; /* primary text color for ion-input */
+}
+.perfil-form ion-input::part(native) {
     color: #000 !important;
     caret-color: #000 !important;
 }
-
-/* Also target ion-textarea or other native inputs if used later */
-textarea, input {
+.perfil-form input,
+.perfil-form textarea {
     color: #000 !important;
+}
+
+/* Ensure labels contrast properly */
+.perfil-form ion-label {
+    color: #333 !important;
 }
 
 /* Save button custom color and rounded look */
 .actions ion-button {
-    --background: #E84118;
-    --background-activated: #c73712;
-    --box-shadow: none;
-    color: #fff;
-    border-radius: 8px;
+    --background: #E84118 !important;
+    --background-activated: #c73712 !important;
+    --box-shadow: none !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    --ion-color-base: #E84118 !important;
+}
+
+/* If the button still shows primary color, remove the color attribute effect */
+.actions ion-button[color] {
+    color: #fff !important;
 }
 
 /* Small layout tweak so the form doesn't stick to the edges */
