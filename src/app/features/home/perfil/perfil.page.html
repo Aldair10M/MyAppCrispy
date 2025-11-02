@@ -11,6 +11,47 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="perfil-content">
+  <div class="profile-card">
+    <div class="avatar">
+      <img src="assets/img/icon-perfilPage.png" alt="Avatar" />
+    </div>
+    <div class="profile-name">{{ user?.username || 'Invitado' }}</div>
+    <div class="profile-email">{{ user?.email || '' }}</div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="saveProfile()" class="perfil-form">
+    <ion-list>
+      <ion-item class="input-modern">
+        <img class="input-icon" slot="start" [src]="footerImages.home" alt="icon" />
+        <ion-input label="Nombre de Usuario" labelPlacement="floating" formControlName="username"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-modern">
+        <img class="input-icon" slot="start" [src]="footerImages.search" alt="icon" />
+        <ion-input type="date" label="Fecha de nacimiento" labelPlacement="floating" formControlName="birthdate"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-modern">
+        <img class="input-icon" slot="start" [src]="footerImages.orders" alt="icon" />
+        <ion-input label="Dirección" labelPlacement="floating" formControlName="address"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-modern">
+        <img class="input-icon" slot="start" [src]="footerImages.profile" alt="icon" />
+        <ion-input type="tel" label="Teléfono" labelPlacement="floating" formControlName="phone"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-modern">
+        <img class="input-icon" slot="start" src="assets/img/email.png" alt="email" />
+        <ion-input label="Email" labelPlacement="floating" formControlName="email" readonly></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="actions">
+      <ion-button type="submit" expand="block" color="primary">Guardar</ion-button>
+    </div>
+  </form>
+
 </ion-content>
 
 <!-- Shared footer -->
