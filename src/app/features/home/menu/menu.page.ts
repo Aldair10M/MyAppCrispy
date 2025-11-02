@@ -143,8 +143,8 @@ export class MenuPage implements OnInit {
     } else {
       this.selectedItemId = id;
       // initialize quantity
-      // only initialize if not set (allow 0 as a valid value)
-      if (this.quantities[id] === undefined) this.quantities[id] = 1;
+  // Reset quantity to 1 whenever the item is (re)selected
+  this.quantities[id] = 1;
       // Bring the selected item into view (do not reorder the array).
       // Wait a tick so the expanded class/layout is applied.
       setTimeout(() => {
