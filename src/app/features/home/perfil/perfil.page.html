@@ -1,13 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+
+      <h1 class="header-title">PERFIL</h1>
+
+      <img src="assets/img/inicio.png" alt="Inicio" class="icon-cart"/>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="perfil-content">
+  <div class="page-inner">
+    <!-- Perfil content goes here -->
+    <h3 class="section-title">Mi Perfil</h3>
+    <p>Aquí podrás editar los datos de tu cuenta (nombre, email, teléfono, avatar, direcciones, etc.).</p>
+  </div>
 </ion-content>

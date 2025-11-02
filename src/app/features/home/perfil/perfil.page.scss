@@ -1,0 +1,18 @@
+/* Perfil page styles - reuse header styles from global/menu
+	 Add small layout helpers specific to perfil page */
+
+.perfil-content {
+	padding-bottom: 80px; /* space for footer if any */
+}
+
+.page-inner {
+	padding: 16px;
+}
+
+.section-title {
+	font-size: 18px;
+	margin-bottom: 8px;
+	color: #222;
+}
+
+/* reuse .logo, .header-title and .custom-header from global/menu styles */
