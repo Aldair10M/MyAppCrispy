@@ -1,3 +1,43 @@
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      <h1 class="header-title">DETALLE DEL PRODUCTO</h1>
+      <ion-button fill="clear" class="header-icon" (click)="router.navigateByUrl('/home')">Volver</ion-button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="producto-content">
+  <div class="page-inner">
+    <div *ngIf="!item" class="empty-state">
+      <p>Producto no seleccionado.</p>
+    </div>
+
+    <div *ngIf="item" class="product-detail">
+      <div class="image-wrap">
+        <img [src]="item.imageUrl || item.img || '/assets/img/placeholder.png'" alt="{{item.name}}" class="prod-img" />
+      </div>
+
+      <div class="info-wrap">
+        <h2 class="prod-name">{{ item.name }}</h2>
+        <p class="prod-desc">{{ item.description }}</p>
+        <div class="prod-price">S/ {{ item.price | number:'1.2-2' }}</div>
+
+        <div class="qty-row">
+          <button class="qty-btn" (click)="decrement()">-</button>
+          <div class="qty-value">{{ qty }}</div>
+          <button class="qty-btn" (click)="increment()">+</button>
+        </div>
+
+        <div class="action-row">
+          <ion-button fill="outline" class="add-btn" (click)="addToCart()">Agregar</ion-button>
+          <ion-button expand="block" class="buy-btn" (click)="buyNow()">Comprar</ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>producto</ion-title>
