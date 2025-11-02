@@ -15,21 +15,28 @@ export class ProductoPage implements OnInit {
   item: any = null;
   qty: number = 1;
 
-  constructor(private router: Router) { }
+  // make router public so template can call navigate and for easier debugging
+  debugState: any = null;
+  constructor(public router: Router) { }
 
   ngOnInit() {
     // Try to read navigation state (set by menu.buy)
-    const nav = (this.router as any).getCurrentNavigation?.();
-    if (nav && (nav.extras as any)?.state) {
-      const s: any = (nav.extras as any).state;
-      this.item = s.item || null;
-      this.qty = s.qty || 1;
-    } else {
-      // fallback to history.state (works after navigation)
-      const s: any = history.state || {};
-      this.item = s.item || null;
-      this.qty = s.qty || 1;
+    // Read navigation state robustly: try Router.getCurrentNavigation() first, then history.state
+    let s: any = {};
+    try {
+      const nav = (this.router as any).getCurrentNavigation?.();
+      if (nav && (nav.extras as any)?.state) {
+        s = (nav.extras as any).state;
+      } else {
+        s = history.state || {};
+      }
+    } catch (e) {
+      s = history.state || {};
     }
+
+    this.debugState = s;
+    this.item = s.item || null;
+    this.qty = s.qty || 1;
   }
 
   increment() {

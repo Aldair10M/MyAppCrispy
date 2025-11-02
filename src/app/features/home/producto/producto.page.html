@@ -11,8 +11,9 @@
 <ion-content [fullscreen]="true" class="producto-content">
   <div class="page-inner">
     <div *ngIf="!item" class="empty-state">
-      <p>Producto no seleccionado.</p>
-    </div>
+        <p>Producto no seleccionado.</p>
+        <pre *ngIf="debugState">{{ debugState | json }}</pre>
+      </div>
 
     <div *ngIf="item" class="product-detail">
       <div class="image-wrap">
