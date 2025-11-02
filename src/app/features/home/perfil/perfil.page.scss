@@ -3,14 +3,13 @@
     --accent: #e53935;
 }
 
-/* Mirror menu header styles for consistency */
+/* Keep header styles (copied/mirrored from the menu for consistency) */
 .custom-header {
     --background: #f4c20d;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* larger header */
     padding-top: 10px;
     padding-bottom: 14px;
     min-height: 84px;
@@ -24,10 +23,18 @@
     padding: 6px 18px;
 }
 
-.logo, .header-icon {
+.logo,
+.header-icon {
     width: 56px;
     height: 56px;
 }
+
+.logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+
 .header-title {
     flex: 1;
     text-align: center;
@@ -38,140 +45,68 @@
     line-height: 1;
 }
 
-.logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-}
-
 .icon-cart {
     width: 36px;
     height: 36px;
     object-fit: contain;
 }
 
+/* Keep content padding variables so footer spacing is consistent */
 .perfil-content {
     --background: #ffffff;
     background: #ffffff;
     color: #000;
-    /* keep a reasonable padding-bottom so content doesn't overlap footer; control via Ionic variable */
-    --padding-bottom: 70px;
+    --padding-bottom: 70px; /* space reserved for footer */
     --padding-top: 20px;
-    padding: 20px 12px 0; /* lateral padding only; top handled by --padding-top */
+    padding: 0; /* use ionic padding variables instead */
 }
 
-.perfil-form {
-    max-width: 760px;
-    margin: 0 auto;
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-}
-
-.profile-name h3 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.actions {
-    margin: 18px 12px 48px;
-}
-
-.section-title {
-    font-weight: 800;
-    font-size: 24px;
-    margin: 26px 12px 18px; /* top spacing from header */
-    color: #000 !important; /* ensure the section title is visible */
-    text-align: center;
-}
-
-.avatar img {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.input-icon {
-    width: 26px;
-    height: 26px;
-    margin-right: 8px;
-    object-fit: contain;
-    align-self: center;
-}
-
-/* Make header title visible on the custom yellow header */
-.custom-header .header-title {
-    color: #000 !important;
-    text-shadow: none !important;
-}
-
-/* Style inputs: white background, rounded corners, spacing between fields */
-.perfil-form ion-item {
-    /* force white cards for each field with more separation */
-    --background: #ffffff !important;
-    background: #ffffff !important;
-    border-radius: 12px !important;
-    margin: 14px 12px !important; /* larger vertical gap between fields */
-    padding: 10px 12px !important; /* internal padding so input doesn't touch edges */
-    display: block;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.06) !important;
-}
-
-/* Label color slightly muted */
-.perfil-form ion-label {
-    color: #444;
-}
-
-/* Ensure the native input text and caret are black */
-/* Make the typed text and caret black inside IonInput */
-.perfil-form ion-input {
-    --color: #000 !important; /* primary text color for ion-input */
-}
-.perfil-form ion-input::part(native) {
-    color: #000 !important;
-    caret-color: #000 !important;
-}
-.perfil-form input,
-.perfil-form textarea {
-    color: #000 !important;
-}
-
-/* Ensure labels contrast properly */
-.perfil-form ion-label {
-    color: #333 !important;
-}
-
-/* Save button custom color and rounded look */
-.actions ion-button {
-    --background: #E84118 !important;
-    --background-activated: #c73712 !important;
-    --box-shadow: none !important;
-    color: #fff !important;
-    border-radius: 8px !important;
-    --ion-color-base: #E84118 !important;
-}
-
-/* If the button still shows primary color, remove the color attribute effect */
-.actions ion-button[color] {
-    color: #fff !important;
-}
-
-/* Small layout tweak so the form doesn't stick to the edges */
-.perfil-form {
-    padding: 6px 6px 8px; /* minimal bottom padding; avoid adding extra whitespace */
-}
-
-/* ensure no manual padding is applied to the internal scroll container created by Ionic */
+/* Ensure Ionic internal scroll does not add extra padding */
 .perfil-content::part(scroll) {
     padding: 0 !important;
 }
 
-/* Add padding to the inner scrolling container so content doesn't sit under header/footer
-     Targets the generated inner-scroll element that Ionic creates inside ion-content. */
-/* Remove manual padding on the generated inner-scroll element to avoid double-counting
-   Let Ionic's --padding-bottom on ion-content manage footer spacing. */
+/* Footer styles (simple, consistent with menu) */
+.bottom-footer {
+    --background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 6px;
+}
+
+.footer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --padding-start: 6px;
+    --padding-end: 6px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.footer-label {
+    font-size: 11px;
+    color: #333;
+    margin-top: 4px;
+}
+
+/* Make header title clearly visible on yellow background */
+.custom-header .header-title {
+    color: #000 !important;
+    text-shadow: none !important;
+}
