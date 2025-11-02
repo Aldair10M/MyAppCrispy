@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+
+      <h1 class="header-title">CARRITO DE PEDIDOS</h1>
+
+      <img src="assets/img/logo-carritoCompras.png" alt="Carrito" class="icon-cart"/>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="compras-content">
+  <div class="page-inner">
+    <h3 class="section-title">Selecciona tu Pedido a comprar</h3>
+
+    <div class="product-list">
+      <div class="product-card" *ngFor="let item of cart">
+
+        <ion-img [src]="item.img" class="prod-img"></ion-img>
+
+        <div class="product-center">
+          <div class="prod-name">{{ item.name }}</div>
+        </div>
+
+        <div class="product-right">
+          
+          <div class="qty-controls">
+            <button class="qty-btn" (click)="dec(item)">-</button>
+            <div class="qty-value">{{ item.qty }}</div>
+            <button class="qty-btn" (click)="inc(item)">+</button>
+          </div>
+
+          <div class="prod-price">S/ {{ item.price | number:'1.2-2' }}</div>
+
+          <ion-button fill="clear" class="trash-btn" (click)="remove(item)" aria-label="Eliminar producto">
+            <ion-img src="assets/img/tachito.png" class="trash-img" alt="tachito"></ion-img>
+          </ion-button>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer class="compras-footer">
+  <div class="summary-panel">
+    <h4>Resumen del Pedido</h4>
+    <div class="summary-row"><span>Subtotal:</span><span>S/ {{ subtotal | number:'1.2-2' }}</span></div>
+    <div class="summary-row"><span>Costo de envío:</span><span>S/ {{ shipping | number:'1.2-2' }}</span></div>
+    <div class="summary-row total"><span>Total:</span><span>S/ {{ total | number:'1.2-2' }}</span></div>
+
+    <ion-button expand="block" class="confirm-btn" (click)="confirmOrder()">CONFIRMAR PEDIDO</ion-button>
+  </div>
+</ion-footer>

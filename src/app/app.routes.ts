@@ -22,13 +22,12 @@ export const routes: Routes = [
       },
       {
         path: 'carrito',
-        loadComponent: () => import('./features/home/carrito/compras.page').then(m => m.ComprasPage)
+        loadComponent: () => import('./features/home/carrito/carrito.page').then(m => m.CarritoPage)
       },
       {
         path: 'perfil',
         loadComponent: () => import('./features/home/perfil/perfil.page').then(m => m.PerfilPage)
-      }
-      ,
+      },
       {
         path: 'compras',
         loadComponent: () => import('./features/home/compras/compras.page').then(m => m.ComprasPage)
