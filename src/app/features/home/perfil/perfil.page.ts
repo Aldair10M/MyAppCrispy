@@ -6,7 +6,6 @@ import {
   IonHeader,
   IonToolbar
 } from '@ionic/angular/standalone';
-import { IonList, IonItem, IonInput, IonButton } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.model';
@@ -20,10 +19,6 @@ import { User } from '../../../core/models/user.model';
     IonContent,
     IonHeader,
     IonToolbar,
-  IonList,
-  IonItem,
-  IonInput,
-  IonButton,
     FooterComponent,
     CommonModule,
     FormsModule,
@@ -34,8 +29,6 @@ export class PerfilPage implements OnInit {
 
   form: FormGroup;
   user: User | null = null;
-  // track which footer tab is active so template bindings don't error
-  activeTab: 'home' | 'search' | 'orders' | 'profile' = 'profile';
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
@@ -58,8 +51,6 @@ export class PerfilPage implements OnInit {
   };
 
   navigateToTab(tab: 'home' | 'search' | 'orders' | 'profile') {
-    // update UI state immediately
-    this.activeTab = tab;
     if (tab === 'home') {
       this.router.navigateByUrl('/home');
     } else if (tab === 'profile') {
