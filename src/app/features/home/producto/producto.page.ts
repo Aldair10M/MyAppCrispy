@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-producto',
@@ -17,7 +18,7 @@ export class ProductoPage implements OnInit {
 
   // make router public so template can call navigate and for easier debugging
   debugState: any = null;
-  constructor(public router: Router) { }
+  constructor(public router: Router, private cartService: CartService) { }
 
   ngOnInit() {
     // Try to read navigation state (set by menu.buy)
@@ -65,18 +66,9 @@ export class ProductoPage implements OnInit {
   addToCart() {
     if (!this.item) return;
     try {
-      const raw = localStorage.getItem('cart');
-      const cart = raw ? JSON.parse(raw) : [];
-      const id = this.item.id || this.item.name;
-      const existing = cart.find((c: any) => c.id === id);
-      if (existing) {
-        existing.qty = (existing.qty || 0) + (this.qty || 1);
-      } else {
-        cart.push({ id, name: this.item.name, qty: this.qty || 1, price: this.item.price, img: this.item.imageUrl || this.item.img });
-      }
-      localStorage.setItem('cart', JSON.stringify(cart));
+      this.cartService.addItem(this.item, this.qty || 1);
     } catch (e) {
-      console.warn('Could not persist cart', e);
+      console.warn('Could not add item to cart', e);
     }
   }
 
