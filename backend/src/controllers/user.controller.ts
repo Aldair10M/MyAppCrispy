@@ -98,3 +98,33 @@ export const registerUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const loginUser = async (req: Request, res: Response) => {
+  console.log('loginUser - Body recibido:', { ...req.body, password: '[HIDDEN]' });
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email y password son requeridos' });
+  }
+
+  try {
+    const user = await userService.validateUser(email, password);
+    if (!user) {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+
+    // Opcional: comprobar si el usuario está verificado
+    if ((user as any).isVerified === false) {
+      return res.status(403).json({ error: 'Cuenta no verificada' });
+    }
+
+    // Responder con información segura del usuario
+    const safeUser = { ...user } as any;
+    delete safeUser.password;
+
+    return res.status(200).json({ message: 'Inicio de sesión exitoso', user: safeUser });
+  } catch (err: any) {
+    console.error('loginUser error', err);
+    return res.status(500).json({ error: 'Error interno' });
+  }
+};

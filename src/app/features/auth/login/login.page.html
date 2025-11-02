@@ -8,13 +8,13 @@
     </ion-text>
 
     <ion-item class="input-item">
-      <ion-input [(ngModel)]="email" label="Correo Electrónico" labelPlacement="floating" clearInput="true"
-        type="email">
+      <ion-input [(ngModel)]="email" name="email" id="login-email" label="Correo Electrónico" labelPlacement="floating" clearInput="true"
+        type="email" autocomplete="email">
       </ion-input>
     </ion-item>
 
     <ion-item class="input-item">
-      <ion-input [(ngModel)]="password" label="Contraseña" labelPlacement="floating" clearInput="true" type="password">
+      <ion-input [(ngModel)]="password" name="password" id="login-password" label="Contraseña" labelPlacement="floating" clearInput="true" type="password" autocomplete="current-password">
       </ion-input>
     </ion-item>
 

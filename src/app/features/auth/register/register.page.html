@@ -12,22 +12,22 @@
       <!-- PASO 1 -->
       <ng-container *ngIf="step === 1">
         <ion-item class="input-modern">
-          <ion-input label="Nombre de Usuario" labelPlacement="floating" clearInput="true" [(ngModel)]="username">
+          <ion-input label="Nombre de Usuario" labelPlacement="floating" clearInput="true" [(ngModel)]="username" name="username" id="register-username" autocomplete="username">
           </ion-input>
         </ion-item>
 
         <ion-item class="input-modern">
-          <ion-input type="date" label="Fecha de Nacimiento" labelPlacement="floating" [(ngModel)]="birthdate">
+          <ion-input type="date" label="Fecha de Nacimiento" labelPlacement="floating" [(ngModel)]="birthdate" name="birthdate" id="register-birthdate" autocomplete="bday">
           </ion-input>
         </ion-item>
 
         <ion-item class="input-modern">
-          <ion-input label="Dirección" labelPlacement="floating" clearInput="true" [(ngModel)]="address">
+          <ion-input label="Dirección" labelPlacement="floating" clearInput="true" [(ngModel)]="address" name="address" id="register-address" autocomplete="street-address">
           </ion-input>
         </ion-item>
 
         <ion-item class="input-modern">
-          <ion-input type="tel" label="Teléfono" labelPlacement="floating" clearInput="true" [(ngModel)]="phone">
+          <ion-input type="tel" label="Teléfono" labelPlacement="floating" clearInput="true" [(ngModel)]="phone" name="phone" id="register-phone" autocomplete="tel">
           </ion-input>
         </ion-item>
 
@@ -40,19 +40,19 @@
       <ng-container *ngIf="step === 2">
         <ion-item class="input-modern">
           <ion-input type="email" label="Correo Electrónico" labelPlacement="floating" clearInput="true"
-            [(ngModel)]="email">
+            [(ngModel)]="email" name="email" id="register-email" autocomplete="email">
           </ion-input>
         </ion-item>
 
         <ion-item class="input-modern">
           <ion-input type="password" label="Contraseña" labelPlacement="floating" clearInput="true"
-            [(ngModel)]="password">
+            [(ngModel)]="password" name="password" id="register-password" autocomplete="new-password">
           </ion-input>
         </ion-item>
 
         <ion-item class="input-modern">
           <ion-input type="password" label="Confirmar Contraseña" labelPlacement="floating" clearInput="true"
-            [(ngModel)]="confirmPassword">
+            [(ngModel)]="confirmPassword" name="confirmPassword" id="register-confirm-password" autocomplete="new-password">
           </ion-input>
         </ion-item>
 

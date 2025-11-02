@@ -13,6 +13,10 @@ export class UserService {
     return this.api.post('users/register', user);
   }
 
+  login(email: string, password: string): Observable<any> {
+    return this.api.post('users/login', { email, password });
+  }
+
   verifyEmail(email: string, code: string): Observable<any> {
     // Ajustado para coincidir con la ruta del backend (/api/users/verify)
     return this.api.post('users/verify', { email, code });

@@ -10,6 +10,28 @@ export const routes: Routes = [
   },
 
   {
+    path: 'home',
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/home/menu/menu.page').then(m => m.MenuPage)
+      },
+      {
+        path: 'pedidos',
+        loadComponent: () => import('./features/home/pedidos/pedidos.page').then(m => m.PedidosPage)
+      },
+      {
+        path: 'compras',
+        loadComponent: () => import('./features/home/compras/compras.page').then(m => m.ComprasPage)
+      },
+      {
+        path: 'perfil',
+        loadComponent: () => import('./features/home/perfil/perfil.page').then(m => m.PerfilPage)
+      }
+    ]
+  },
+
+  {
     path: 'auth',
     children: [
       {
@@ -41,4 +63,5 @@ export const routes: Routes = [
   },
 
   { path: '**', redirectTo: 'main' }
+
 ];
