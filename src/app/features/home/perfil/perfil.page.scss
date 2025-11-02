@@ -1,15 +1,16 @@
-:root {
-    --yellow: #ffc400;
-    --accent: #e53935;
+.perfil-content {
+    --background: #ffffff;
+    background: #ffffff;
+    color: #000;
 }
 
-/* Header styles (kept as-is for visual consistency with the menu) */
 .custom-header {
     --background: #f4c20d;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* larger header */
     padding-top: 10px;
     padding-bottom: 14px;
     min-height: 84px;
@@ -24,80 +25,7 @@
 }
 
 .logo,
-.header-icon {
+.icon-cart {
     width: 56px;
     height: 56px;
 }
-
-.logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-}
-
-.header-title {
-    flex: 1;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: #000;
-    margin: 0;
-    line-height: 1;
-}
-
-.icon-cart {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-}
-
-/* Footer styles (kept/added for the footer markup copied from menu) */
-.bottom-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #ffffff;
-    box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.06);
-    padding: 6px 0;
-    z-index: 100;
-}
-
-.footer-actions {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.footer-btn {
-    --padding-start: 0;
-    --padding-end: 0;
-    --min-width: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-}
-
-.footer-img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-.footer-label {
-    font-size: 11px;
-    color: #222;
-}
-
-/* Ensure header title color remains strong */
-.custom-header .header-title {
-    color: #000 !important;
-    text-shadow: none !important;
-}
-
