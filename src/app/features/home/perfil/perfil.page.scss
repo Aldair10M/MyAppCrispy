@@ -69,7 +69,8 @@
 .section-title {
     font-weight: 700;
     font-size: 14px;
-    margin: 8px 12px;
+    margin: 14px 12px 8px; /* top spacing from header */
+    color: #000 !important; /* ensure the section title is visible */
 }
 
 .avatar img {
@@ -95,14 +96,14 @@
 
 /* Style inputs: white background, rounded corners, spacing between fields */
 .perfil-form ion-item {
-    /* force white cards for each field */
+    /* force white cards for each field with more separation */
     --background: #ffffff !important;
     background: #ffffff !important;
-    border-radius: 10px !important;
-    margin: 10px 12px !important;
-    padding-left: 8px !important;
+    border-radius: 12px !important;
+    margin: 14px 12px !important; /* larger vertical gap between fields */
+    padding: 10px 12px !important; /* internal padding so input doesn't touch edges */
     display: block;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06) !important;
 }
 
 /* Label color slightly muted */
