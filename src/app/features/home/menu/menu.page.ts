@@ -126,10 +126,33 @@ export class MenuPage implements OnInit, OnDestroy {
   navigateToTab(tab: 'home' | 'search' | 'orders' | 'profile') {
     this.activeTab = tab;
     // navigate when a real route exists, otherwise just set the tab visually
-    if (tab === 'home') this.router.navigateByUrl('/home');
-    else if (tab === 'profile') this.router.navigateByUrl('/home/perfil');
-    else if (tab === 'orders') this.router.navigateByUrl('/home/pedidos');
-    else if (tab === 'search') this.router.navigateByUrl('/home');
+    if (tab === 'home') {
+      this.router.navigateByUrl('/home');
+    } else if (tab === 'profile') {
+      this.router.navigateByUrl('/home/perfil');
+    } else if (tab === 'orders') {
+      this.router.navigateByUrl('/home/pedidos');
+    } else if (tab === 'search') {
+      // navigate to home (which contains the search input) then focus the input so
+      // on mobile the keyboard opens and on desktop the cursor is placed
+      this.router.navigateByUrl('/home').then(() => {
+        // small timeout to ensure the view has rendered
+        setTimeout(() => this.focusSearchInput(), 60);
+      });
+    }
+  }
+
+  private focusSearchInput() {
+    try {
+      const el = document.getElementById('search') as HTMLInputElement | null;
+      if (el) {
+        el.focus();
+        // select text if any so user can quickly replace
+        try { el.select(); } catch (e) { /* ignore */ }
+      }
+    } catch (e) {
+      // ignore failures (e.g., server-side rendering)
+    }
   }
 
   loadProducts() {
