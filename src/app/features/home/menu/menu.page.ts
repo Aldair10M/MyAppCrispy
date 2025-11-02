@@ -144,19 +144,25 @@ export class MenuPage implements OnInit {
       this.selectedItemId = id;
       // initialize quantity
       if (!this.quantities[id]) this.quantities[id] = 1;
-      // Move the selected item to the start of the menuItems array so it
-      // becomes immediately visible (no manual scrolling required).
-      try {
-        const key = id;
-        this.menuItems = [
-          ...this.menuItems.filter(i => (i.id || i.name) === key),
-          ...this.menuItems.filter(i => (i.id || i.name) !== key)
-        ];
-      } catch (e) {
-        // fallback: if anything goes wrong, leave the array as-is
-        console.warn('Could not reorder menu items', e);
-      }
+      // Bring the selected item into view (do not reorder the array).
+      // Wait a tick so the expanded class/layout is applied.
+      setTimeout(() => {
+        try {
+          const el = document.getElementById(this.getCardId(item));
+          if (el && typeof el.scrollIntoView === 'function') {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          }
+        } catch (e) {
+          console.warn('Could not scroll to selected item', e);
+        }
+      }, 60);
     }
+  }
+
+  getCardId(item: Product) {
+    const raw = (item.id || item.name || '').toString();
+    // create a safe id: encodeURIComponent and prefix
+    return 'menu-card-' + encodeURIComponent(raw.replace(/\s+/g, '-'));
   }
 
   increment(item: Product) {

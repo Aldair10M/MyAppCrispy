@@ -52,7 +52,7 @@
 
   <!-- Grid de productos -->
   <div class="menu-grid" [class.single-column]="selectedItemId">
-    <div class="menu-card" *ngFor="let item of filteredItems" (click)="selectItem(item)" [class.expanded]="selectedItemId === (item.id || item.name)">
+  <div class="menu-card" *ngFor="let item of filteredItems" (click)="selectItem(item)" [class.expanded]="selectedItemId === (item.id || item.name)" [id]="getCardId(item)">
       <div class="image-wrap">
         <img [src]="item.imageUrl || '/assets/img/placeholder.png'" alt="{{item.name}}" class="menu-image" />
         <div class="price-badge">{{ item.price | currency }}</div>
