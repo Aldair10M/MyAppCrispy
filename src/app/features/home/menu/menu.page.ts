@@ -69,6 +69,14 @@ export class MenuPage implements OnInit, OnDestroy {
 
   activeTab: 'home' | 'search' | 'orders' | 'profile' = 'home';
 
+  // footer images (assets) — can be adjusted to use different image names
+  footerImages = {
+    home: 'assets/img/logo-crispy.png',
+    search: 'assets/img/logo-ComprasHome.png',
+    orders: 'assets/img/logo-carritoCompras.png',
+    profile: 'assets/img/logo-crispy.png'
+  };
+
   constructor(private productService: ProductService, private router: Router, private cartService: CartService) { }
 
 
