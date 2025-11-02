@@ -8,6 +8,7 @@ import {
   IonButton,
   IonFooter
 } from '@ionic/angular/standalone';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.model';
 
@@ -22,6 +23,7 @@ import { User } from '../../../core/models/user.model';
     IonToolbar,
     IonButton,
     IonFooter,
+    FooterComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule

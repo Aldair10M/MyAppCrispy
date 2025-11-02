@@ -14,6 +14,7 @@ import {
   IonItem,
   IonFooter
 } from '@ionic/angular/standalone';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
@@ -37,6 +38,7 @@ import { Product } from '../../../core/models/product.model';
     IonList,
     IonItem,
     IonFooter,
+    FooterComponent,
     CommonModule,
     FormsModule
   ]
