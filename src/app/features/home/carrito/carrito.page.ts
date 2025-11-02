@@ -45,6 +45,12 @@ export class CarritoPage implements OnInit {
   }
 
   confirmOrder() {
+    if (!this.cart || this.cart.length === 0) {
+      // Prevent confirming an empty order
+      alert('No hay productos en el carrito. Agrega productos antes de confirmar.');
+      return;
+    }
+
     console.log('Order confirmed', { subtotal: this.subtotal, total: this.total });
     // Placeholder: in a real app you'd call an order API here.
     // Clear cart after confirming

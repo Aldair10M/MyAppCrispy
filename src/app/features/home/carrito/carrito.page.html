@@ -14,7 +14,11 @@
   <div class="page-inner">
     <h3 class="section-title">Selecciona tu Pedido a comprar</h3>
 
-    <div class="product-list">
+    <div *ngIf="!cart || cart.length === 0" class="empty-state">
+      <p class="empty-text">Tu carrito está vacío. Agrega productos desde el menú.</p>
+    </div>
+
+    <div class="product-list" *ngIf="cart && cart.length > 0">
       <div class="product-card" *ngFor="let item of cart">
 
         <ion-img [src]="item.img" class="prod-img"></ion-img>
@@ -52,6 +56,6 @@
     <div class="summary-row"><span>Costo de envío:</span><span>S/ {{ shipping | number:'1.2-2' }}</span></div>
     <div class="summary-row total"><span>Total:</span><span>S/ {{ total | number:'1.2-2' }}</span></div>
 
-    <ion-button expand="block" class="confirm-btn" (click)="confirmOrder()">CONFIRMAR PEDIDO</ion-button>
+    <ion-button expand="block" class="confirm-btn" (click)="confirmOrder()" [disabled]="!cart || cart.length === 0">CONFIRMAR PEDIDO</ion-button>
   </div>
 </ion-footer>
