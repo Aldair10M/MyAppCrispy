@@ -147,7 +147,7 @@
 
 /* Small layout tweak so the form doesn't stick to the edges */
 .perfil-form {
-    padding: 6px 6px 40px;
+    padding: 6px 6px 16px; /* reduce bottom padding to avoid large cumulative space */
 }
 
 /* Add padding to the inner scrolling container so content doesn't sit under header/footer
@@ -156,7 +156,7 @@
 .perfil-content [part="scroll"] {
     box-sizing: border-box;
     padding-top: 98px !important; /* space from header */
-    padding-bottom: 107px !important; /* space for footer */
+    padding-bottom: 120px !important; /* adjusted space for footer */
     padding-left: 12px !important;
     padding-right: 12px !important;
 }
