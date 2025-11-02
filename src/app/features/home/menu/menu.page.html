@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      <h1 class="header-title">MR. CRISPY MENU</h1>
+      <!-- Reemplazado: imagen de carrito eliminada y añadido botón de menú lateral derecho -->
+      <ion-menu-button menu="rightMenu" autoHide="false" class="header-icon"></ion-menu-button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Menú lateral derecho -->
+<ion-menu side="end" menuId="rightMenu" contentId="main">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item button>Perfil</ion-item>
+      <ion-item button>Mis pedidos</ion-item>
+      <ion-item button>Configuración</ion-item>
+      <ion-item button>Cerrar sesión</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content id="main" [fullscreen]="true" class="home-content">
+
+  <!-- Saludo al usuario -->
+  <div class="welcome-row">
+    <p class="welcome-text">Hola, <span class="user-name">{{ userName || 'Invitado' }}</span> 👋</p>
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <ion-icon name="search-outline" class="search-icon"></ion-icon>
+    <input id="search" name="search" type="text" placeholder="Search" [(ngModel)]="searchTerm" autocomplete="search" aria-label="Buscar">
+  </div>
+
+  <!-- Sección de Categorías -->
+  <div class="category-title">ALL MENU</div>
+  <div class="categories">
+    <div class="category-item" *ngFor="let category of categories" (click)="selectCategory(category.name)" [class.selected]="selectedCategory === category.name">
+      <div class="category-icon-wrap">
+        <img [src]="category.image" [alt]="category.name" class="category-image" />
+      </div>
+      <div class="category-name">{{ category.name }}</div>
+    </div>
+  </div>
+
+  <!-- Grid de productos -->
+  <div class="menu-grid" [class.single-column]="selectedItemId">
+    <div class="menu-card" *ngFor="let item of filteredItems" (click)="selectItem(item)" [class.expanded]="selectedItemId === (item.id || item.name)">
+      <div class="image-wrap">
+        <img [src]="item.imageUrl || '/assets/img/placeholder.png'" alt="{{item.name}}" class="menu-image" />
+        <div class="price-badge">{{ item.price | currency }}</div>
+      </div>
+      <div class="menu-body">
+        <p class="menu-name">{{ item.name }}</p>
+        <p class="menu-desc">{{ item.description }}</p>
+
+        <div *ngIf="selectedItemId === (item.id || item.name)" class="product-controls">
+          <div class="qty-controls">
+            <button class="qty-btn" (click)="decrement(item); $event.stopPropagation()">-</button>
+            <div class="qty-value">{{ quantities[item.id || item.name] || 1 }}</div>
+            <button class="qty-btn" (click)="increment(item); $event.stopPropagation()">+</button>
+          </div>
+          <ion-button expand="block" class="buy-btn" (click)="buy(item); $event.stopPropagation()">Comprar</ion-button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="filteredItems.length === 0" class="no-results">No products found</div>
+  </div>
+
+</ion-content>
+
+<!-- Footer con opciones -->
+<ion-footer class="bottom-footer">
+  <div class="footer-actions" role="navigation" aria-label="Footer navigation">
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('home')" [class.active]="activeTab === 'home'" aria-label="Inicio">
+      <ion-icon name="home-outline"></ion-icon>
+      <span>Inicio</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('search')" [class.active]="activeTab === 'search'" aria-label="Buscar">
+      <ion-icon name="search-outline"></ion-icon>
+      <span>Buscar</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('orders')" [class.active]="activeTab === 'orders'" aria-label="Pedidos">
+      <ion-icon name="cart-outline"></ion-icon>
+      <span>Pedidos</span>
+    </ion-button>
+    <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('profile')" [class.active]="activeTab === 'profile'" aria-label="Perfil">
+      <ion-icon name="person-outline"></ion-icon>
+      <span>Perfil</span>
+    </ion-button>
+  </div>
+</ion-footer>
