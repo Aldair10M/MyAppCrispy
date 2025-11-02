@@ -86,3 +86,48 @@
     object-fit: contain;
     align-self: center;
 }
+
+/* Make header title visible on the custom yellow header */
+.custom-header .header-title {
+    color: #000 !important;
+}
+
+/* Style inputs: white background, rounded corners, spacing between fields */
+.perfil-form ion-item {
+    --background: #ffffff;
+    border-radius: 10px;
+    margin: 10px 12px;
+    padding-left: 8px;
+    display: block;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* Label color slightly muted */
+.perfil-form ion-label {
+    color: #444;
+}
+
+/* Ensure the native input text and caret are black */
+ion-input::part(native) {
+    color: #000 !important;
+    caret-color: #000 !important;
+}
+
+/* Also target ion-textarea or other native inputs if used later */
+textarea, input {
+    color: #000 !important;
+}
+
+/* Save button custom color and rounded look */
+.actions ion-button {
+    --background: #E84118;
+    --background-activated: #c73712;
+    --box-shadow: none;
+    color: #fff;
+    border-radius: 8px;
+}
+
+/* Small layout tweak so the form doesn't stick to the edges */
+.perfil-form {
+    padding: 6px 6px 40px;
+}
