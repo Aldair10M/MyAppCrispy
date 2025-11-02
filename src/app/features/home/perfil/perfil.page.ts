@@ -9,8 +9,7 @@ import {
   IonLabel,
   IonInput,
   IonButton,
-  IonList,
-  IonAvatar
+  IonList
 } from '@ionic/angular/standalone';
 import { User } from '../../../core/models/user.model';
 

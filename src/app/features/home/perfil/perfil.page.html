@@ -5,24 +5,14 @@
 
       <h1 class="header-title">PERFIL</h1>
 
-      <img src="assets/img/inicio.png" alt="Inicio" class="icon-cart"/>
+      <img src="assets/img/inicio.png" alt="Inicio" class="icon-cart" />
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="perfil-content">
+  <p class="section-title">Datos del Usuario</p>
   <form [formGroup]="form" (ngSubmit)="saveProfile()" class="perfil-form">
-    <div class="profile-header">
-      <ion-avatar>
-        <!-- placeholder avatar; could be replaced by user avatarUrl when available -->
-        <img src="assets/img/logo-crispy.png" alt="avatar" />
-      </ion-avatar>
-      <div class="profile-name">
-        <h3>{{ form.get('username')?.value || 'Usuario' }}</h3>
-        <small *ngIf="user">Miembro desde: {{ user.createdAt ? (user.createdAt | date:'shortDate') : '—' }}</small>
-      </div>
-    </div>
-
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
@@ -56,7 +46,8 @@
 
       <ion-item>
         <ion-label position="stacked">Confirmar contraseña</ion-label>
-        <ion-input type="password" formControlName="confirmPassword" placeholder="Repite la nueva contraseña"></ion-input>
+        <ion-input type="password" formControlName="confirmPassword"
+          placeholder="Repite la nueva contraseña"></ion-input>
       </ion-item>
     </ion-list>
 
