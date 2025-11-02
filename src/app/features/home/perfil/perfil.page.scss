@@ -53,17 +53,51 @@
 
 /* Keep content padding variables so footer spacing is consistent */
 .perfil-content {
-    --background: #ffffff;
-    background: #ffffff;
-    color: #000;
+    --background: #000000;
+    background: #000000; /* dark content area like the screenshot */
+    color: #fff;
     --padding-bottom: 70px; /* space reserved for footer */
     --padding-top: 20px;
-    padding: 0; /* use ionic padding variables instead */
+    padding: 12px 12px 0; /* small lateral padding, top handled by variable */
 }
 
 /* Ensure Ionic internal scroll does not add extra padding */
 .perfil-content::part(scroll) {
     padding: 0 !important;
+}
+
+/* Style the ion-items to look like the screenshot: dark background, thin separators */
+.perfil-form ion-list {
+    background: transparent;
+}
+
+.perfil-form ion-item {
+    --background: transparent;
+    background: transparent;
+    margin: 0; /* no extra outer margin */
+    padding: 8px 6px; /* compact vertical padding */
+    --inner-padding-end: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    align-items: start;
+}
+
+.perfil-form ion-label {
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+}
+
+.perfil-form ion-input::part(native) {
+    color: #fff !important;
+    caret-color: #fff !important;
+}
+
+.perfil-form ion-input {
+    --color: #fff !important;
+}
+
+.perfil-form input::placeholder,
+.perfil-form textarea::placeholder {
+    color: rgba(255,255,255,0.45) !important;
 }
 
 /* Footer styles (simple, consistent with menu) */
@@ -117,20 +151,29 @@
 }
 
 .input-icon {
-    width: 26px;
-    height: 26px;
-    margin-right: 8px;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
     object-fit: contain;
-    align-self: center;
+    align-self: flex-start;
 }
 
 .actions {
-    padding: 12px;
+    padding: 18px 12px 28px;
 }
 
 .actions .save-btn {
     --background: #E84118 !important;
     --background-activated: #c73712 !important;
     color: #fff !important;
-    border-radius: 8px !important;
+    border-radius: 24px !important;
+    height: 48px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(232,65,24,0.18);
+}
+
+/* Make save button take most of the width but leave margins like screenshot */
+.actions .save-btn .button-native,
+.actions .save-btn {
+    width: 100%;
 }
