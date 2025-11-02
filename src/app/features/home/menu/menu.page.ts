@@ -143,7 +143,8 @@ export class MenuPage implements OnInit {
     } else {
       this.selectedItemId = id;
       // initialize quantity
-      if (!this.quantities[id]) this.quantities[id] = 1;
+      // only initialize if not set (allow 0 as a valid value)
+      if (this.quantities[id] === undefined) this.quantities[id] = 1;
       // Bring the selected item into view (do not reorder the array).
       // Wait a tick so the expanded class/layout is applied.
       setTimeout(() => {
@@ -167,13 +168,19 @@ export class MenuPage implements OnInit {
 
   increment(item: Product) {
     const id = item.id || item.name;
-    this.quantities[id] = (this.quantities[id] || 0) + 1;
+    this.quantities[id] = (this.quantities[id] ?? 0) + 1;
   }
 
   decrement(item: Product) {
     const id = item.id || item.name;
-    const current = this.quantities[id] || 0;
-    if (current > 1) this.quantities[id] = current - 1;
+    const current = this.quantities[id] ?? 0;
+    if (current > 0) {
+      this.quantities[id] = current - 1;
+      // if quantity reached 0 and this item is selected, deselect it
+      if (this.quantities[id] === 0 && this.selectedItemId === id) {
+        this.selectedItemId = null;
+      }
+    }
   }
 
   buy(item: Product) {

@@ -64,7 +64,7 @@
         <div *ngIf="selectedItemId === (item.id || item.name)" class="product-controls">
           <div class="qty-controls">
             <button class="qty-btn" (click)="decrement(item); $event.stopPropagation()">-</button>
-            <div class="qty-value">{{ quantities[item.id || item.name] || 1 }}</div>
+            <div class="qty-value">{{ quantities[item.id || item.name] ?? 1 }}</div>
             <button class="qty-btn" (click)="increment(item); $event.stopPropagation()">+</button>
           </div>
 
