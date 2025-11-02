@@ -62,3 +62,24 @@ ion-button[fill="clear"] {
     object-fit: contain;
     align-self: center;
 }
+
+/* Ensure input text and caret are visible (black) */
+.input-modern {
+    /* text color for ion-inputs inside this item */
+    --color: #000;
+    /* placeholder color for inputs */
+    --placeholder-color: #8a8a8a;
+}
+
+/* Target native input parts for reliable coloring across Ionic versions */
+.input-modern ion-input::part(native),
+.input-modern input,
+.input-modern textarea {
+    color: #000 !important;
+    caret-color: #000 !important;
+}
+
+/* Make floating label text clearly visible on white background */
+.input-modern ion-label {
+    color: #222 !important;
+}
