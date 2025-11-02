@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonItem, IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonItem, IonLabel, IonInput, IonButton } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { Router } from '@angular/router';
 import { User } from '../../../core/models/user.model';
@@ -16,6 +16,7 @@ import { User } from '../../../core/models/user.model';
     IonHeader,
     IonToolbar,
     IonItem,
+    IonLabel,
     IonInput,
     IonButton,
     FooterComponent,
