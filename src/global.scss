@@ -56,3 +56,62 @@
 .welcome-row{padding:12px 15px 0}
 .welcome-text{margin:0;font-weight:600;color:#222}
 .user-name{color:#ff7f00}
+
+/* Grid and footer styles moved from menu.page.scss to avoid component CSS budget errors */
+.menu-grid{margin-top:15px;display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding:0 15px 20px}
+
+.menu-grid.single-column{grid-template-columns:1fr}
+.menu-card{background:#f6f6f6;border-radius:15px;text-align:center;padding:15px;transition:transform .2s ease;position:relative}
+.menu-card.expanded{grid-column:1/-1;transform:none;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+
+.menu-card:hover{transform:scale(1.03)}
+
+.menu-image{width:75px;height:75px;object-fit:cover;border-radius:50%;margin-bottom:12px;position:relative;z-index:1}
+
+.menu-name{font-size:14px;font-weight:500;color:#222}
+
+.product-controls{margin-top:12px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.qty-controls{display:flex;align-items:center;gap:8px}
+.qty-btn{background:#fff;border:1px solid #ff7f00;color:#ff7f00;width:32px;height:32px;border-radius:6px;font-size:18px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.qty-value{min-width:28px;text-align:center;color:#ff7f00;font-weight:600}
+.buy-btn{--background:#ff7f00;--color:#fff;width:100%}
+.welcome-row{padding:12px 15px 0}
+.welcome-text{margin:0;font-weight:600;color:#222}
+.user-name{color:#ff7f00}
+
+.bottom-footer {background: #ffffff;padding: 8px 0;border-top: 1px solid #eee}
+.footer-actions {display: flex;justify-content: space-around;align-items: center}
+.footer-btn {background: transparent;border: none;display: flex;flex-direction: row;align-items: center;gap: 8px;padding: 6px 10px;font-size: 14px;color: #666;min-width: 64px;justify-content: center}
+.footer-btn ion-icon {font-size: 20px;margin-bottom: 0;color: inherit}
+.footer-btn.active {color: #ff7f00}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+	.footer-actions {gap: 6px;padding: 4px 8px}
+	.footer-btn {font-size: 13px;gap: 6px;padding: 6px 8px}
+	.footer-btn ion-icon {font-size: 18px}
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+	.footer-btn ion-icon {font-size: 22px}
+}
+
+/* Search, categories and product badge styles moved from menu.page.scss */
+.search-container {display:flex;align-items:center;background:#f2f2f2;margin:15px;padding:10px 15px;border-radius:15px}
+.search-container input {border:none;outline:none;width:100%;font-size:15px;background:transparent}
+.search-icon{margin-right:10px;font-size:1.3rem;color:#666}
+ion-icon.search-icon, .search-icon{display:inline-block;width:20px;height:20px;line-height:20px;font-size:20px;color:#ff7f00}
+.category-title{margin:10px 15px 5px;font-weight:bold;font-size:14px;color:#222}
+.categories{display:flex;gap:10px;overflow-x:auto;padding:0 15px}
+ion-chip{--background:#ffffff;--color:#333;border:1px solid #dcdcdc;font-size:13px}
+ion-chip.selected{--background:#ff7f00;--color:#fff;border:none}
+.image-wrap{position:relative;display:flex;justify-content:center;padding-top:12px}
+.category-item{width:72px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer}
+.category-icon-wrap{width:56px;height:56px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.category-image{width:40px;height:40px;object-fit:contain}
+.category-name{font-size:12px;margin-top:6px;color:#333}
+.category-item.selected .category-icon-wrap{background:#ffefdc;border:1px solid #ffd28a}
+.price-badge{position:absolute;right:10px;top:10px;transform:translate(12px,-12px);background:rgba(0,0,0,0.85);color:#fff;padding:6px 10px;border-radius:14px;font-size:12px;z-index:5;border:4px solid #ffffff;box-shadow:0 4px 10px rgba(0,0,0,0.14);pointer-events:none}
+.menu-body{padding-top:8px}
+.menu-desc{font-size:12px;color:#666;margin:6px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;line-height:1.2rem;max-height:2.4rem}
+.no-results{grid-column:1 / -1;text-align:center;color:#777;padding:20px 0}

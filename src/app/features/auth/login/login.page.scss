@@ -37,6 +37,11 @@
   --highlight-color-focused: #ff3d00;
 }
 
+/* Ensure floating labels are visible (not white) and match theme.
+   Keep focused state highlighted (light green) as requested. */
+.input-item ion-label { color: #333 !important; transition: color .12s ease; }
+.input-item:focus-within ion-label { color: #8bc34a !important; }
+
 .forgot-text {
   display: block;
   margin: 10px 0;
@@ -101,4 +106,40 @@
   .form-container {
     max-width: 280px;
   }
+}
+
+/* Extra robust selectors to ensure floating labels are visible and keep the
+   focused floating label green across Ionic variants and platform styles. */
+.login-container ion-label,
+.input-item ion-label { color: #333 !important; transition: color .12s ease; }
+
+.login-container ion-item.ion-focused ion-label,
+.login-container ion-item:focus-within ion-label,
+.input-item:focus-within ion-label,
+.input-item ion-label.ion-floating,
+.input-item ion-label.ion-focused { color: #8bc34a !important; }
+
+/* Extra catch-all rules for generated/native labels (some Ionic versions
+  render native <label> or platform-specific classes). Scoped to .login-container
+  so it doesn't affect other pages. */
+.login-container .input-item label,
+.login-container .input-item .label,
+.login-container .input-item .label-md,
+.login-container .input-item .label-ios,
+.login-container .input-item .sc-ion-label-md,
+.login-container .input-item .sc-ion-label-ios { color: #333 !important; }
+
+.login-container .input-item label[aria-hidden="false"],
+.login-container .input-item .label.ion-floating { color: #8bc34a !important; }
+
+/* Extra aggressive selectors to catch platform/generated labels / shadow DOM
+   renderings. Keeps background white but forces label visible and opaque. */
+.login-container ::ng-deep .input-item .label,
+.login-container ::ng-deep .input-item label,
+.login-container ::ng-deep .input-item .label-md,
+.login-container ::ng-deep .input-item .label-ios,
+.login-container ::ng-deep .input-item .sc-ion-label-md,
+.login-container ::ng-deep .input-item .sc-ion-label-ios {
+  color: #333 !important;
+  opacity: 1 !important;
 }
