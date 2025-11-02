@@ -282,10 +282,21 @@
 }
 
 .footer-btn .footer-img {
-	width: 28px;
-	height: 28px;
+		width: 22px;
+		height: 22px;
 	object-fit: contain;
 	display: block;
+}
+
+/* Make footer images slightly larger on wider screens */
+@media (min-width: 768px) {
+	.footer-btn .footer-img {
+		width: 28px;
+		height: 28px;
+	}
+	.footer-btn {
+		font-size: 14px;
+	}
 }
 
 .footer-btn.active {
