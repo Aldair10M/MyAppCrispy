@@ -11,5 +11,57 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="perfil-content">
-  
+  <form [formGroup]="form" (ngSubmit)="saveProfile()" class="perfil-form">
+    <div class="profile-header">
+      <ion-avatar>
+        <!-- placeholder avatar; could be replaced by user avatarUrl when available -->
+        <img src="assets/img/logo-crispy.png" alt="avatar" />
+      </ion-avatar>
+      <div class="profile-name">
+        <h3>{{ form.get('username')?.value || 'Usuario' }}</h3>
+        <small *ngIf="user">Miembro desde: {{ user.createdAt ? (user.createdAt | date:'shortDate') : '—' }}</small>
+      </div>
+    </div>
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input formControlName="username" placeholder="Tu nombre completo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
+        <ion-input type="date" formControlName="birthdate"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Dirección</ion-label>
+        <ion-input formControlName="address" placeholder="Dirección de entrega"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Teléfono</ion-label>
+        <ion-input type="tel" formControlName="phone" placeholder="Número celular"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input formControlName="email" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Cambiar contraseña</ion-label>
+        <ion-input type="password" formControlName="password" placeholder="Nueva contraseña"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Confirmar contraseña</ion-label>
+        <ion-input type="password" formControlName="confirmPassword" placeholder="Repite la nueva contraseña"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="actions">
+      <ion-button type="submit" expand="block" color="primary">Guardar</ion-button>
+    </div>
+  </form>
 </ion-content>
