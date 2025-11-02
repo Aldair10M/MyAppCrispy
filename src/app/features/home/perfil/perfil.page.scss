@@ -54,9 +54,10 @@
     --background: #ffffff;
     background: #ffffff;
     color: #000;
-    /* keep a small padding-bottom so content doesn't overlap footer; avoid large hardcoded values */
-    --padding-bottom: 80px;
-    padding: 12px 12px 0; /* top padding only; bottom handled by --padding-bottom */
+    /* keep a reasonable padding-bottom so content doesn't overlap footer; control via Ionic variable */
+    --padding-bottom: 70px;
+    --padding-top: 20px;
+    padding: 20px 12px 0; /* lateral padding only; top handled by --padding-top */
 }
 
 .perfil-form {
@@ -82,8 +83,8 @@
 
 .section-title {
     font-weight: 800;
-    font-size: 20px;
-    margin: 20px 12px 18px; /* top spacing from header */
+    font-size: 24px;
+    margin: 26px 12px 18px; /* top spacing from header */
     color: #000 !important; /* ensure the section title is visible */
     text-align: center;
 }
@@ -162,7 +163,12 @@
 
 /* Small layout tweak so the form doesn't stick to the edges */
 .perfil-form {
-    padding: 6px 6px 16px; /* reduce bottom padding to avoid large cumulative space */
+    padding: 6px 6px 8px; /* minimal bottom padding; avoid adding extra whitespace */
+}
+
+/* ensure no manual padding is applied to the internal scroll container created by Ionic */
+.perfil-content::part(scroll) {
+    padding: 0 !important;
 }
 
 /* Add padding to the inner scrolling container so content doesn't sit under header/footer
