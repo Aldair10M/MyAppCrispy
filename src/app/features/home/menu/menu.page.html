@@ -86,20 +86,28 @@
 <ion-footer class="bottom-footer">
   <div class="footer-actions" role="navigation" aria-label="Footer navigation">
     <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('home')" [class.active]="activeTab === 'home'" aria-label="Inicio">
-      <img [src]="footerImages.home" alt="Inicio" class="footer-img" />
-      <span>Inicio</span>
+      <div class="footer-content">
+        <img [src]="footerImages.home" alt="Inicio" class="footer-img" />
+        <div class="footer-label">Inicio</div>
+      </div>
     </ion-button>
     <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('search')" [class.active]="activeTab === 'search'" aria-label="Buscar">
-      <img [src]="footerImages.search" alt="Buscar" class="footer-img" />
-      <span>Buscar</span>
+      <div class="footer-content">
+        <img [src]="footerImages.search" alt="Buscar" class="footer-img" />
+        <div class="footer-label">Buscar</div>
+      </div>
     </ion-button>
     <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('orders')" [class.active]="activeTab === 'orders'" aria-label="Pedidos">
-      <img [src]="footerImages.orders" alt="Pedidos" class="footer-img" />
-      <span>Pedidos</span>
+      <div class="footer-content">
+        <img [src]="footerImages.orders" alt="Pedidos" class="footer-img" />
+        <div class="footer-label">Pedidos</div>
+      </div>
     </ion-button>
     <ion-button fill="clear" class="footer-btn" (click)="navigateToTab('profile')" [class.active]="activeTab === 'profile'" aria-label="Perfil">
-      <img [src]="footerImages.profile" alt="Perfil" class="footer-img" />
-      <span>Perfil</span>
+      <div class="footer-content">
+        <img [src]="footerImages.profile" alt="Perfil" class="footer-img" />
+        <div class="footer-label">Perfil</div>
+      </div>
     </ion-button>
   </div>
 </ion-footer>
