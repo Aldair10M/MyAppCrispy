@@ -16,7 +16,9 @@ export class Product {
     description?: string,
     imageUrl?: string,
     available: boolean = true
-  ) {
+  ) 
+  
+  {
     this.name = name;
     this.price = price;
     this.category = category;

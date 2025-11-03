@@ -25,7 +25,9 @@ export class Orden {
     total?: number,
     status: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' = 'pending',
     userId?: string
-  ) {
+  ) 
+  
+  {
     this.items = items;
     this.subtotal = subtotal;
     this.shipping = shipping;

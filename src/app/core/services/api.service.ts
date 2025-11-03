@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class ApiService {
-  // El backend expone las rutas bajo /api (ver backend/src/server.ts -> app.use('/api/users', ...))
+
   private baseUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {}
@@ -16,7 +16,6 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/users/register`, user);
   }
 
-  // Generic helpers so other services can call API endpoints using a simple path
   post<T = any>(path: string, body: any, options?: any): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}/${path}`, body, options) as unknown as Observable<T>;
   }

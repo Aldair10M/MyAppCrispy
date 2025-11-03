@@ -24,7 +24,7 @@ export class CartService {
     } catch (e) {
       console.warn('CartService: could not persist cart', e);
     }
-    // emit updated cart
+    
     this._cartSubject.next(cart);
   }
 

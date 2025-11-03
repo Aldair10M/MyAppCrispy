@@ -16,7 +16,7 @@ import { Product } from '../../../core/models/product.model';
   imports: [IonContent, IonHeader, IonToolbar, IonButton, IonImg, IonFooter, CommonModule, FormsModule]
 })
 export class CarritoPage implements OnInit {
-  // cart items are persisted in localStorage by the Menu page as { id, name, qty, price }
+
   cart: Array<any> = [];
   productsCache: Product[] = [];
 
@@ -46,12 +46,11 @@ export class CarritoPage implements OnInit {
 
   async confirmOrder() {
     if (!this.cart || this.cart.length === 0) {
-      // Prevent confirming an empty order
       alert('No hay productos en el carrito. Agrega productos antes de confirmar.');
       return;
     }
 
-  const order = {
+    const order = {
       id: 'order_' + Date.now(),
       items: this.cart.map(c => ({ id: c.id, name: c.name, qty: c.qty, price: c.price, img: c.img })),
       subtotal: this.subtotal,
@@ -63,9 +62,7 @@ export class CarritoPage implements OnInit {
 
     console.log('Order confirmed', order);
 
-    // Persist order to backend (Firestore) and locally as fallback
-  try {
-      // attach user email if available
+    try {
       const rawUser = localStorage.getItem('user');
       if (rawUser) {
         const u = JSON.parse(rawUser);
@@ -76,7 +73,6 @@ export class CarritoPage implements OnInit {
       this.api.post('orders', order).subscribe({
         next: async (res: any) => {
           console.log('Order saved to server', res);
-          // persist to local history as well
           try {
             const raw = localStorage.getItem('orders');
             const orders = raw ? JSON.parse(raw) : [];
@@ -86,7 +82,6 @@ export class CarritoPage implements OnInit {
             console.warn('Could not persist orders history locally', e);
           }
 
-          // show success toast and then clear cart
           const t = await this.toast.create({
             message: 'Pedido confirmado y guardado ✅',
             duration: 2500,
@@ -94,12 +89,10 @@ export class CarritoPage implements OnInit {
           });
           await t.present();
 
-          // clear cart
           this.cartService.clear();
         },
         error: async (err: any) => {
           console.error('Error saving order to server', err);
-          // fallback: persist locally so user doesn't lose order
           try {
             const raw = localStorage.getItem('orders');
             const orders = raw ? JSON.parse(raw) : [];
@@ -139,27 +132,22 @@ export class CarritoPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // subscribe to cart stored in CartService
     this.cart = this.cart || [];
     this.cartService.cart$.subscribe((cart: any) => {
       this.cart = cart || [];
-      // when cart changes, enrich items with product metadata
       this.enrichCartItems();
     });
 
-    // Load products to enhance cart items (images, updated prices)
     this.productService.getAll().subscribe({
       next: (items: Product[]) => {
         this.productsCache = items || [];
         this.enrichCartItems();
       },
       error: (err) => {
-        // If product fetch fails, we still show cart from localStorage
         console.warn('Could not load products to enrich cart', err);
       }
     });
   }
-  
 
   private enrichCartItems() {
     if (!this.productsCache?.length) return;

@@ -43,7 +43,6 @@ export class PerfilPage implements OnInit {
     });
   }
 
-  // Footer images (use same assets as menu)
   footerImages = {
     home: 'assets/img/inicio.png',
     search: 'assets/img/buscar.png',
@@ -64,19 +63,17 @@ export class PerfilPage implements OnInit {
         try {
           const el = document.getElementById('search') as HTMLInputElement | null;
           if (el) el.focus();
-        } catch (e) {}
+        } catch (e) { }
       }, 60);
     }
   }
 
   ngOnInit() {
-    // Try to load the current user from localStorage (matches other pages)
     try {
       const raw = localStorage.getItem('user');
       if (raw) {
         const u = JSON.parse(raw) as User;
         this.user = u;
-        // patch form values (email is readonly)
         this.form.patchValue({
           username: u.username || '',
           birthdate: u.birthdate || '',
@@ -92,39 +89,32 @@ export class PerfilPage implements OnInit {
 
   saveProfile() {
     if (this.form.invalid) {
-      // simple visual guard; template could show errors
       this.form.markAllAsTouched();
       return;
     }
 
     const values = this.form.getRawValue();
-    // merge with original user object if exists
     const updated: any = Object.assign({}, this.user || {}, {
       username: values.username,
       birthdate: values.birthdate,
       address: values.address,
       phone: values.phone,
-      // email is readonly but included for completeness
       email: values.email,
       updatedAt: Date.now()
     });
 
-    // If user changed password fields and they match, update password
     if (values.password && values.password === values.confirmPassword) {
       (updated as any).password = values.password;
     }
 
     try {
-      // persist locally first
       localStorage.setItem('user', JSON.stringify(updated));
       this.user = updated;
       console.log('Perfil guardado (local)', updated);
 
-      // send update to backend to persist in Firestore
       this.api.put('users/update', updated).subscribe({
         next: (res: any) => {
           console.log('Perfil actualizado en servidor', res);
-          // if backend returns user, sync local copy
           if (res && res.user) {
             localStorage.setItem('user', JSON.stringify(res.user));
             this.user = res.user;

@@ -19,7 +19,6 @@ export const createOrder = async (req: Request, res: Response) => {
       payload.userId || undefined
     );
 
-    // attach optional metadata
     if ((payload as any).email) (order as any).email = (payload as any).email;
 
     const ordersRef = db.collection('orders');

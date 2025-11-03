@@ -26,7 +26,7 @@ export const getProduct = async (req: Request, res: Response) => {
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const payload = req.body;
-    // basic validation
+
     if (!payload.name || typeof payload.price !== 'number' || !payload.category) {
       return res.status(400).json({ error: 'name, price (number) and category are required' });
     }

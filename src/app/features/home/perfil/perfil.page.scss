@@ -10,7 +10,6 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* larger header */
     padding-top: 10px;
     padding-bottom: 14px;
     min-height: 84px;
@@ -30,7 +29,6 @@
     height: 56px;
 }
 
-/* Inputs modernos (floating label) - copied from register styles */
 .input-modern {
     border-radius: 8px;
     margin: 10px 0;
@@ -38,7 +36,6 @@
     --highlight-color-focused: #ff3d00;
 }
 
-/* Container for the form to align with register page layout */
 .perfil-form {
     display: flex;
     flex-direction: column;
@@ -48,7 +45,6 @@
     margin: 6px auto 18px;
 }
 
-/* Clear-style ion-button used as secondary action */
 ion-button[fill="clear"] {
     color: #000;
     font-weight: 500;
@@ -63,15 +59,11 @@ ion-button[fill="clear"] {
     align-self: center;
 }
 
-/* Ensure input text and caret are visible (black) */
 .input-modern {
-    /* text color for ion-inputs inside this item */
     --color: #000;
-    /* placeholder color for inputs */
     --placeholder-color: #8a8a8a;
 }
 
-/* Target native input parts for reliable coloring across Ionic versions */
 .input-modern ion-input::part(native),
 .input-modern input,
 .input-modern textarea {
@@ -79,7 +71,6 @@ ion-button[fill="clear"] {
     caret-color: #000 !important;
 }
 
-/* Make floating label text clearly visible on white background */
 .input-modern ion-label {
     color: #222 !important;
 }

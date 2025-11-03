@@ -6,7 +6,6 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-// Register only the icons our app uses to avoid runtime asset URL issues
 import { addIcons } from 'ionicons';
 import {
   searchOutline,

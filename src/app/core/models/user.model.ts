@@ -10,8 +10,6 @@ export class User {
   codigo?: string;
   createdAt?: number;
   updatedAt?: number;
-
-  
   isVerified: boolean;
   verificationCode?: string;
 
@@ -26,7 +24,9 @@ export class User {
     codigo?: string,
     isVerified: boolean = false,
     verificationCode?: string
-  ) {
+  ) 
+  
+  {
     this.username = username;
     this.birthdate = birthdate;
     this.address = address;

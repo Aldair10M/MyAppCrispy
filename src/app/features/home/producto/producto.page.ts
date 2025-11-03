@@ -16,13 +16,10 @@ export class ProductoPage implements OnInit {
   item: any = null;
   qty: number = 1;
 
-  // make router public so template can call navigate and for easier debugging
   debugState: any = null;
   constructor(public router: Router, private cartService: CartService) { }
 
   ngOnInit() {
-    // Try to read navigation state (set by menu.buy)
-    // Read navigation state robustly: try Router.getCurrentNavigation() first, then history.state
     let s: any = {};
     try {
       const nav = (this.router as any).getCurrentNavigation?.();
@@ -35,18 +32,15 @@ export class ProductoPage implements OnInit {
       s = history.state || {};
     }
 
-    // if navigation state empty, try sessionStorage (saved by menu.buy)
     if ((!s || Object.keys(s).length === 0) && typeof sessionStorage !== 'undefined') {
       try {
         const raw = sessionStorage.getItem('selectedProduct');
         if (raw) {
           const parsed = JSON.parse(raw);
           s = { ...s, ...parsed };
-          // clear sessionStorage to avoid stale values
           sessionStorage.removeItem('selectedProduct');
         }
       } catch (e) {
-        // ignore
       }
     }
 

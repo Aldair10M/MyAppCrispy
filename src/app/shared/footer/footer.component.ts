@@ -24,14 +24,13 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   private _sub: Subscription | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    // initialize from current router url
     try {
       const url = (this.router.url as string) || '';
       this.activeTab = this.mapUrlToTab(url);
-    } catch (e) {}
+    } catch (e) { }
 
     this._sub = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: any) => {
       const url: string = e.urlAfterRedirects || e.url || '';
@@ -40,7 +39,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    try { this._sub?.unsubscribe(); } catch (e) {}
+    try { this._sub?.unsubscribe(); } catch (e) { }
   }
 
   navigateToTab(tab: 'home' | 'search' | 'orders' | 'profile') {
@@ -57,7 +56,7 @@ export class FooterComponent implements OnInit, OnDestroy {
           try {
             const el = document.getElementById('search') as HTMLInputElement | null;
             if (el) el.focus();
-          } catch (e) {}
+          } catch (e) { }
         }, 60);
       });
     }

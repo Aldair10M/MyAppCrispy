@@ -20,7 +20,6 @@ export const verifyUserCode = async (req: Request, res: Response) => {
   if (user['verificationCode'] !== code)
     return res.status(400).json({ error: 'Código incorrecto' });
 
-  // Actualizar en Firestore a verificado
   const usersRef = db.collection('users');
   const snapshot = await usersRef.where('email', '==', email).get();
   if (!snapshot.empty) {
@@ -30,7 +29,6 @@ export const verifyUserCode = async (req: Request, res: Response) => {
   return res.status(200).json({ message: '✅ Cuenta verificada correctamente' });
 };
 
-// DEBUG: obtener usuario por email (solo para desarrollo)
 export const debugGetUser = async (req: Request, res: Response) => {
   const email = String((req.query as any)['email'] || '');
   if (!email) return res.status(400).json({ error: 'email query required' });
@@ -51,7 +49,6 @@ export const registerUser = async (req: Request, res: Response) => {
   console.log('registerUser - Body recibido:', { ...req.body, password: '[HIDDEN]', confirmPassword: '[HIDDEN]' });
 
   try {
-    // Validación de campos requeridos
     const requiredFields = ['username', 'birthdate', 'address', 'phone', 'email', 'password'];
     const missingFields = requiredFields.filter(field => !req.body[field]);
     
@@ -65,14 +62,12 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const { username, birthdate, address, phone, email, password, confirmPassword, codigo } = req.body;
 
-    // Validar formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       console.log('registerUser - Formato de email inválido');
       return res.status(400).json({ error: 'Formato de email inválido' });
     }
 
-    // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
       console.log('registerUser - Las contraseñas no coinciden');
       return res.status(400).json({ error: 'Las contraseñas no coinciden' });
@@ -113,12 +108,10 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    // Opcional: comprobar si el usuario está verificado
     if ((user as any).isVerified === false) {
       return res.status(403).json({ error: 'Cuenta no verificada' });
     }
 
-    // Responder con información segura del usuario
     const safeUser = { ...user } as any;
     delete safeUser.password;
 
@@ -134,7 +127,6 @@ export const updateUser = async (req: Request, res: Response) => {
     const { email, ...updates } = req.body;
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
-    // Remove undefined fields (Firestore doesn't accept undefined)
     Object.keys(updates).forEach(k => updates[k] === undefined && delete updates[k]);
 
     const usersRef = db.collection('users');
@@ -142,7 +134,6 @@ export const updateUser = async (req: Request, res: Response) => {
     if (snapshot.empty) return res.status(404).json({ error: 'Usuario no encontrado' });
 
     const docRef = snapshot.docs[0].ref;
-    // Add updatedAt timestamp
     updates.updatedAt = Date.now();
 
     await docRef.update(updates);

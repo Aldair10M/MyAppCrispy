@@ -3,7 +3,6 @@ import { registerUser, verifyUserCode, debugGetUser, loginUser, updateUser } fro
 
 const router = Router();
 
-// Endpoint para registrar usuario
 router.post('/register', registerUser);
 router.post('/verify', verifyUserCode);
 router.post('/login', loginUser);

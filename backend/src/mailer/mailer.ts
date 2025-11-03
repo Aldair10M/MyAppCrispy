@@ -13,7 +13,7 @@ const {
   EMAIL_ENABLED
 } = process.env;
 
-// ⚙️ Configuramos el transporter SMTP
+// Configuramos el transporter SMTP
 const transporter = nodemailer.createTransport({
   host: SMTP_HOST,
   port: Number(SMTP_PORT) || 465,
@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// 🧩 Función para enviar correos
+// Función para enviar correos
 export async function sendVerificationEmail(to: string, code: string) {
   if (EMAIL_ENABLED !== 'true') {
     console.log('📧 Email deshabilitado (EMAIL_ENABLED=false)');

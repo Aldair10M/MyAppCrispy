@@ -82,10 +82,8 @@
 
 </ion-content>
 
-<!-- Shared footer -->
 <app-footer></app-footer>
 
-<!-- Floating cart icon (appears when items added) -->
 <div class="floating-cart" *ngIf="cartCount > 0" (click)="goToCompras()" role="button" aria-label="Ir a compras">
   <img src="assets/img/logo-carritoCompras.png" alt="Carrito" />
   <div class="floating-badge">{{ cartCount }}</div>
