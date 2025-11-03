@@ -11,7 +11,7 @@ export class User {
   createdAt?: number;
   updatedAt?: number;
 
-  // 👇 Campos nuevos para verificación por correo
+  
   isVerified: boolean;
   verificationCode?: string;
 
@@ -38,7 +38,7 @@ export class User {
     this.createdAt = Date.now();
     this.updatedAt = Date.now();
 
-    // 👇 Inicializamos los nuevos
+    
     this.isVerified = isVerified;
     this.verificationCode = verificationCode;
   }

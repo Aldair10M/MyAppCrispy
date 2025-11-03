@@ -51,8 +51,7 @@ export class CarritoPage implements OnInit {
       return;
     }
 
-    // Build a full order object. In a real app this would be sent to a backend API.
-    const order = {
+  const order = {
       id: 'order_' + Date.now(),
       items: this.cart.map(c => ({ id: c.id, name: c.name, qty: c.qty, price: c.price, img: c.img })),
       subtotal: this.subtotal,
