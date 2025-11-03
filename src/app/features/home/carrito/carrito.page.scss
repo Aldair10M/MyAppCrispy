@@ -50,7 +50,6 @@
     margin: 0 auto;
 }
 
-/* add a spacer at the end of the scrollable content so final cards can scroll above the fixed footer */
 .page-inner::after{
     content: '';
     display: block;
@@ -64,8 +63,6 @@
     font-weight: 600 !important;
 }
 
-/* PRODUCT LIST COMPACT V2 */
-
 .product-list {
     display: flex;
     flex-direction: column;
@@ -76,15 +73,14 @@
     display: flex;
     align-items: center;
     background-color: #fff4d6;
-    /* se mantiene tu color */
-    border-radius: 35px; /* slightly more rounded */
+    border-radius: 35px;
     margin: 0 10px 0px 10px;    
     padding: 12px 12px 0 12px;
     padding-bottom: 0;
     gap: 12px;
     border: 1px solid rgba(0, 0, 0, 0.04);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-    overflow: hidden; /* ensure rounded corners clip children */
+    overflow: hidden;
 }
 
 .prod-img {
@@ -99,7 +95,6 @@
     flex: 1;
     display: flex;
     align-items: center;
-    /* CENTRA vertical */
 }
 
 .prod-name {
@@ -111,20 +106,18 @@
 .product-right{
     display:flex;
     flex-direction:column;
-    align-items:flex-end; /* align to the right edge */
-    justify-content:space-between; /* qty at top, trash at bottom */
-    gap:6px; /* slightly reduced spacing between elements */
-    min-width:56px; /* tighter width so trash sits closer to edge */
-    padding-top:4px; /* nudge qty controls a bit lower for visual balance */
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:6px;
+    min-width:56px;
+    padding-top:4px;
     padding-bottom:4px;
 }
-
-/* qty arriba derecha horizontal */
 
 .qty-controls{
     display:flex;
     align-items:center;
-    gap:8px; /* small gap between - value + for readability */
+    gap:8px;
 }
 
 .qty-btn {
@@ -142,21 +135,17 @@
     min-width: 24px;
     text-align: center;
     font-weight: 700;
-    color: #222; /* darker for contrast on pale yellow */
+    color: #222;
     font-size: 16px;
 }
-
-/* precio debajo */
 
 .prod-price{
     color:#000;
     font-weight:700;
     font-size:15px;
     text-align:right;
-    margin-top:8px; /* add separation from qty controls above */
+    margin-top:8px;
 }
-
-/* tachito abajo */
 
 .trash-btn{
     background:transparent;
@@ -164,11 +153,11 @@
     color:#c44;
     --padding-start: 0;
     --padding-end: 0;
-    height:30px; /* compact */
+    height:30px;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin-right:0; /* remove extra offset so icon sits closer to edge */
+    margin-right:0;
 }
 .trash-btn ion-img, .trash-btn img, .trash-btn .trash-img{width:20px;height:20px;object-fit:contain}
 .trash-btn img,
@@ -177,9 +166,6 @@
     height: 20px;
     object-fit: contain;
 }
-
-
-/* FOOTER */
 
 .compras-footer {
     position: fixed;

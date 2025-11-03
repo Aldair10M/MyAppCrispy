@@ -270,20 +270,47 @@
 	background: transparent;
 	border: none;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
 	padding: 6px 10px;
-	font-size: 14px;
+	font-size: 13px;
 	color: #666;
 	min-width: 64px;
-	justify-content: center
+	justify-content: center;
+	text-align: center;
 }
 
-.footer-btn ion-icon {
-	font-size: 20px;
-	margin-bottom: 0;
-	color: inherit
+.footer-btn .footer-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer-btn .footer-img {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+	display: block;
+	margin-bottom: 4px;
+}
+
+.footer-btn .footer-label {
+	font-size: 12px;
+	line-height: 1;
+	color: inherit;
+}
+
+/* Make footer images slightly larger on wider screens */
+@media (min-width: 768px) {
+	.footer-btn .footer-img {
+		width: 28px;
+		height: 28px;
+	}
+	.footer-btn {
+		font-size: 14px;
+	}
 }
 
 .footer-btn.active {

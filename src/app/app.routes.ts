@@ -21,13 +21,18 @@ export const routes: Routes = [
         loadComponent: () => import('./features/home/pedidos/pedidos.page').then(m => m.PedidosPage)
       },
       {
-        path: 'compras',
-        loadComponent: () => import('./features/home/compras/compras.page').then(m => m.ComprasPage)
+        path: 'carrito',
+        loadComponent: () => import('./features/home/carrito/carrito.page').then(m => m.CarritoPage)
       },
       {
         path: 'perfil',
         loadComponent: () => import('./features/home/perfil/perfil.page').then(m => m.PerfilPage)
-      }
+      },
+      {
+        path: 'producto',
+        loadComponent: () => import('./features/home/producto/producto.page').then(m => m.ProductoPage)
+      },
+      // removed duplicate/obsolete 'compras' route — use '/home/carrito' instead
     ]
   },
 
@@ -62,6 +67,6 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '**', redirectTo: 'main' }
-
+  { path: '**', redirectTo: 'main' },
+  
 ];

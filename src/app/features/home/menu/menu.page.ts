@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -12,10 +12,12 @@ import {
   IonTitle,
   IonList,
   IonItem,
-  IonFooter
+  
 } from '@ionic/angular/standalone';
+import { FooterComponent } from '../../../shared/footer/footer.component';
 
 import { ProductService } from '../../../core/services/product.service';
+import { CartService } from '../../../core/services/cart.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Product } from '../../../core/models/product.model';
@@ -35,12 +37,12 @@ import { Product } from '../../../core/models/product.model';
     IonTitle,
     IonList,
     IonItem,
-    IonFooter,
+    FooterComponent,
     CommonModule,
     FormsModule
   ]
 })
-export class MenuPage implements OnInit {
+export class MenuPage implements OnInit, OnDestroy {
 
   userName: string | null = null;
 
@@ -58,14 +60,27 @@ export class MenuPage implements OnInit {
 
   menuItems: Product[] = [];
   selectedItemId: string | null = null;
-  quantities: Record<string, number> = {};
-  // simple cart stored in localStorage
+  // allow undefined so templates can use the nullish coalescing operator (??)
+  // e.g. quantities[id] ?? 1 — 0 must remain a valid value
+  quantities: Record<string, number | undefined> = {};
+  // simple cart stored in localStorage (kept in sync via CartService)
   cartItems: Array<{ id: string; name: string; qty: number; price?: number }> = [];
   cartCount: number = 0;
+  private _cartSub: any;
 
   activeTab: 'home' | 'search' | 'orders' | 'profile' = 'home';
 
-  constructor(private productService: ProductService, private router: Router) { }
+  // footer images (assets) — can be adjusted to use different image names
+  footerImages = {
+    // explicit assets provided by user
+    home: 'assets/img/inicio.png',
+    search: 'assets/img/buscar.png',
+    orders: 'assets/img/pedido.png',
+    profile: 'assets/img/perfil.png'
+  };
+
+  constructor(private productService: ProductService, private router: Router, private cartService: CartService) { }
+
 
   ngOnInit() {
     // Track navigation to update the active footer tab based on current route
@@ -84,36 +99,63 @@ export class MenuPage implements OnInit {
       this.userName = null;
     }
 
-    // load cart from localStorage
+    // subscribe to cart updates from CartService
+    this._cartSub = this.cartService.cart$.subscribe(cart => {
+      this.cartItems = cart || [];
+      this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+    });
+  }
+
+  ngOnDestroy() {
     try {
-      const c = localStorage.getItem('cart');
-      if (c) {
-        this.cartItems = JSON.parse(c);
-        this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
-      }
+      this._cartSub?.unsubscribe?.();
     } catch (e) {
-      this.cartItems = [];
-      this.cartCount = 0;
+      // ignore
     }
   }
 
   mapUrlToTab(url: string): 'home' | 'search' | 'orders' | 'profile' {
     if (!url) return 'home';
-    if (url.startsWith('/home')) return 'home';
-    if (url.startsWith('/auth')) return 'home';
+    // check more specific routes first (profile, orders, search)
     if (url.startsWith('/home/perfil') || url.startsWith('/perfil') || url.startsWith('/profile')) return 'profile';
     if (url.startsWith('/home/pedidos') || url.startsWith('/pedidos') || url.startsWith('/orders') || url.startsWith('/cart')) return 'orders';
     if (url.startsWith('/search')) return 'search';
+    // generic home checks last so /home/perfil isn't captured by this
+    if (url.startsWith('/home')) return 'home';
+    if (url.startsWith('/auth')) return 'home';
     return 'home';
   }
 
   navigateToTab(tab: 'home' | 'search' | 'orders' | 'profile') {
     this.activeTab = tab;
     // navigate when a real route exists, otherwise just set the tab visually
-    if (tab === 'home') this.router.navigateByUrl('/home');
-    else if (tab === 'profile') this.router.navigateByUrl('/home/perfil');
-    else if (tab === 'orders') this.router.navigateByUrl('/home/pedidos');
-    else if (tab === 'search') this.router.navigateByUrl('/home');
+    if (tab === 'home') {
+      this.router.navigateByUrl('/home');
+    } else if (tab === 'profile') {
+      this.router.navigateByUrl('/home/perfil');
+    } else if (tab === 'orders') {
+      this.router.navigateByUrl('/home/pedidos');
+    } else if (tab === 'search') {
+      // navigate to home (which contains the search input) then focus the input so
+      // on mobile the keyboard opens and on desktop the cursor is placed
+      this.router.navigateByUrl('/home').then(() => {
+        // small timeout to ensure the view has rendered
+        setTimeout(() => this.focusSearchInput(), 60);
+      });
+    }
+  }
+
+  private focusSearchInput() {
+    try {
+      const el = document.getElementById('search') as HTMLInputElement | null;
+      if (el) {
+        el.focus();
+        // select text if any so user can quickly replace
+        try { el.select(); } catch (e) { /* ignore */ }
+      }
+    } catch (e) {
+      // ignore failures (e.g., server-side rendering)
+    }
   }
 
   loadProducts() {
@@ -143,7 +185,8 @@ export class MenuPage implements OnInit {
     } else {
       this.selectedItemId = id;
       // initialize quantity
-      if (!this.quantities[id]) this.quantities[id] = 1;
+  // Reset quantity to 1 whenever the item is (re)selected
+  this.quantities[id] = 1;
       // Bring the selected item into view (do not reorder the array).
       // Wait a tick so the expanded class/layout is applied.
       setTimeout(() => {
@@ -167,45 +210,51 @@ export class MenuPage implements OnInit {
 
   increment(item: Product) {
     const id = item.id || item.name;
-    this.quantities[id] = (this.quantities[id] || 0) + 1;
+    this.quantities[id] = (this.quantities[id] ?? 0) + 1;
   }
 
   decrement(item: Product) {
     const id = item.id || item.name;
-    const current = this.quantities[id] || 0;
-    if (current > 1) this.quantities[id] = current - 1;
+    const current = this.quantities[id] ?? 0;
+    if (current > 0) {
+      this.quantities[id] = current - 1;
+      // if quantity reached 0 and this item is selected, deselect it
+      if (this.quantities[id] === 0 && this.selectedItemId === id) {
+        this.selectedItemId = null;
+      }
+    }
   }
 
   buy(item: Product) {
     const id = item.id || item.name;
     const qty = this.quantities[id] || 1;
-    // For now, just log and show an alert. In a real app, add to cart API
-    console.log('Buy', { item, qty });
-    alert(`Compra: ${qty} x ${item.name}`);
+    // Add the selected quantity to cart and navigate to the compras page
+    this.addToCart(item);
     // Optionally deselect after adding
     this.selectedItemId = null;
+    // persist selection in sessionStorage so ProductoPage can read it even if navigation state is lost
+    try {
+      sessionStorage.setItem('selectedProduct', JSON.stringify({ item, qty }));
+    } catch (e) {
+      console.warn('Could not write selectedProduct to sessionStorage', e);
+    }
+    // Navigate to the producto page under /home and pass the item + qty in navigation state
+    // the ProductoPage can read history.state or sessionStorage to get this data
+    this.router.navigate(['/home/producto'], { state: { item, qty } });
   }
 
   addToCart(item: Product) {
-    const id = item.id || item.name;
-    const qty = this.quantities[id] || 1;
-    const existing = this.cartItems.find(c => c.id === id);
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      this.cartItems.push({ id, name: item.name, qty, price: item.price });
-    }
-    this.cartCount = this.cartItems.reduce((s, it) => s + (it.qty || 0), 0);
+    const qty = this.quantities[item.id || item.name] || 1;
     try {
-      localStorage.setItem('cart', JSON.stringify(this.cartItems));
+      this.cartService.addItem(item, qty);
     } catch (e) {
-      console.warn('Could not persist cart', e);
+      console.warn('Could not add item to cart', e);
     }
   }
 
   goToCompras() {
     // navigate to the compras child route under home
-    this.router.navigateByUrl('/home/compras');
+    this.router.navigateByUrl('/home/carrito');
   }
 
   get filteredItems(): Product[] {
