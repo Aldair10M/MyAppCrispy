@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonToolbar, IonButton, IonImg, IonFooter } from '@ionic/angular/standalone';
+import { ToastController } from '@ionic/angular';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { ApiService } from '../../../core/services/api.service';
@@ -43,7 +44,7 @@ export class CarritoPage implements OnInit {
     this.cartService.remove(item.id);
   }
 
-  confirmOrder() {
+  async confirmOrder() {
     if (!this.cart || this.cart.length === 0) {
       // Prevent confirming an empty order
       alert('No hay productos en el carrito. Agrega productos antes de confirmar.');
@@ -64,7 +65,7 @@ export class CarritoPage implements OnInit {
     console.log('Order confirmed', order);
 
     // Persist order to backend (Firestore) and locally as fallback
-    try {
+  try {
       // attach user email if available
       const rawUser = localStorage.getItem('user');
       if (rawUser) {
@@ -74,7 +75,7 @@ export class CarritoPage implements OnInit {
       }
 
       this.api.post('orders', order).subscribe({
-        next: (res: any) => {
+        next: async (res: any) => {
           console.log('Order saved to server', res);
           // persist to local history as well
           try {
@@ -86,10 +87,18 @@ export class CarritoPage implements OnInit {
             console.warn('Could not persist orders history locally', e);
           }
 
+          // show success toast and then clear cart
+          const t = await this.toast.create({
+            message: 'Pedido confirmado y guardado ✅',
+            duration: 2500,
+            color: 'success'
+          });
+          await t.present();
+
           // clear cart
           this.cartService.clear();
         },
-        error: (err: any) => {
+        error: async (err: any) => {
           console.error('Error saving order to server', err);
           // fallback: persist locally so user doesn't lose order
           try {
@@ -100,16 +109,35 @@ export class CarritoPage implements OnInit {
           } catch (e) {
             console.warn('Could not persist orders history locally', e);
           }
+
+          const t = await this.toast.create({
+            message: 'No se pudo guardar en el servidor — pedido guardado localmente',
+            duration: 3500,
+            color: 'warning'
+          });
+          await t.present();
+
           this.cartService.clear();
         }
       });
     } catch (e) {
       console.warn('Could not persist orders history', e);
+      const t = await this.toast.create({
+        message: 'Error procesando el pedido',
+        duration: 2500,
+        color: 'danger'
+      });
+      await t.present();
       this.cartService.clear();
     }
   }
 
-  constructor(private productService: ProductService, private cartService: CartService, private api: ApiService) { }
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private api: ApiService,
+    private toast: ToastController
+  ) { }
 
   ngOnInit() {
     // subscribe to cart stored in CartService
