@@ -12,9 +12,17 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  registerUser(user: User): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users/register`, user);
-  }
+  /*
+   * Método comentado: `registerUser`
+   *
+   * Observación: actualmente el proyecto usa `UserService.register(...)` que a su vez
+   * llama a `ApiService.post('users/register', user)`. Para evitar duplicidad y
+   * confusiones dejamos este helper comentado. Si prefieres usar un helper directo
+   * puedes descomentar y delegar desde `UserService.register`.
+   */
+  // registerUser(user: User): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/users/register`, user);
+  // }
 
   post<T = any>(path: string, body: any, options?: any): Observable<T> {
     return this.http.post<T>(`${this.baseUrl}/${path}`, body, options) as unknown as Observable<T>;
