@@ -241,4 +241,14 @@ export class MenuPage implements OnInit, OnDestroy {
     });
   }
 
+  goHome() {
+    // Prefer using the tab navigation helper so activeTab and focus behavior stay consistent.
+    try {
+      this.navigateToTab('home');
+    } catch (e) {
+      console.warn('Error in goHome()', e);
+      try { this.router.navigateByUrl('/home'); } catch (e2) { }
+    }
+  }
+
 }

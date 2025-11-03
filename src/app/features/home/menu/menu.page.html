@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar class="custom-header">
     <div class="header-content">
-      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      <a (click)="goHome()" class="logo-link" role="button" tabindex="0" aria-label="Ir al menú">
+        <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      </a>
       <h1 class="header-title">MR. CRISPY MENU</h1>
       <!-- Reemplazado: imagen de carrito eliminada y añadido botón de menú lateral derecho -->
       <ion-menu-button menu="rightMenu" autoHide="false" class="header-icon"></ion-menu-button>

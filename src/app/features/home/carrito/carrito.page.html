@@ -1,11 +1,13 @@
 <ion-header>
   <ion-toolbar class="custom-header">
     <div class="header-content">
-      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      <a (click)="goHome()" class="logo-link" role="button" tabindex="0" aria-label="Ir al menú">
+        <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      </a>
 
       <h1 class="header-title">CARRITO DE PEDIDOS</h1>
 
-      <img src="assets/img/logo-carritoCompras.png" alt="Carrito" class="icon-cart"/>
+      <img src="assets/img/logo-carritoCompras.png" alt="Carrito" class="icon-cart" />
     </div>
   </ion-toolbar>
 </ion-header>
@@ -28,7 +30,7 @@
         </div>
 
         <div class="product-right">
-          
+
           <div class="qty-controls">
             <button class="qty-btn" (click)="dec(item)">-</button>
             <div class="qty-value">{{ item.qty }}</div>
@@ -56,6 +58,7 @@
     <div class="summary-row"><span>Costo de envío:</span><span>S/ {{ shipping | number:'1.2-2' }}</span></div>
     <div class="summary-row total"><span>Total:</span><span>S/ {{ total | number:'1.2-2' }}</span></div>
 
-    <ion-button expand="block" class="confirm-btn" (click)="confirmOrder()" [disabled]="!cart || cart.length === 0">CONFIRMAR PEDIDO</ion-button>
+    <ion-button expand="block" class="confirm-btn" (click)="confirmOrder()"
+      [disabled]="!cart || cart.length === 0">CONFIRMAR PEDIDO</ion-button>
   </div>
 </ion-footer>

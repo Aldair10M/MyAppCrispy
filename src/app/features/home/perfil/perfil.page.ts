@@ -87,6 +87,14 @@ export class PerfilPage implements OnInit {
     }
   }
 
+  goHome() {
+    try {
+      this.router.navigateByUrl('/home');
+    } catch (e) {
+      console.warn('Error navigating to /home', e);
+    }
+  }
+
   saveProfile() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

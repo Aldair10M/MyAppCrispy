@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonToolbar, IonButton, IonImg, IonFooter } from '@ionic/angular/standalone';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 import { ApiService } from '../../../core/services/api.service';
@@ -128,7 +129,8 @@ export class CarritoPage implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private api: ApiService,
-    private toast: ToastController
+    private toast: ToastController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -147,6 +149,15 @@ export class CarritoPage implements OnInit {
         console.warn('Could not load products to enrich cart', err);
       }
     });
+  }
+
+  goHome() {
+    // Navega al menú principal. Puedes añadir limpieza de estado aquí si lo necesitas.
+    try {
+      this.router.navigateByUrl('/home');
+    } catch (e) {
+      console.warn('Error navigating to /home', e);
+    }
   }
 
   private enrichCartItems() {
