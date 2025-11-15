@@ -47,6 +47,27 @@
 .order-items li { margin:6px 0; font-size:14px; color:#333; }
 .order-price { margin-top:10px; color:#0f5132; font-size:18px; font-weight:800; }
 
+/* Strong override to remove any Ionic-inserted bottom padding on the scroll container.
+	 Ionic may set inline padding-bottom on `.inner-scroll` / `.scroll-content`; this block
+	 uses ::ng-deep and !important to override those values within this component. */
+::ng-deep ion-content.admin-content .inner-scroll.scroll-y,
+::ng-deep ion-content.admin-content .scroll-content,
+::ng-deep .admin-content .inner-scroll.scroll-y,
+::ng-deep .admin-content .scroll-content,
+::ng-deep .inner-scroll.scroll-y,
+::ng-deep .scroll-content {
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
+	min-height: 0 !important;
+	height: auto !important;
+}
+
+/* Extra safety: if Ionic adds inline styles to a nested element, make last-child adjustments */
+::ng-deep .inner-scroll.scroll-y > *:last-child,
+::ng-deep .scroll-content > *:last-child {
+	margin-bottom: 0 !important;
+}
+
 .logout-wrap { position: fixed; right: 18px; bottom: 18px; z-index: 1000; }
 .logout-btn { border-radius: 999px; box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
 
