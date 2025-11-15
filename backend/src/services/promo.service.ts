@@ -37,6 +37,7 @@ export class PromoService {
       discount: discount,
       products: productsDetailed,
       priceTotalDescuento,
+      precioTotal: priceTotalDescuento,
       createdAt: now,
       updatedAt: now
     };
@@ -83,7 +84,7 @@ export class PromoService {
     const discountValue = typeof updates.discount === 'number' ? updates.discount : (existing.discount ?? null);
     const priceTotalDescuento = discountValue !== null ? Number((subtotal - (subtotal * discountValue) / 100).toFixed(2)) : null;
 
-    const data: any = { ...updates, products: productsDetailed, priceTotalDescuento, updatedAt: now };
+    const data: any = { ...updates, products: productsDetailed, priceTotalDescuento, precioTotal: priceTotalDescuento, updatedAt: now };
 
     await this.collection.doc(id).update(data);
     const doc = await this.collection.doc(id).get();

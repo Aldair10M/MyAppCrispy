@@ -4,6 +4,7 @@ export class Promo {
   description?: string;
   discount?: number | null;
   products: Array<string> = [];
+  precioTotal?: number | null;
   createdAt?: any;
   updatedAt?: any;
 

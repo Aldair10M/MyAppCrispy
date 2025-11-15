@@ -20,8 +20,13 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Descuento (%)</ion-label>
-      <ion-input [(ngModel)]="promo.discount" name="discount" type="number" min="0" max="100" placeholder="Ej. 10"></ion-input>
+      <ion-input [(ngModel)]="promo.discount" (ngModelChange)="computeTotals()" name="discount" type="number" min="0" max="100" placeholder="Ej. 10"></ion-input>
     </ion-item>
+    <div class="totals" *ngIf="subtotal > 0">
+      <div style="padding:8px 0">Subtotal productos: S/{{ subtotal.toFixed(2) }}</div>
+      <div *ngIf="priceTotalDescuento !== null" style="padding:8px 0">Descuento aplicado: S/{{ priceTotalDescuento?.toFixed(2) }}</div>
+      <div *ngIf="precioTotal !== null" style="padding:8px 0;font-weight:600">Precio total a pagar: S/{{ precioTotal?.toFixed(2) }}</div>
+    </div>
     <div class="actions">
       <ion-button (click)="save()" expand="block" color="success">Guardar Promoción</ion-button>
     </div>
@@ -29,7 +34,7 @@
 
   <div class="menu-list">
     <h3 style="padding:12px 16px;margin:0">Selecciona productos para la promoción</h3>
-    <div class="menu-grid single-column">
+      <div class="menu-grid single-column">
       <div *ngFor="let p of products" class="menu-card" [class.expanded]="false">
         <div class="image-wrap">
           <img [src]="p.imageUrl || 'assets/img/placeholder.png'" class="menu-image" alt="{{p.name}}" />
@@ -38,7 +43,7 @@
         <div class="menu-name">{{ p.name }}</div>
         <div class="menu-body">
           <div class="menu-desc">{{ p.description }}</div>
-          <div class="product-controls">
+            <div class="product-controls">
             <div class="action-row">
               <ion-button class="add-btn" (click)="toggleSelect(p)" [fill]="selected[p.id || p.name] ? 'solid' : 'outline'">
                 {{ selected[p.id || p.name] ? 'Seleccionado' : 'Agregar' }}
