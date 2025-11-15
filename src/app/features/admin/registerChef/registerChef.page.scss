@@ -17,7 +17,6 @@
 .not-found { margin-top:12px; color:#b00020; }
 .result-loading { margin-top:12px; color:#666; }
 
-/* Force content background to white and adjust contrast for inputs/cards */
 .admin-content { --background: #ffffff; }
 .chef-search ion-item { background: transparent; }
 .chef-search ion-label { color: #222; font-weight:600; }
@@ -32,3 +31,71 @@
 .chef-search .actions ion-button {
 	--box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
+
+/* Improve input visibility on white background */
+.chef-search ion-item {
+	--background: #f3f4f6;
+	background: #f3f4f6;
+	border-radius: 10px;
+	padding-left: 10px;
+	margin: 8px 0;
+	--padding-start: 8px;
+}
+
+/* Native input styling (placeholder and text) */
+.chef-search ion-item input {
+	color: #111 !important;
+}
+.chef-search ion-item input::placeholder {
+	color: #6b7280;
+	opacity: 1;
+}
+
+/* If browser supports shadow parts, ensure native input inside ion-input is styled */
+.chef-search ion-input::part(native) {
+	color: #111;
+}
+
+/* Make the search button clearer (primary) */
+.chef-search .actions ion-button {
+	--background: #2b8cf6;
+	--box-shadow: 0 6px 18px rgba(43,140,246,0.12);
+	color: #fff;
+}
+
+/* Result card: warm, readable background */
+.result-card {
+	/* Solid, warm accent so it doesn't blend with white content */
+	background: #fff6d6 !important; /* warm pale yellow-cream */
+	box-shadow: 0 12px 30px rgba(15,23,42,0.09);
+	border: 1px solid rgba(15,23,42,0.06);
+	border-radius:14px;
+	overflow: hidden;
+}
+
+/* Make all internal parts use the same opaque color */
+.result-card, .result-card ion-card, .result-card ion-card-content, .result-card ion-card-header {
+	background: #fff6d6 !important;
+	color: #111 !important;
+}
+.result-card ion-card-header { padding: 12px 16px; border-bottom: none; }
+.result-card ion-card-title { color: #111; font-weight:700; }
+.result-card ion-card-content { padding: 14px 16px; color:#111; }
+
+/* Convert button (yellow) visibility */
+.result-card ion-button {
+	--background: #f4c20d;
+	--color: #000;
+	--box-shadow: 0 6px 18px rgba(244,194,13,0.18);
+	border-radius: 8px;
+}
+
+/* Small responsive tweaks */
+@media (max-width: 480px) {
+	.chef-search { padding: 12px; }
+	.logo { width:36px; height:36px; }
+}
+
+/* Back button fixed */
+.back-wrap { position: fixed; right: 18px; bottom: 18px; z-index: 1000; }
+.back-btn { border-radius: 999px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); }

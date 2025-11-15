@@ -3,6 +3,7 @@ import { IonContent, IonHeader, IonToolbar, IonInput, IonButton, IonItem, IonLab
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../core/services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-chef',
@@ -18,7 +19,7 @@ export class RegisterChefPage {
   notFound = false;
   converting = false;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   search() {
     this.foundUser = null;
@@ -54,5 +55,9 @@ export class RegisterChefPage {
         alert('Error al convertir usuario');
       }
     });
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/admin/panel');
   }
 }
