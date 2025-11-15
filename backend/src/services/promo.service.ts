@@ -25,6 +25,19 @@ export class PromoService {
     return { id: ref.id, ...created.data() };
   }
 
+  async update(id: string, updates: Partial<any>) {
+    const now = admin.firestore.FieldValue.serverTimestamp();
+    const data = { ...updates, updatedAt: now };
+    await this.collection.doc(id).update(data);
+    const doc = await this.collection.doc(id).get();
+    return { id: doc.id, ...doc.data() };
+  }
+
+  async delete(id: string) {
+    await this.collection.doc(id).delete();
+    return { id };
+  }
+
   async getById(id: string) {
     const doc = await this.collection.doc(id).get();
     if (!doc.exists) return null;

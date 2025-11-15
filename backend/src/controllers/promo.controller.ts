@@ -11,6 +11,29 @@ export const listPromos = async (req: Request, res: Response) => {
   }
 };
 
+export const updatePromo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+    const updated = await promoService.update(id, updates);
+    res.json({ ok: true, promo: updated });
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+};
+
+export const deletePromo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await promoService.delete(id);
+    res.json({ ok: true, id });
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+};
+
 export const createPromo = async (req: Request, res: Response) => {
   try {
     const { title, description, discount, products } = req.body;
