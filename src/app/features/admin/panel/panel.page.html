@@ -15,7 +15,7 @@
   </div>
 
   <div class="actions-grid">
-    <ion-card class="action-card" button (click)="goRegisterChef()" aria-label="Registrar Chef">
+    <ion-card class="action-card action-warning" button (click)="goRegisterChef()" aria-label="Registrar Chef">
       <ion-card-header>
         <ion-card-title class="card-title-yellow">Registrar Chef</ion-card-title>
       </ion-card-header>
@@ -25,7 +25,7 @@
       </ion-card-content>
     </ion-card>
 
-    <ion-card class="action-card" button (click)="goCreatePromos()" aria-label="Crear Promociones">
+    <ion-card class="action-card action-success" button (click)="goCreatePromos()" aria-label="Crear Promociones">
       <ion-card-header>
         <ion-card-title class="card-title-green">Crear Promociones</ion-card-title>
       </ion-card-header>
@@ -36,25 +36,13 @@
     </ion-card>
 
     <!-- Estadísticas -->
-    <ion-card class="action-card stats-card" aria-label="Estadísticas">
+    <ion-card class="action-card action-stats" button (click)="goStats()" aria-label="Estadísticas">
       <ion-card-header>
         <ion-card-title class="card-title-blue">Estadísticas</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-value">12</div>
-            <div class="stat-label">Chefs activos</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">34</div>
-            <div class="stat-label">Promociones</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">128</div>
-            <div class="stat-label">Pedidos hoy</div>
-          </div>
-        </div>
+        <p class="card-desc">Visualiza métricas clave del negocio: ventas, chefs activos y promociones en curso.</p>
+        <ion-button expand="block" size="small" fill="solid" color="primary">Ver Estadísticas</ion-button>
       </ion-card-content>
     </ion-card>
   </div>

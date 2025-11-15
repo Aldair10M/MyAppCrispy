@@ -26,4 +26,9 @@ export class PanelPage {
     try { localStorage.removeItem('user'); localStorage.removeItem('token'); } catch (e) {}
     this.router.navigateByUrl('/auth/login');
   }
+
+  goStats() {
+    // placeholder: navigate to admin panel for now; replace with /admin/stats when available
+    this.router.navigateByUrl('/admin/panel');
+  }
 }

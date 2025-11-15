@@ -96,3 +96,17 @@
 /* Use same header colors as home -> menu */
 .admin-toolbar { --background: #f4c20d; color: #000; }
 .title { color: #000; }
+
+/* Variant card styles: header uses button color, content uses darker background so white text is readable */
+.action-card.action-warning ion-card-header { background: var(--ion-color-warning); }
+.action-card.action-warning ion-card-title { color: var(--ion-color-warning-contrast); }
+.action-card.action-warning ion-card-content { background: rgba(0,0,0,0.06); }
+.action-card.action-warning .card-desc { color: #fff; }
+.action-card.action-success ion-card-header { background: var(--ion-color-success); }
+.action-card.action-success ion-card-title { color: var(--ion-color-success-contrast); }
+.action-card.action-success ion-card-content { background: rgba(0,0,0,0.04); }
+.action-card.action-success .card-desc { color: #fff; }
+.action-card.action-stats ion-card-header { background: var(--ion-color-primary); }
+.action-card.action-stats ion-card-title { color: var(--ion-color-primary-contrast); }
+.action-card.action-stats ion-card-content { background: rgba(0,0,0,0.03); }
+.action-card.action-stats .card-desc { color: #fff; }
