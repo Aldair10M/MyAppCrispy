@@ -1,10 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <h1 style="text-align:center;margin:0;font-size:20px;">Panel Administrador</h1>
+  <ion-toolbar class="admin-toolbar">
+    <div class="toolbar-inner">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo" aria-label="Logo" />
+      <h1 class="title">Panel Administrador</h1>
+      <div class="spacer"></div>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <div class="panel-wrapper">
-    <p>Bienvenido al panel de administración. Aquí podrás gestionar el sistema.</p>
+
+<ion-content [fullscreen]="true" class="admin-content">
+  <div class="welcome-block">
+    <h2 class="welcome-title">¡Bienvenido!</h2>
+    <p class="welcome-text">Gestiona usuarios y promociones desde un panel limpio y rápido.</p>
+  </div>
+
+  <div class="actions-grid">
+    <ion-card class="action-card" button (click)="goRegisterChef()" aria-label="Registrar Chef">
+      <ion-card-header>
+        <ion-card-title>Registrar Chef</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Crea una cuenta para un nuevo chef y habilita su acceso.</p>
+        <ion-button expand="block" size="small" fill="solid" color="warning">Ir a Registrar</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="action-card" button (click)="goCreatePromos()" aria-label="Crear Promociones">
+      <ion-card-header>
+        <ion-card-title>Crear Promociones</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Diseña nuevas campañas y descuentos para impulsar ventas.</p>
+        <ion-button expand="block" size="small" fill="solid" color="success">Ir a Promos</ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
