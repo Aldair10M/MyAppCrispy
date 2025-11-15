@@ -12,6 +12,7 @@ import {
   IonTitle,
   IonList,
   IonItem,
+  IonLabel,
 
 } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../../shared/footer/footer.component';
@@ -37,6 +38,7 @@ import { Product } from '../../../core/models/product.model';
     IonTitle,
     IonList,
     IonItem,
+    IonLabel,
     FooterComponent,
     CommonModule,
     FormsModule
@@ -241,6 +243,32 @@ export class MenuPage implements OnInit, OnDestroy {
     });
   }
 
+  openPerfil() {
+    this.router.navigateByUrl('/home/perfil');
+  }
+
+  openPedidos() {
+    this.router.navigateByUrl('/home/pedidos');
+  }
+
+  openConfig() {
+    // Si más adelante existe una página de configuración específica, navegar allí.
+    // Por ahora redirigimos al home para mantener consistencia.
+    this.router.navigateByUrl('/home');
+  }
+
+  logout() {
+    try {
+      // Limpiar estado local de usuario y carrito
+      localStorage.removeItem('user');
+      localStorage.removeItem('orders');
+      try { this.cartService.clear?.(); } catch (e) {}
+    } catch (e) {
+      console.warn('Logout cleanup error', e);
+    }
+    // Redirigir al login
+    this.router.navigateByUrl('/auth/login');
+  }
   goHome() {
     // Prefer using the tab navigation helper so activeTab and focus behavior stay consistent.
     try {

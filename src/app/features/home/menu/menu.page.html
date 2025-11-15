@@ -12,18 +12,30 @@
 </ion-header>
 
 <!-- Menú lateral derecho -->
-<ion-menu side="end" menuId="rightMenu" contentId="main">
+<ion-menu side="end" menuId="rightMenu" contentId="main" class="side-menu">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar class="side-menu-toolbar">
       <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item button>Perfil</ion-item>
-      <ion-item button>Mis pedidos</ion-item>
-      <ion-item button>Configuración</ion-item>
-      <ion-item button>Cerrar sesión</ion-item>
+  <ion-content class="side-menu-content">
+    <ion-list class="side-menu-list">
+      <ion-item button class="side-menu-item" (click)="openPerfil()" detail="false" lines="full" menuClose>
+        <img [src]="footerImages.profile" alt="Perfil" class="side-menu-icon" />
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+      <ion-item button class="side-menu-item" (click)="openPedidos()" detail="false" lines="full" menuClose>
+        <img [src]="footerImages.orders" alt="Mis pedidos" class="side-menu-icon" />
+        <ion-label>Mis pedidos</ion-label>
+      </ion-item>
+      <ion-item button class="side-menu-item" (click)="openConfig()" detail="false" lines="full" menuClose>
+        <ion-icon name="settings-outline" class="side-menu-ionicon" aria-hidden="true"></ion-icon>
+        <ion-label>Configuración</ion-label>
+      </ion-item>
+      <ion-item button class="side-menu-item logout" (click)="logout()" color="danger" detail="false" lines="full" menuClose>
+        <ion-icon name="log-out-outline" class="side-menu-ionicon" aria-hidden="true"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

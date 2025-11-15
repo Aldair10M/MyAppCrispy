@@ -12,6 +12,7 @@ export class User {
   updatedAt?: number;
   isVerified: boolean;
   verificationCode?: string;
+  role?: number; // 1: Admin, 2: Cocinero, 3: Cliente
 
   constructor(
     username: string,
@@ -23,7 +24,8 @@ export class User {
     confirmPassword?: string,
     codigo?: string,
     isVerified: boolean = false,
-    verificationCode?: string
+    verificationCode?: string,
+    role: number = 3
   ) 
   
   {
@@ -39,5 +41,6 @@ export class User {
     this.updatedAt = Date.now();
     this.isVerified = isVerified;
     this.verificationCode = verificationCode;
+    this.role = role;
   }
 }

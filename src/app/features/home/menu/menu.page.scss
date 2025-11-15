@@ -80,3 +80,37 @@ ion-icon.search-icon, .search-icon {
   color: #ff7f00; 
 }
 
+/* Side menu styles */
+.side-menu {
+  --background: #fff;
+}
+.side-menu-toolbar {
+  --background: #f4c20d;
+}
+.side-menu-content {
+  --background: #fff;
+}
+.side-menu-list {
+  padding-top: 4px;
+}
+.side-menu-item {
+  --background: #fff;
+  --color: #222;
+  --ripple-color: #ff7f00;
+  align-items: center;
+}
+.side-menu-item.logout {
+  --color: #d33939;
+}
+.side-menu-icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+.side-menu-ionicon {
+  font-size: 22px;
+  color: #444;
+  margin-right: 12px;
+}
+
