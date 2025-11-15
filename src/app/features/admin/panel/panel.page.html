@@ -11,28 +11,56 @@
 <ion-content [fullscreen]="true" class="admin-content">
   <div class="welcome-block">
     <h2 class="welcome-title">¡Bienvenido!</h2>
-    <p class="welcome-text">Gestiona usuarios y promociones desde un panel limpio y rápido.</p>
+    <p class="welcome-text">Gestiona usuarios y promociones desde un panel <strong class="accent-text">limpio</strong> y <span class="accent-strong">rápido</span>.</p>
   </div>
 
   <div class="actions-grid">
     <ion-card class="action-card" button (click)="goRegisterChef()" aria-label="Registrar Chef">
       <ion-card-header>
-        <ion-card-title>Registrar Chef</ion-card-title>
+        <ion-card-title class="card-title-yellow">Registrar Chef</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>Crea una cuenta para un nuevo chef y habilita su acceso.</p>
+        <p class="card-desc">Crea una cuenta para un nuevo chef y <strong>habilita</strong> su acceso inmediatamente.</p>
         <ion-button expand="block" size="small" fill="solid" color="warning">Ir a Registrar</ion-button>
       </ion-card-content>
     </ion-card>
 
     <ion-card class="action-card" button (click)="goCreatePromos()" aria-label="Crear Promociones">
       <ion-card-header>
-        <ion-card-title>Crear Promociones</ion-card-title>
+        <ion-card-title class="card-title-green">Crear Promociones</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>Diseña nuevas campañas y descuentos para impulsar ventas.</p>
+        <p class="card-desc">Diseña campañas y descuentos atractivos para <span class="accent-strong">impulsar ventas</span>.</p>
         <ion-button expand="block" size="small" fill="solid" color="success">Ir a Promos</ion-button>
       </ion-card-content>
     </ion-card>
+
+    <!-- Estadísticas -->
+    <ion-card class="action-card stats-card" aria-label="Estadísticas">
+      <ion-card-header>
+        <ion-card-title class="card-title-blue">Estadísticas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Chefs activos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">34</div>
+            <div class="stat-label">Promociones</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">128</div>
+            <div class="stat-label">Pedidos hoy</div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Logout botón fijo abajo-derecha -->
+  <div class="logout-wrap">
+    <ion-button color="danger" class="logout-btn" (click)="logout()">Cerrar sesión</ion-button>
   </div>
 </ion-content>

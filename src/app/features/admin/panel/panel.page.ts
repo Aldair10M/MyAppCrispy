@@ -21,4 +21,9 @@ export class PanelPage {
   goCreatePromos() {
     this.router.navigateByUrl('/admin/create-promos');
   }
+
+  logout() {
+    try { localStorage.removeItem('user'); localStorage.removeItem('token'); } catch (e) {}
+    this.router.navigateByUrl('/auth/login');
+  }
 }
