@@ -25,19 +25,21 @@
         <div *ngFor="let o of pendingOrders" style="margin-top:12px;">
           <ion-card>
             <ion-card-header>
-              <ion-card-title>Orden {{ o.id }} - S/{{ o.total ?? o.subtotal }}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <div><strong>Usuario:</strong> {{ o.userId || o.email || 'Anónimo' }}</div>
-              <div><strong>Fecha:</strong> {{ o.createdAt ? (o.createdAt | date:'short') : '' }}</div>
-              <div style="margin-top:8px"><strong>Items:</strong></div>
-              <ul>
-                <li *ngFor="let it of o.items">{{ it.name }} x{{ it.qty }} - S/{{ it.price }}</li>
-              </ul>
-              <div style="margin-top:8px;display:flex;gap:8px">
-                <ion-button color="success" (click)="attendOrder(o)">Atender Orden</ion-button>
-              </div>
-            </ion-card-content>
+                <ion-card-title>Orden</ion-card-title>
+                <div class="order-id">{{ o.id }}</div>
+              </ion-card-header>
+              <ion-card-content>
+                <div><strong>Usuario:</strong> {{ o._displayName }}</div>
+                <div><strong>Fecha:</strong> {{ o.createdAt ? (o.createdAt | date:'short') : '' }}</div>
+                <div style="margin-top:8px"><strong>Items:</strong></div>
+                <ul class="order-items">
+                  <li *ngFor="let it of o.items">{{ it.name }} x{{ it.qty }} - S/{{ it.price }}</li>
+                </ul>
+                <div class="order-price" style="margin-top:10px;font-size:18px;font-weight:800">S/{{ o.total ?? o.subtotal }}</div>
+                <div style="margin-top:8px;display:flex;gap:8px">
+                  <ion-button color="success" (click)="attendOrder(o)">Atender Orden</ion-button>
+                </div>
+              </ion-card-content>
           </ion-card>
         </div>
       </div>

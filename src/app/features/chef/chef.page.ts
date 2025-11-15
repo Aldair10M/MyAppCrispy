@@ -39,7 +39,13 @@ export class ChefPage {
   loadPending() {
     this.loading = true;
     this.orderService.list('pending').subscribe({
-      next: (items: any[]) => { this.pendingOrders = items || []; this.loading = false; },
+      next: (items: any[]) => {
+        this.pendingOrders = (items || []).map(o => ({
+          ...o,
+          _displayName: o.username || (o.user && (o.user.username || o.user.name)) || o.email || (o.userId ? `User-${String(o.userId).slice(0,6)}` : 'Anónimo')
+        }));
+        this.loading = false;
+      },
       error: (err: any) => { console.error('Error loading pending orders', err); this.loading = false; }
     });
   }
@@ -47,7 +53,13 @@ export class ChefPage {
   loadReady() {
     this.loading = true;
     this.orderService.list('listo').subscribe({
-      next: (items: any[]) => { this.readyOrders = items || []; this.loading = false; },
+      next: (items: any[]) => {
+        this.readyOrders = (items || []).map(o => ({
+          ...o,
+          _displayName: o.username || (o.user && (o.user.username || o.user.name)) || o.email || (o.userId ? `User-${String(o.userId).slice(0,6)}` : 'Anónimo')
+        }));
+        this.loading = false;
+      },
       error: (err: any) => { console.error('Error loading ready orders', err); this.loading = false; }
     });
   }
