@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <h1 style="text-align:center;margin:0;font-size:20px;">Crear Promoción</h1>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <form class="promo-form" (ngSubmit)="save()">
+    <ion-item>
+      <ion-label position="stacked">Título</ion-label>
+      <ion-input [(ngModel)]="promo.title" name="title" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="promo.description" name="description" autoGrow="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Descuento (%)</ion-label>
+      <ion-input [(ngModel)]="promo.discount" name="discount" type="number" min="0" max="100"></ion-input>
+    </ion-item>
+    <div class="actions">
+      <ion-button type="submit" expand="block">Guardar</ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -50,8 +50,18 @@ export class LoginPage {
           // ignore cross-origin or SSR issues
         }
 
-        // Small delay to ensure blur takes effect before navigation
-        setTimeout(() => this.router.navigateByUrl('/home'), 50);
+        // Determinar destino por rol (1 = admin)
+        let role: number | undefined;
+        try {
+          role = (res?.user?.role != null) ? Number(res.user.role) : undefined;
+        } catch {}
+        // Mapeo de rol: 1=admin, 2=chef, 3=cliente (home)
+        let target = '/home';
+        if (role === 1) target = '/admin/panel';
+        else if (role === 2) target = '/chef';
+        else if (role === 3) target = '/home'; // explícito por claridad
+        // Pequeño delay para que blur se aplique antes de cambiar vista
+        setTimeout(() => this.router.navigateByUrl(target), 50);
       },
       error: (err) => {
         console.error('Login error', err);
