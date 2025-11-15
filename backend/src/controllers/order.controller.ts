@@ -34,7 +34,9 @@ export const listOrders = async (req: Request, res: Response) => {
     const email = (req.query as any)['email'] as string | undefined;
     const userId = (req.query as any)['userId'] as string | undefined;
 
-    const items = await orderService.list({ email, userId });
+    const status = (req.query as any)['status'] as string | undefined;
+
+    const items = await orderService.list({ email, userId, status });
     return res.status(200).json(items);
   } catch (err: any) {
     console.error('listOrders error', err);
@@ -43,5 +45,17 @@ export const listOrders = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'index-required', message: 'Firestore needs a composite index. Removed server-side order; please retry.' });
     }
     return res.status(500).json({ error: 'internal' });
+  }
+};
+
+export const updateOrder = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body || {};
+    const updated = await orderService.update(id, updates);
+    res.json({ ok: true, order: updated });
+  } catch (err: any) {
+    console.error('updateOrder error', err);
+    res.status(500).json({ ok: false, error: 'internal' });
   }
 };

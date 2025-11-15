@@ -17,4 +17,8 @@ export class OrderService {
   listByUserId(userId: string): Observable<any[]> {
     return this.api.get<any[]>(`orders?userId=${encodeURIComponent(userId)}`);
   }
+
+  update(id: string, updates: Partial<any>): Observable<any> {
+    return this.api.put(`orders/${id}`, updates);
+  }
 }
