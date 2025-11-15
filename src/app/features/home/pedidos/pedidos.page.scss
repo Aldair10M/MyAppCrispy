@@ -165,3 +165,20 @@
 	border-radius: 999px;
 	border: 1px solid #d7ecff;
 }
+
+/* Variantes por estado */
+.order-status.pending {
+	background: #fff7d6;
+	color: #7a4e00;
+	border-color: #ffe8a3;
+}
+.order-status.served {
+	background: #eafaf0;
+	color: #0f5132;
+	border-color: #cbead7;
+}
+.order-status.other {
+	background: #eef1ff;
+	color: #2b3fd6;
+	border-color: #dfe4ff;
+}

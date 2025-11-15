@@ -100,4 +100,8 @@ export class PedidosPage implements OnInit {
     return 'other';
   }
 
+  statusKind(o: Order): 'pending' | 'served' | 'other' {
+    return this.normStatus(o.status);
+  }
+
 }
