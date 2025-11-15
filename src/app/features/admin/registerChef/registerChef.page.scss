@@ -13,6 +13,22 @@
 .spacer { width:40px; }
 
 .chef-search { padding: 16px; }
-.result-card { margin-top: 12px; }
+.result-card { margin-top: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); border-radius:12px; }
 .not-found { margin-top:12px; color:#b00020; }
 .result-loading { margin-top:12px; color:#666; }
+
+/* Force content background to white and adjust contrast for inputs/cards */
+.admin-content { --background: #ffffff; }
+.chef-search ion-item { background: transparent; }
+.chef-search ion-label { color: #222; font-weight:600; }
+.chef-search ion-input {
+	color: #111;
+}
+.result-card ion-card-header { background: #fafafa; }
+.result-card ion-card-title { color:#111; }
+.result-card ion-card-content { background: #fff; color: #222; }
+
+/* Make the action button more visible on white */
+.chef-search .actions ion-button {
+	--box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
