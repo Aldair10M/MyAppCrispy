@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { db } from '../firebase';
 import { Orden } from '../models/orden.model';
+import { orderService } from '../services/order.service';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
@@ -21,15 +21,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
     if ((payload as any).email) (order as any).email = (payload as any).email;
 
-    const ordersRef = db.collection('orders');
-    const docRef = ordersRef.doc();
-    order.id = docRef.id;
-    order.createdAt = Date.now();
-    order.updatedAt = Date.now();
-
-    await docRef.set(JSON.parse(JSON.stringify(order)));
-
-    const saved = (await docRef.get()).data();
+    const saved = await orderService.create(order);
     return res.status(201).json({ message: 'order created', order: saved });
   } catch (err: any) {
     console.error('createOrder error', err);
@@ -42,16 +34,7 @@ export const listOrders = async (req: Request, res: Response) => {
     const email = (req.query as any)['email'] as string | undefined;
     const userId = (req.query as any)['userId'] as string | undefined;
 
-    let ref = db.collection('orders') as FirebaseFirestore.Query<FirebaseFirestore.DocumentData>;
-    if (email) {
-      ref = ref.where('email', '==', email);
-    } else if (userId) {
-      ref = ref.where('userId', '==', userId);
-    }
-
-    // Evitamos orderBy en Firestore para no requerir índice compuesto; ordenamos en memoria
-    const snap = await ref.get();
-    const items = snap.docs.map(d => d.data()).sort((a: any, b: any) => (b?.createdAt || 0) - (a?.createdAt || 0));
+    const items = await orderService.list({ email, userId });
     return res.status(200).json(items);
   } catch (err: any) {
     console.error('listOrders error', err);
