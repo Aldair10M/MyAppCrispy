@@ -24,8 +24,8 @@
     </ion-item>
     <div class="totals" *ngIf="subtotal > 0">
       <div style="padding:8px 0">Subtotal productos: S/{{ subtotal.toFixed(2) }}</div>
-      <div *ngIf="priceTotalDescuento !== null" style="padding:8px 0">Descuento aplicado: S/{{ priceTotalDescuento?.toFixed(2) }}</div>
-      <div *ngIf="precioTotal !== null" style="padding:8px 0;font-weight:600">Precio total a pagar: S/{{ precioTotal?.toFixed(2) }}</div>
+      <div *ngIf="priceTotalDescuento !== null" style="padding:8px 0">Descuento aplicado: S/{{ priceTotalDescuento.toFixed(2) }}</div>
+      <div *ngIf="precioTotal !== null" style="padding:8px 0;font-weight:600">Precio total a pagar: S/{{ precioTotal.toFixed(2) }}</div>
     </div>
     <div class="actions">
       <ion-button (click)="save()" expand="block" color="success">Guardar Promoción</ion-button>
