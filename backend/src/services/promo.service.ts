@@ -57,9 +57,9 @@ export class PromoService {
 
     // Determine product ids: updates may pass array of ids or array of objects
     let productIds: string[] = [];
-    if (updates.products) {
-      productIds = Array.isArray(updates.products)
-        ? updates.products.map((p: any) => (typeof p === 'string' ? p : p.id)).filter(Boolean)
+    if ((updates as any).products) {
+      productIds = Array.isArray((updates as any).products)
+        ? (updates as any).products.map((p: any) => (typeof p === 'string' ? p : p.id)).filter(Boolean)
         : [];
     } else if (Array.isArray(existing.products)) {
       // existing.products may be array of objects with id
@@ -83,7 +83,7 @@ export class PromoService {
     }
 
     const subtotal = productsDetailed.reduce((s: number, p: any) => s + (p.price || 0), 0);
-    const discountValue = typeof updates.discount === 'number' ? updates.discount : (existing.discount ?? null);
+    const discountValue = typeof (updates as any).discount === 'number' ? (updates as any).discount : (existing.discount ?? null);
     const priceTotalDescuento = discountValue !== null ? Number((subtotal - (subtotal * discountValue) / 100).toFixed(2)) : null;
 
     const data: any = { ...updates, products: productsDetailed, // precioTotal: subtotal (normal price), priceTotalDescuento: discounted final price

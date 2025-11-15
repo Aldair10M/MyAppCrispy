@@ -21,4 +21,9 @@ export class OrderService {
   update(id: string, updates: Partial<any>): Observable<any> {
     return this.api.put(`orders/${id}`, updates);
   }
+
+  list(status?: string): Observable<any[]> {
+    if (status) return this.api.get<any[]>(`orders?status=${encodeURIComponent(status)}`);
+    return this.api.get<any[]>(`orders`);
+  }
 }
