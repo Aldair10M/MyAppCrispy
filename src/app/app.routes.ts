@@ -87,6 +87,12 @@ export const routes: Routes = [
     ]
   },
 
+  // Chef area
+  {
+    path: 'chef',
+    loadComponent: () => import('./features/chef/chef.page').then(m => m.ChefPage)
+  },
+
   { path: '**', redirectTo: 'main' },
   
 ];
