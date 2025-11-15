@@ -1,20 +1,40 @@
 <ion-header>
-  <ion-toolbar>
-    <h1 style="text-align:center;margin:0;font-size:20px;">Registrar Chef</h1>
+  <ion-toolbar class="admin-toolbar">
+    <div class="toolbar-inner">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo" aria-label="Logo" />
+      <h1 class="title">Registrar Chef</h1>
+      <div class="spacer"></div>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <form class="chef-form" (ngSubmit)="submit()">
+
+<ion-content [fullscreen]="true" class="admin-content">
+  <div class="chef-search">
     <ion-item>
-      <ion-label position="stacked">Nombre</ion-label>
-      <ion-input [(ngModel)]="chef.name" name="name" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input [(ngModel)]="chef.email" name="email" type="email" required></ion-input>
+      <ion-label position="stacked">Buscar usuario por correo</ion-label>
+      <ion-input [(ngModel)]="searchEmail" name="searchEmail" type="email" placeholder="usuario@correo.com"></ion-input>
     </ion-item>
     <div class="actions">
-      <ion-button type="submit" expand="block">Registrar</ion-button>
+      <ion-button expand="block" color="primary" (click)="search()" [disabled]="loading || !searchEmail">Buscar</ion-button>
     </div>
-  </form>
+
+    <div *ngIf="loading" class="result-loading">Buscando...</div>
+
+    <ion-card *ngIf="foundUser" class="result-card">
+      <ion-card-header>
+        <ion-card-title>{{ foundUser.username || foundUser.email }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Email:</strong> {{ foundUser.email }}</p>
+        <p *ngIf="foundUser.phone"><strong>Teléfono:</strong> {{ foundUser.phone }}</p>
+        <p *ngIf="foundUser.address"><strong>Dirección:</strong> {{ foundUser.address }}</p>
+        <p><strong>Role:</strong> {{ foundUser.role }}</p>
+        <div class="actions">
+          <ion-button expand="block" color="warning" (click)="convertToChef()" [disabled]="converting || foundUser.role==2">Convertir a Chef</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="notFound" class="not-found">Usuario no encontrado.</div>
+  </div>
 </ion-content>

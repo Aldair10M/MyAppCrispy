@@ -1,2 +1,18 @@
 .chef-form { padding:16px; }
 .actions { margin-top:20px; }
+
+/* Reuse admin header look */
+.admin-toolbar {
+	--background: #f4c20d;
+	color: #000;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.toolbar-inner { display:flex; align-items:center; gap:12px; padding:4px 12px; }
+.logo { width:40px; height:40px; }
+.title { flex:1; text-align:center; font-size:18px; font-weight:700; margin:0; color:#000; }
+.spacer { width:40px; }
+
+.chef-search { padding: 16px; }
+.result-card { margin-top: 12px; }
+.not-found { margin-top:12px; color:#b00020; }
+.result-loading { margin-top:12px; color:#666; }
