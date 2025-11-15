@@ -20,7 +20,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Descuento (%)</ion-label>
-      <ion-input [(ngModel)]="promo.discount" name="discount" type="number" min="0" max="100"></ion-input>
+      <ion-input [(ngModel)]="promo.discount" name="discount" type="number" min="0" max="100" placeholder="Ej. 10"></ion-input>
     </ion-item>
     <div class="actions">
       <ion-button (click)="save()" expand="block" color="success">Guardar Promoción</ion-button>
@@ -29,7 +29,7 @@
 
   <div class="menu-list">
     <h3 style="padding:12px 16px;margin:0">Selecciona productos para la promoción</h3>
-    <div class="menu-grid">
+    <div class="menu-grid single-column">
       <div *ngFor="let p of products" class="menu-card" [class.expanded]="false">
         <div class="image-wrap">
           <img [src]="p.imageUrl || 'assets/img/placeholder.png'" class="menu-image" alt="{{p.name}}" />
@@ -43,7 +43,6 @@
               <ion-button class="add-btn" (click)="toggleSelect(p)" [fill]="selected[p.id || p.name] ? 'solid' : 'outline'">
                 {{ selected[p.id || p.name] ? 'Seleccionado' : 'Agregar' }}
               </ion-button>
-              <ion-button class="buy-btn" color="primary" (click)="viewProduct(p)">Ver</ion-button>
             </div>
           </div>
         </div>

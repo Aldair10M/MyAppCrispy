@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   imports: [IonContent, IonHeader, IonToolbar, IonInput, IonButton, IonItem, IonLabel, IonTextarea, CommonModule, FormsModule]
 })
 export class CreatePromosPage implements OnInit {
-  promo = { title: '', description: '', discount: 0 };
+  promo: { title: string; description: string; discount: number | null } = { title: '', description: '', discount: null };
   products: Product[] = [];
   selected: Record<string, boolean> = {};
 
