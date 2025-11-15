@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 import { IonContent, IonHeader, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
@@ -19,7 +19,28 @@ export class ChefPage {
   pendingOrders: any[] = [];
   readyOrders: any[] = [];
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(private orderService: OrderService, private router: Router, private elRef: ElementRef, private renderer: Renderer2) {}
+
+  ngAfterViewInit(): void {
+    // remove any Ionic inline bottom padding that was injected
+    setTimeout(() => this.removeScrollPadding(), 50);
+  }
+
+  private removeScrollPadding() {
+    try {
+      // try to find inner scroll inside this component first
+      let el: any = this.elRef?.nativeElement?.querySelector?.('.inner-scroll.scroll-y');
+      if (!el) el = document.querySelector('ion-content .inner-scroll.scroll-y') || document.querySelector('.inner-scroll.scroll-y') || document.querySelector('.scroll-content');
+      if (el) {
+        this.renderer.setStyle(el, 'paddingBottom', '0px');
+        this.renderer.setStyle(el, 'marginBottom', '0px');
+        this.renderer.setStyle(el, 'minHeight', '0px');
+        this.renderer.setStyle(el, 'height', 'auto');
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   logout() {
     try { localStorage.removeItem('user'); localStorage.removeItem('token'); } catch (e) {}
