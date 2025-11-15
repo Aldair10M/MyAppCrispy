@@ -36,8 +36,10 @@ export class PromoService {
       description: payload.description || '',
       discount: discount,
       products: productsDetailed,
+      // precioTotal stores the normal subtotal (sin descuento)
+      precioTotal: Number(subtotal.toFixed(2)),
+      // priceTotalDescuento stores the final price after applying the discount
       priceTotalDescuento,
-      precioTotal: priceTotalDescuento,
       createdAt: now,
       updatedAt: now
     };
@@ -84,7 +86,8 @@ export class PromoService {
     const discountValue = typeof updates.discount === 'number' ? updates.discount : (existing.discount ?? null);
     const priceTotalDescuento = discountValue !== null ? Number((subtotal - (subtotal * discountValue) / 100).toFixed(2)) : null;
 
-    const data: any = { ...updates, products: productsDetailed, priceTotalDescuento, precioTotal: priceTotalDescuento, updatedAt: now };
+    const data: any = { ...updates, products: productsDetailed, // precioTotal: subtotal (normal price), priceTotalDescuento: discounted final price
+      precioTotal: Number(subtotal.toFixed(2)), priceTotalDescuento, updatedAt: now };
 
     await this.collection.doc(id).update(data);
     const doc = await this.collection.doc(id).get();

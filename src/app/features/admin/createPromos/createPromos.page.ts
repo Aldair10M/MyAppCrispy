@@ -52,7 +52,8 @@ export class CreatePromosPage implements OnInit {
     this.subtotal = subtotal;
     const discount = typeof this.promo.discount === 'number' ? this.promo.discount : null;
     this.priceTotalDescuento = discount !== null ? Number((subtotal - (subtotal * discount) / 100).toFixed(2)) : null;
-    this.precioTotal = this.priceTotalDescuento;
+    // precioTotal = subtotal (precio normal sin descuento)
+    this.precioTotal = Number(subtotal.toFixed(2));
   }
 
   save() {

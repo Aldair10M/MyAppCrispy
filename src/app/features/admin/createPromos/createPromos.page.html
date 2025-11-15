@@ -23,9 +23,9 @@
       <ion-input [(ngModel)]="promo.discount" (ngModelChange)="computeTotals()" name="discount" type="number" min="0" max="100" placeholder="Ej. 10"></ion-input>
     </ion-item>
     <div class="totals" *ngIf="subtotal > 0">
-      <div style="padding:8px 0">Subtotal productos: S/{{ subtotal.toFixed(2) }}</div>
-      <div *ngIf="priceTotalDescuento !== null" style="padding:8px 0">Descuento aplicado: S/{{ priceTotalDescuento.toFixed(2) }}</div>
-      <div *ngIf="precioTotal !== null" style="padding:8px 0;font-weight:600">Precio total a pagar: S/{{ precioTotal.toFixed(2) }}</div>
+      <div style="padding:8px 0">Subtotal productos (precio normal): S/{{ subtotal.toFixed(2) }}</div>
+      <div *ngIf="priceTotalDescuento !== null" style="padding:8px 0;font-weight:600">Precio total a pagar (con descuento): S/{{ priceTotalDescuento.toFixed(2) }}</div>
+      <div *ngIf="precioTotal !== null" style="padding:8px 0;color:#666">(Guardado en `precioTotal` = S/{{ precioTotal.toFixed(2) }})</div>
     </div>
     <div class="actions">
       <ion-button (click)="save()" expand="block" color="success">Guardar Promoción</ion-button>
