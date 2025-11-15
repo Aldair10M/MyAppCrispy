@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { IonContent, IonHeader, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [IonContent, IonHeader, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, CommonModule]
 })
-export class ChefPage {
+export class ChefPage implements AfterViewInit, OnDestroy {
   title = 'Zona Chef';
 
   mode: 'idle' | 'pending' | 'ready' = 'idle';
@@ -19,11 +19,16 @@ export class ChefPage {
   pendingOrders: any[] = [];
   readyOrders: any[] = [];
 
+  private _observer: MutationObserver | null = null;
+
   constructor(private orderService: OrderService, private router: Router, private elRef: ElementRef, private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
     // remove any Ionic inline bottom padding that was injected
-    setTimeout(() => this.removeScrollPadding(), 50);
+    setTimeout(() => {
+      this.removeScrollPadding();
+      this.setupScrollPaddingObserver();
+    }, 50);
   }
 
   private removeScrollPadding() {
@@ -32,14 +37,46 @@ export class ChefPage {
       let el: any = this.elRef?.nativeElement?.querySelector?.('.inner-scroll.scroll-y');
       if (!el) el = document.querySelector('ion-content .inner-scroll.scroll-y') || document.querySelector('.inner-scroll.scroll-y') || document.querySelector('.scroll-content');
       if (el) {
-        this.renderer.setStyle(el, 'paddingBottom', '0px');
-        this.renderer.setStyle(el, 'marginBottom', '0px');
-        this.renderer.setStyle(el, 'minHeight', '0px');
+        // remove inline styles that cause extra bottom spacing
+        try { this.renderer.removeStyle(el, 'padding-bottom'); } catch(e) {}
+        try { this.renderer.removeStyle(el, 'paddingBottom'); } catch(e) {}
+        try { this.renderer.removeStyle(el, 'margin-bottom'); } catch(e) {}
+        try { this.renderer.removeStyle(el, 'marginBottom'); } catch(e) {}
+        try { this.renderer.removeStyle(el, 'min-height'); } catch(e) {}
+        try { this.renderer.removeStyle(el, 'minHeight'); } catch(e) {}
+        try { this.renderer.removeStyle(el, 'height'); } catch(e) {}
+        // also set to zero values just in case
+        this.renderer.setStyle(el, 'padding-bottom', '0px');
+        this.renderer.setStyle(el, 'margin-bottom', '0px');
+        this.renderer.setStyle(el, 'min-height', '0px');
         this.renderer.setStyle(el, 'height', 'auto');
       }
     } catch (e) {
       // ignore
     }
+  }
+
+  private setupScrollPaddingObserver() {
+    try {
+      const target = this.elRef?.nativeElement?.querySelector?.('.inner-scroll.scroll-y') || document.querySelector('ion-content .inner-scroll.scroll-y') || document.querySelector('.inner-scroll.scroll-y') || document.querySelector('.scroll-content');
+      if (!target) return;
+      // disconnect existing
+      if (this._observer) { try { this._observer.disconnect(); } catch(e) {} }
+      this._observer = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          if (m.type === 'attributes' && (m.attributeName === 'style' || m.attributeName === 'class')) {
+            this.removeScrollPadding();
+          }
+        }
+      });
+      this._observer.observe(target, { attributes: true, attributeFilter: ['style', 'class'] });
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  ngOnDestroy(): void {
+    try { if (this._observer) this._observer.disconnect(); } catch (e) {}
   }
 
   logout() {
