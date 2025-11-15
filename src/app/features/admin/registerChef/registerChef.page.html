@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <h1 style="text-align:center;margin:0;font-size:20px;">Registrar Chef</h1>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <form class="chef-form" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="chef.name" name="name" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="chef.email" name="email" type="email" required></ion-input>
+    </ion-item>
+    <div class="actions">
+      <ion-button type="submit" expand="block">Registrar</ion-button>
+    </div>
+  </form>
+</ion-content>
