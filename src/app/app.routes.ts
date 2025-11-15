@@ -67,6 +67,26 @@ export const routes: Routes = [
     ]
   },
 
+  // Admin area (basic skeleton pages)
+  {
+    path: 'admin',
+    children: [
+      { path: '', redirectTo: 'panel', pathMatch: 'full' },
+      {
+        path: 'panel',
+        loadComponent: () => import('./features/admin/panel/panel.page').then(m => m.PanelPage)
+      },
+      {
+        path: 'register-chef',
+        loadComponent: () => import('./features/admin/registerChef/registerChef.page').then(m => m.RegisterChefPage)
+      },
+      {
+        path: 'create-promos',
+        loadComponent: () => import('./features/admin/createPromos/createPromos.page').then(m => m.CreatePromosPage)
+      }
+    ]
+  },
+
   { path: '**', redirectTo: 'main' },
   
 ];
