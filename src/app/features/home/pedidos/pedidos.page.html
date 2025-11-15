@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>pedidos</ion-title>
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <div class="header-content">
+      <a (click)="goHome()" class="logo-link" role="button" tabindex="0" aria-label="Ir al menú">
+        <img src="assets/img/logo-crispy.png" alt="Logo" class="logo">
+      </a>
+
+      <h1 class="header-title">PEDIDOS</h1>
+
+      <img src="assets/img/pedido.png" alt="Pedidos" class="icon-cart" />
+    </div>
   </ion-toolbar>
+  
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pedidos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="pedidos-content">
+  <div class="orders-wrapper">
+    <div *ngIf="loading" class="orders-empty">Cargando tus pedidos...</div>
+    <div *ngIf="!loading && (!orders || orders.length === 0)" class="orders-empty">Aún no tienes pedidos.</div>
+
+    <div class="order-card" *ngFor="let o of orders">
+      <div class="order-header">
+        <div class="order-id">Pedido {{ o.id || '-' }}</div>
+        <div class="order-date">{{ (o.createdAt || 0) | date:'short' }}</div>
+      </div>
+      <div class="order-items">
+        <div class="order-item" *ngFor="let it of o.items">
+          <div class="oi-name">{{ it.name }}</div>
+          <div class="oi-qty">x{{ it.qty }}</div>
+          <div class="oi-price">S/ {{ it.price | number:'1.2-2' }}</div>
+        </div>
+      </div>
+      <div class="order-summary">
+        <div>Subtotal</div><div>S/ {{ o.subtotal | number:'1.2-2' }}</div>
+        <div>Envío</div><div>S/ {{ o.shipping | number:'1.2-2' }}</div>
+        <div class="total">Total</div><div class="total">S/ {{ o.total | number:'1.2-2' }}</div>
+      </div>
+      <div class="order-status">Estado: {{ o.status || 'pending' }}</div>
+    </div>
+  </div>
 </ion-content>
+
+<app-footer></app-footer>

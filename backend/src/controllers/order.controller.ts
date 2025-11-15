@@ -36,3 +36,29 @@ export const createOrder = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'internal' });
   }
 };
+
+export const listOrders = async (req: Request, res: Response) => {
+  try {
+    const email = (req.query as any)['email'] as string | undefined;
+    const userId = (req.query as any)['userId'] as string | undefined;
+
+    let ref = db.collection('orders') as FirebaseFirestore.Query<FirebaseFirestore.DocumentData>;
+    if (email) {
+      ref = ref.where('email', '==', email);
+    } else if (userId) {
+      ref = ref.where('userId', '==', userId);
+    }
+
+    // Evitamos orderBy en Firestore para no requerir índice compuesto; ordenamos en memoria
+    const snap = await ref.get();
+    const items = snap.docs.map(d => d.data()).sort((a: any, b: any) => (b?.createdAt || 0) - (a?.createdAt || 0));
+    return res.status(200).json(items);
+  } catch (err: any) {
+    console.error('listOrders error', err);
+    // Si es un error por índice requerido de Firestore, informamos claramente al cliente
+    if (err?.code === 9 /* failed-precondition */ || /index|indexes/i.test(String(err?.message))) {
+      return res.status(400).json({ error: 'index-required', message: 'Firestore needs a composite index. Removed server-side order; please retry.' });
+    }
+    return res.status(500).json({ error: 'internal' });
+  }
+};

@@ -1,0 +1,126 @@
+/* Copia de estilos de header desde Perfil */
+.custom-header {
+	--background: #f4c20d;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	padding-top: 10px;
+	padding-bottom: 14px;
+	min-height: 84px;
+}
+
+.header-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 6px 18px;
+}
+
+.logo,
+.icon-cart {
+	width: 56px;
+	height: 56px;
+}
+
+.header-title {
+	flex: 1;
+	text-align: center;
+	font-size: 22px;
+	font-weight: 700;
+	color: #000;
+	margin: 0;
+	line-height: 1;
+}
+
+/* Fondo blanco para el contenido (similar a login/menu) */
+.pedidos-content {
+	--background: #ffffff;
+	background: #ffffff;
+	color: #000;
+}
+
+.orders-wrapper {
+	padding: 12px 14px 80px;
+}
+.orders-empty {
+	text-align: center;
+	color: #666;
+	margin-top: 20px;
+}
+.order-card {
+	background: #fff;
+	border-radius: 14px;
+	border: 1px solid #eee;
+	box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+	padding: 12px 14px;
+	margin-bottom: 14px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Acento tipo viñeta (barra lateral) */
+.order-card::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	background: linear-gradient(180deg, #f4c20d 0%, #ff7f00 100%);
+}
+.order-header {
+	display: flex;
+	justify-content: space-between;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+.order-id {
+	font-size: 12px;
+	background: #fff7d6;
+	color: #7a4e00;
+	padding: 4px 10px;
+	border-radius: 999px;
+}
+.order-date {
+	font-size: 12px;
+	color: #666;
+}
+.order-items {
+	border-top: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
+	margin: 4px 0;
+}
+.order-item {
+	display: grid;
+	grid-template-columns: 1fr 48px 100px;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 0;
+	border-bottom: 1px dashed #eee;
+}
+.order-item:last-child { border-bottom: none; }
+.oi-name { font-weight: 500; color: #222; }
+.oi-qty { text-align: right; color: #555; }
+.oi-price { text-align: right; font-weight: 600; color: #0f5132; }
+.order-summary { display: grid; grid-template-columns: 1fr auto; gap: 6px; padding-top: 8px; }
+.order-summary div { color: #222; }
+.order-summary .total {
+	font-weight: 800;
+	color: #111;
+}
+.order-summary .total + .total {
+	background: #fff2e6;
+	padding: 2px 8px;
+	border-radius: 6px;
+}
+.order-status { margin-top: 6px; font-size: 13px; color: #444; }
+.order-status {
+	display: inline-block;
+	background: #eaf7ff;
+	color: #0b5ed7;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid #d7ecff;
+}
