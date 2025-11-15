@@ -49,6 +49,47 @@
 	color: #666;
 	margin-top: 20px;
 }
+
+/* Selección inicial de estado */
+.pedidos-menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 14px;
+	padding: 28px 18px 36px;
+}
+.pedidos-btn {
+	width: 100%;
+	max-width: 360px;
+	padding: 14px 18px;
+	border: none;
+	border-radius: 14px;
+	font-size: 16px;
+	font-weight: 700;
+	color: #111;
+	cursor: pointer;
+	transition: transform .06s ease, box-shadow .2s ease, opacity .2s ease;
+	box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+.pedidos-btn.pending {
+	background: linear-gradient(180deg, #ffe17a 0%, #f4c20d 100%);
+}
+.pedidos-btn.served {
+	background: linear-gradient(180deg, #a4f0c1 0%, #34c759 100%);
+}
+.pedidos-btn:active { transform: scale(0.98); opacity: .95; }
+
+.orders-area { padding-top: 8px; }
+.pedidos-back { display: flex; justify-content: flex-start; padding: 0 14px; }
+.back-btn {
+	background: #fff;
+	border: 1px solid #eee;
+	color: #333;
+	padding: 8px 12px;
+	border-radius: 10px;
+	box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
 .order-card {
 	background: #fff;
 	border-radius: 14px;

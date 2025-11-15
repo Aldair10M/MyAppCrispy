@@ -22,6 +22,7 @@ export class PedidosPage implements OnInit {
   orders: Order[] = [];
   loading = false;
   error: string | null = null;
+  view: 'menu' | 'pending' | 'served' = 'menu';
 
   constructor(private router: Router, private api: ApiService) { }
 
@@ -77,6 +78,26 @@ export class PedidosPage implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  openPending() { this.view = 'pending'; }
+  openServed() { this.view = 'served'; }
+  showMenu() { this.view = 'menu'; }
+
+  get filteredOrders(): Order[] {
+    if (!this.orders) return [];
+    if (this.view === 'pending') return this.orders.filter(o => this.normStatus(o.status) === 'pending');
+    if (this.view === 'served') return this.orders.filter(o => this.normStatus(o.status) === 'served');
+    return this.orders;
+  }
+
+  private normStatus(s?: string): 'pending' | 'served' | 'other' {
+    const t = (s || '').toString().trim().toLowerCase();
+    if (!t) return 'other';
+    if (t.startsWith('pend')) return 'pending'; // pendiente, pending
+    if (t.startsWith('serv') || t.startsWith('entreg') || t.startsWith('complet')) return 'served'; // servido, entregado, completado
+    if (t === 'delivered' || t === 'done' || t === 'finalizado') return 'served';
+    return 'other';
   }
 
 }

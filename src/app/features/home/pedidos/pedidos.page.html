@@ -14,28 +14,43 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="pedidos-content">
-  <div class="orders-wrapper">
-    <div *ngIf="loading" class="orders-empty">Cargando tus pedidos...</div>
-    <div *ngIf="!loading && (!orders || orders.length === 0)" class="orders-empty">Aún no tienes pedidos.</div>
+  <!-- Menu de selección de estado -->
+  <div *ngIf="view === 'menu'" class="pedidos-menu">
+    <button class="pedidos-btn pending" (click)="openPending()">Pedidos Pendientes</button>
+    <button class="pedidos-btn served" (click)="openServed()">Pedidos Servidos</button>
+  </div>
 
-    <div class="order-card" *ngFor="let o of orders">
-      <div class="order-header">
-        <div class="order-id">Pedido {{ o.id || '-' }}</div>
-        <div class="order-date">{{ (o.createdAt || 0) | date:'short' }}</div>
+  <!-- Listado filtrado por estado con botón volver -->
+  <div *ngIf="view !== 'menu'" class="orders-area">
+    <div class="pedidos-back">
+      <button class="back-btn" (click)="showMenu()">← Volver</button>
+    </div>
+
+    <div class="orders-wrapper">
+      <div *ngIf="loading" class="orders-empty">Cargando tus pedidos...</div>
+      <div *ngIf="!loading && filteredOrders.length === 0" class="orders-empty">
+        No hay pedidos {{ view === 'pending' ? 'pendientes' : 'servidos' }}.
       </div>
-      <div class="order-items">
-        <div class="order-item" *ngFor="let it of o.items">
-          <div class="oi-name">{{ it.name }}</div>
-          <div class="oi-qty">x{{ it.qty }}</div>
-          <div class="oi-price">S/ {{ it.price | number:'1.2-2' }}</div>
+
+      <div class="order-card" *ngFor="let o of filteredOrders">
+        <div class="order-header">
+          <div class="order-id">Pedido {{ o.id || '-' }}</div>
+          <div class="order-date">{{ (o.createdAt || 0) | date:'short' }}</div>
         </div>
+        <div class="order-items">
+          <div class="order-item" *ngFor="let it of o.items">
+            <div class="oi-name">{{ it.name }}</div>
+            <div class="oi-qty">x{{ it.qty }}</div>
+            <div class="oi-price">S/ {{ it.price | number:'1.2-2' }}</div>
+          </div>
+        </div>
+        <div class="order-summary">
+          <div>Subtotal</div><div>S/ {{ o.subtotal | number:'1.2-2' }}</div>
+          <div>Envío</div><div>S/ {{ o.shipping | number:'1.2-2' }}</div>
+          <div class="total">Total</div><div class="total">S/ {{ o.total | number:'1.2-2' }}</div>
+        </div>
+        <div class="order-status">Estado: {{ o.status || 'pending' }}</div>
       </div>
-      <div class="order-summary">
-        <div>Subtotal</div><div>S/ {{ o.subtotal | number:'1.2-2' }}</div>
-        <div>Envío</div><div>S/ {{ o.shipping | number:'1.2-2' }}</div>
-        <div class="total">Total</div><div class="total">S/ {{ o.total | number:'1.2-2' }}</div>
-      </div>
-      <div class="order-status">Estado: {{ o.status || 'pending' }}</div>
     </div>
   </div>
 </ion-content>
