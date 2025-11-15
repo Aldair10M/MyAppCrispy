@@ -1,2 +1,19 @@
 .promo-form { padding:16px; }
 .actions { margin-top:20px; }
+
+/* Reuse admin header look from panel/registerChef */
+.admin-toolbar {
+	--background: #f4c20d;
+	color: #000;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.toolbar-inner { display:flex; align-items:center; gap:12px; padding:4px 12px; }
+.logo { width:40px; height:40px; }
+.title { flex:1; text-align:center; font-size:18px; font-weight:700; margin:0; color:#000; }
+.spacer { width:40px; }
+
+/* Ensure list uses global menu styles */
+.menu-list { padding-bottom: 80px; }
+.menu-grid { margin-top: 12px; }
+.menu-card { cursor:default; }
+.price-badge { right: 8px; top: 8px; }

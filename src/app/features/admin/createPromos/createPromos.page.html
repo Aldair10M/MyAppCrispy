@@ -1,10 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <h1 style="text-align:center;margin:0;font-size:20px;">Crear Promoción</h1>
+  <ion-toolbar class="admin-toolbar">
+    <div class="toolbar-inner">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo" aria-label="Logo" />
+      <h1 class="title">Crear Promoción</h1>
+      <div class="spacer"></div>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <form class="promo-form" (ngSubmit)="save()">
+
+<ion-content [fullscreen]="true" class="admin-content">
+  <div class="promo-form">
     <ion-item>
       <ion-label position="stacked">Título</ion-label>
       <ion-input [(ngModel)]="promo.title" name="title" required></ion-input>
@@ -18,7 +23,31 @@
       <ion-input [(ngModel)]="promo.discount" name="discount" type="number" min="0" max="100"></ion-input>
     </ion-item>
     <div class="actions">
-      <ion-button type="submit" expand="block">Guardar</ion-button>
+      <ion-button (click)="save()" expand="block" color="success">Guardar Promoción</ion-button>
     </div>
-  </form>
+  </div>
+
+  <div class="menu-list">
+    <h3 style="padding:12px 16px;margin:0">Selecciona productos para la promoción</h3>
+    <div class="menu-grid">
+      <div *ngFor="let p of products" class="menu-card" [class.expanded]="false">
+        <div class="image-wrap">
+          <img [src]="p.image || 'assets/img/placeholder.png'" class="menu-image" alt="{{p.name}}" />
+          <div class="price-badge">S/{{p.price}}</div>
+        </div>
+        <div class="menu-name">{{ p.name }}</div>
+        <div class="menu-body">
+          <div class="menu-desc">{{ p.description }}</div>
+          <div class="product-controls">
+            <div class="action-row">
+              <ion-button class="add-btn" (click)="toggleSelect(p)" [fill]="selected[p.id || p.name] ? 'solid' : 'outline'">
+                {{ selected[p.id || p.name] ? 'Seleccionado' : 'Agregar' }}
+              </ion-button>
+              <ion-button class="buy-btn" color="primary" (click)="">Ver</ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
