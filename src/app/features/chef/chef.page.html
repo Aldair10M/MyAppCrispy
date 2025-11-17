@@ -1,68 +1,94 @@
 <ion-header>
-  <ion-toolbar>
-    <img src="assets/img/logo-crispy.png" alt="Logo" />
-    <h1>Zona Chef</h1>
+  <ion-toolbar class="admin-toolbar">
+    <div class="toolbar-inner">
+      <img src="assets/img/logo-crispy.png" alt="Logo" class="logo" aria-label="Logo" />
+      <h1 class="title">Zona Chef</h1>
+      <div class="spacer"></div>
+    </div>
   </ion-toolbar>
+  
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <h2>Introducción</h2>
-
-  <div>
-    <ion-button expand="block" (click)="showPending()">Ordenes por Atender</ion-button>
-    <ion-button expand="block" (click)="showReady()">Ordenes Atendidas</ion-button>
+<ion-content [fullscreen]="true" class="chef-content">
+  <div class="welcome-block">
+    <h2 class="welcome-title">Gestión de Órdenes</h2>
+    <p class="welcome-text">Atiende y revisa órdenes de manera <strong class="accent-strong">rápida</strong> y <span class="accent-text">sencilla</span>.</p>
   </div>
 
-  <div>
-    <div *ngIf="mode==='pending'">
-      <h3>Ordenes por Atender</h3>
-      <div *ngIf="loading">Cargando órdenes...</div>
-      <div *ngIf="!loading && pendingOrders.length===0">No hay órdenes pendientes.</div>
-      <div *ngFor="let o of pendingOrders">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Orden</ion-card-title>
-            <div>{{ o.id }}</div>
-          </ion-card-header>
-          <ion-card-content>
-            <div><strong>Usuario:</strong> {{ o._displayName }}</div>
-            <div><strong>Fecha:</strong> {{ o.createdAt ? (o.createdAt | date:'short') : '' }}</div>
-            <div><strong>Items:</strong></div>
+  <div class="mode-toggle">
+    <ion-button expand="block"
+                color="warning"
+                [fill]="mode==='pending' ? 'solid' : 'outline'"
+                (click)="showPending()">Órdenes por atender</ion-button>
+    <ion-button expand="block"
+                color="success"
+                [fill]="mode==='ready' ? 'solid' : 'outline'"
+                (click)="showReady()">Órdenes atendidas</ion-button>
+  </div>
+
+  <section class="orders-section" *ngIf="mode==='pending'">
+    <h3 class="section-title">
+      Órdenes por atender
+      <small class="count" *ngIf="!loading">({{ pendingOrders.length }})</small>
+    </h3>
+    <div *ngIf="loading" class="loading">Cargando órdenes...</div>
+    <div *ngIf="!loading && pendingOrders.length===0" class="empty">No hay órdenes pendientes.</div>
+
+    <div class="orders-grid">
+      <ion-card class="order-card" *ngFor="let o of pendingOrders">
+        <ion-card-header class="order-card__header">
+          <ion-card-title class="order-card__title">Orden #{{ o.id }}</ion-card-title>
+          <div class="order-card__meta">Total: S/{{ o.total ?? o.subtotal }}</div>
+        </ion-card-header>
+        <ion-card-content class="order-card__content">
+          <div class="row"><span class="label">Usuario:</span> <span class="value">{{ o._name || 'Anónimo' }}</span></div>
+          <div class="row"><span class="label">Correo:</span> <span class="value">{{ o._email || 'Sin correo' }}</span></div>
+          <div class="row"><span class="label">Fecha:</span> <span class="value">{{ o.createdAt ? (o.createdAt | date:'short') : '' }}</span></div>
+          <div class="items">
+            <div class="items-title">Items</div>
             <ul>
               <li *ngFor="let it of o.items">{{ it.name }} x{{ it.qty }} - S/{{ it.price }}</li>
             </ul>
-            <div>S/{{ o.total ?? o.subtotal }}</div>
-            <div>
-              <ion-button (click)="attendOrder(o)">Atender Orden</ion-button>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </div>
+          </div>
+          <div class="actions">
+            <ion-button color="primary" size="small" (click)="attendOrder(o)">Marcar como listo</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
     </div>
+  </section>
 
-    <div *ngIf="mode==='ready'">
-      <h3>Ordenes Atendidas</h3>
-      <div *ngIf="loading">Cargando órdenes...</div>
-      <div *ngIf="!loading && readyOrders.length===0">No hay órdenes atendidas.</div>
-      <div *ngFor="let o of readyOrders">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Orden {{ o.id }} - S/{{ o.total ?? o.subtotal }}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <div><strong>Usuario:</strong> {{ o.userId || o.email || 'Anónimo' }}</div>
-            <div><strong>Fecha:</strong> {{ o.createdAt ? (o.createdAt | date:'short') : '' }}</div>
-            <div><strong>Items:</strong></div>
+  <section class="orders-section" *ngIf="mode==='ready'">
+    <h3 class="section-title">
+      Órdenes atendidas
+      <small class="count" *ngIf="!loading">({{ readyOrders.length }})</small>
+    </h3>
+    <div *ngIf="loading" class="loading">Cargando órdenes...</div>
+    <div *ngIf="!loading && readyOrders.length===0" class="empty">No hay órdenes atendidas.</div>
+
+    <div class="orders-grid">
+      <ion-card class="order-card order-card--ready" *ngFor="let o of readyOrders">
+        <ion-card-header class="order-card__header">
+          <ion-card-title class="order-card__title">Orden #{{ o.id }}</ion-card-title>
+          <div class="order-card__meta">Total: S/{{ o.total ?? o.subtotal }}</div>
+        </ion-card-header>
+        <ion-card-content class="order-card__content">
+          <div class="row"><span class="label">Usuario:</span> <span class="value">{{ o._name || 'Anónimo' }}</span></div>
+          <div class="row"><span class="label">Correo:</span> <span class="value">{{ o._email || 'Sin correo' }}</span></div>
+          <div class="row"><span class="label">Fecha:</span> <span class="value">{{ o.createdAt ? (o.createdAt | date:'short') : '' }}</span></div>
+          <div class="items">
+            <div class="items-title">Items</div>
             <ul>
               <li *ngFor="let it of o.items">{{ it.name }} x{{ it.qty }} - S/{{ it.price }}</li>
             </ul>
-          </ion-card-content>
-        </ion-card>
-      </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
     </div>
+  </section>
+
+  <div class="logout-wrap">
+    <ion-button color="danger" class="logout-btn" (click)="logout()">Cerrar sesión</ion-button>
   </div>
 
-  <div>
-    <ion-button (click)="logout()">Cerrar sesión</ion-button>
-  </div>
 </ion-content>

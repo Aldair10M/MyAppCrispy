@@ -24,4 +24,8 @@ export class UserService {
   resendVerificationCode(email: string): Observable<any> {
     return this.api.post('users/resend-code', { email });
   }
+
+  getByEmail(email: string): Observable<any> {
+    return this.api.get<any>(`users/debug?email=${encodeURIComponent(email)}`);
+  }
 }
